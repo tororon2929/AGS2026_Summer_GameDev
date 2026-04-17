@@ -1,5 +1,11 @@
 #pragma once
-class GameScene
-{
-};
+#include "SceneBase.h"
 
+class GameScene : public SceneBase {
+    bool mGoNext = false;
+    bool mWasPressed = false;
+public:
+    void Update() override;
+    void Draw()   override;
+    SceneBase* NextScene() override;
+};
