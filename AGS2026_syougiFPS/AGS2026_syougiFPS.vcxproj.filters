@@ -13,10 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Scr">
+      <UniqueIdentifier>{7f091bc1-55ab-41bd-9631-3541d34d8cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scr\Manager">
+      <UniqueIdentifier>{95d52920-a101-47ef-96bf-640140d03cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scr\Scene">
+      <UniqueIdentifier>{952a6dad-39cb-4d05-9090-901293f06dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scr\Common">
+      <UniqueIdentifier>{115b8cbd-b5b3-4270-8aa3-f08f6d34c762}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ソース ファイル\Scr\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>ソース ファイル\Scr\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ソース ファイル\Scr\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>ソース ファイル\Scr\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
