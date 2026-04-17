@@ -45,6 +45,9 @@
     <ClCompile Include="GameOverScene.cpp">
       <Filter>ソース ファイル\Scr\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneManager.h">
@@ -60,6 +63,9 @@
       <Filter>ソース ファイル\Scr\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameOverScene.h">
+      <Filter>ソース ファイル\Scr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
       <Filter>ソース ファイル\Scr\Scene</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\SceneBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:SceneBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\GameOverScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:GameOverScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -47,6 +51,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "SceneBase.h",
+              "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\SceneBase.h",
+              "RelativeDocumentMoniker": "SceneBase.h",
+              "ToolTip": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\SceneBase.h",
+              "RelativeToolTip": "SceneBase.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-17T04:57:02.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "GameOverScene.h",
               "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\GameOverScene.h",
               "RelativeDocumentMoniker": "GameOverScene.h",
@@ -59,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GameScene.h",
               "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\GameScene.h",
               "RelativeDocumentMoniker": "GameScene.h",
@@ -67,12 +84,11 @@
               "RelativeToolTip": "GameScene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-17T04:53:49.592Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T04:53:49.592Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "TitleScene.h",
               "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\TitleScene.h",
               "RelativeDocumentMoniker": "TitleScene.h",
@@ -80,12 +96,11 @@
               "RelativeToolTip": "TitleScene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-17T04:53:31.713Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T04:53:31.713Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Fade.h",
               "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Fade.h",
               "RelativeDocumentMoniker": "Fade.h",
@@ -93,12 +108,11 @@
               "RelativeToolTip": "Fade.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-17T04:52:50.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T04:52:50.604Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "SceneManager.h",
               "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\SceneManager.h",
               "RelativeDocumentMoniker": "SceneManager.h",
@@ -106,8 +120,7 @@
               "RelativeToolTip": "SceneManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-17T04:52:18.958Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T04:52:18.958Z"
             },
             {
               "$type": "Bookmark",
@@ -115,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\syuny\\OneDrive\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
@@ -123,8 +136,7 @@
               "RelativeToolTip": "main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-17T01:34:01.424Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-17T01:34:01.424Z"
             }
           ]
         },
