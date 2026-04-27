@@ -20,6 +20,7 @@ public:
 		INPUT_KEY = 4096	// キー入力
 	};
 
+
 	// ゲームコントローラータイプ
 	// DxLib定数、DX_OTHER等に対応
 	enum class JOYPAD_TYPE

@@ -22,6 +22,7 @@ bool Fader::IsEnd(void) const
 
 void Fader::SetFade(STATE state)
 {
+
 	state_ = state;
 	if (state_ != STATE::NONE)
 	{

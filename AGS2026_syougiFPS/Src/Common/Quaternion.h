@@ -96,5 +96,6 @@ private:
 	const Quaternion operator*(const float& rhs);
 	Quaternion operator+(Quaternion& rhs);
 	const Quaternion operator+(const Quaternion& rhs);
+
 	
 };

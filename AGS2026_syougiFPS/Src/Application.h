@@ -22,6 +22,8 @@ public:
 	static void CreateInstance(void);
 
 	// インスタンスの取得
+
+
 	static Application& GetInstance(void);
 
 	// 初期化

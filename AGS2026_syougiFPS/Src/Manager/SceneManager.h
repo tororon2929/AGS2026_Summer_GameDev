@@ -21,6 +21,7 @@ public:
 	// ƒV[ƒ“ŠÇ——p
 	enum class SCENE_ID
 	{
+
 		NONE,
 		TITLE,
 		GAME

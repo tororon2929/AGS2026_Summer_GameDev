@@ -23,6 +23,7 @@ public:
 	// 状態の取得
 	STATE GetState(void) const;
 
+
 	// フェード処理が終了しているか
 	bool IsEnd(void) const;
 

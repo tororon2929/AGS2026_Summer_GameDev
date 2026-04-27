@@ -61,4 +61,5 @@ private:
 	// ミニカメラモデルの位置
 	VECTOR pos_;
 
+
 };

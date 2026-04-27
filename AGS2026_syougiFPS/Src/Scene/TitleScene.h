@@ -23,4 +23,5 @@ private:
 	// ƒOƒŠƒbƒhü
 	Grid* grid_;
 
+
 };

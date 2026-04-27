@@ -20,6 +20,7 @@ void Grid::Update(void)
 void Grid::Draw(void)
 {
 
+
 	// XZ基本軸(グリッド)
 	float num;
 	VECTOR sPos;

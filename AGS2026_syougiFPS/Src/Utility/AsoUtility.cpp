@@ -8,6 +8,7 @@
 
 int AsoUtility::Round(float v)
 {
+
     return static_cast<int>(roundf(v));
 }
 

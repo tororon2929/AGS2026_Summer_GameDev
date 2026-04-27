@@ -16,4 +16,5 @@ Vector2::Vector2(int vX, int vY)
 
 Vector2::~Vector2(void)
 {
+
 }

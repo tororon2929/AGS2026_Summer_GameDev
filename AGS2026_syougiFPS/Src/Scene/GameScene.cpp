@@ -18,6 +18,7 @@ GameScene::~GameScene(void)
 void GameScene::Init(void)
 {
 
+
 	// ƒOƒŠƒbƒh‰Šú‰»
 	grid_ = new Grid();
 	grid_->Init();

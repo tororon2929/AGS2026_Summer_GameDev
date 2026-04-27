@@ -19,6 +19,7 @@ Quaternion::Quaternion(const VECTOR& rad)
 }
 
 Quaternion::Quaternion(double ww, double wx, double wy, double wz)
+
 {
     w = ww;
     x = wx;

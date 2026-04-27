@@ -29,6 +29,7 @@ void MiniCamera::Init(void)
 	pos_ = { 0.0f, 0.0f, 0.0f };
 	MV1SetPosition(modelId_, pos_);
 
+
 }
 
 void MiniCamera::Update(void)

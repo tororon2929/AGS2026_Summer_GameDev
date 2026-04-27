@@ -24,6 +24,7 @@ public:
 	// デバッグ用描画
 	void DrawDebug(void);
 
+
 	// 解放
 	void Release(void);
 

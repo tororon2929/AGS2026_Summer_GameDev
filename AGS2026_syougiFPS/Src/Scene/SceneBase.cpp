@@ -22,4 +22,5 @@ void SceneBase::Draw(void)
 
 void SceneBase::Release(void)
 {
+
 }

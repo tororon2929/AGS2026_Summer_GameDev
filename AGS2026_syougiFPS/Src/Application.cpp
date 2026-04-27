@@ -21,6 +21,7 @@ Application& Application::GetInstance(void)
 	return *instance_;
 }
 
+
 void Application::Init(void)
 {
 

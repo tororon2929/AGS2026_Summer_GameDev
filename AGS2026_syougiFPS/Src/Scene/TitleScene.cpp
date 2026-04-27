@@ -17,6 +17,7 @@ TitleScene::~TitleScene(void)
 void TitleScene::Init(void)
 {
 
+
 	// ƒOƒŠƒbƒh‰Šú‰»
 	grid_ = new Grid();
 	grid_->Init();
