@@ -11,6 +11,18 @@ private:
 	static constexpr float POW_JUMP = 35.0f;
 
 
+	// èÛë‘
+	enum class STATE
+	{
+		NONE,
+		PLAY,
+		WARP_RESERVE,
+		WARP_MOVE,
+		DEAD,
+		VICTORY,
+		END
+	};
+
 	void Init(void);
 	void Update(void);
 	void Draw(void);
