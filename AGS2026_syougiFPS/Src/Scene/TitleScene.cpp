@@ -27,6 +27,13 @@ void TitleScene::Update(void)
 {
 	// グリッド更新
 	grid_->Update();
+
+	// InputManager を使って、スペースキーが「押された瞬間」だけ判定する
+	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_SPACE))
+	{
+		// シーン遷移を実行
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
+	}
 }
 
 void TitleScene::Draw(void)

@@ -1,44 +1,47 @@
 #include "GameScene.h"
-#include <cmath>
 #include <DxLib.h>
-#include "../Manager/InputManager.h"
 #include "../Manager/SceneManager.h"
 #include "../Object/Grid.h"
-
+#include "../Common/Camera.h"
 
 GameScene::GameScene(void) : SceneBase()
 {
-	grid_ = nullptr;
+    grid_ = nullptr;
 }
 
-GameScene::~GameScene(void)
-{
-}
+GameScene::~GameScene(void) {}
 
 void GameScene::Init(void)
 {
-
-
-	// グリッド初期化
-	grid_ = new Grid();
-	grid_->Init();
+    grid_ = new Grid();
+    grid_->Init();
 }
 
 void GameScene::Update(void)
 {
-	// グリッド更新
-	grid_->Update();
+    grid_->Update();
+
+    Camera* camera = SceneManager::GetInstance().GetCamera();
+    if (camera) camera->Update();
 }
 
 void GameScene::Draw(void)
 {
-	// グリッド描画
-	grid_->Draw();
+    Camera* camera = SceneManager::GetInstance().GetCamera();
+
+    // 3D描画の前にカメラを確実に反映
+    if (camera) camera->SetBeforeDraw();
+
+    // 3D描画
+    grid_->Draw();
+
+    // 2Dデバッグ情報はカメラ設定後に描画
+    if (camera) camera->DrawDebug();
 }
 
 void GameScene::Release(void)
 {
-	// グリッド解放
-	grid_->Release();
-	delete grid_;
+    grid_->Release();
+    delete grid_;
+    grid_ = nullptr;
 }

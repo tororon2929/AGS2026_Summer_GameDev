@@ -2,9 +2,10 @@
 #include <DxLib.h>
 #include "../Common/Fader.h"
 #include "../Scene/TitleScene.h"
-#include "Camera.h"
+#include "../Common/Camera.h"
 #include "MiniCamera.h"
 #include "SceneManager.h"
+#include "../Scene/GameScene.h"
 
 SceneManager* SceneManager::instance_ = nullptr;
 
@@ -37,11 +38,12 @@ void SceneManager::Init(void)
 	camera_ = new Camera();
 	camera_->Init();
 
-	scene_ = new TitleScene();
-	scene_->Init();
+	//scene_ = new TitleScene();
+	//scene_->Init();
 
-	miniCamera_ = new MiniCamera(camera_);
-	miniCamera_->Init();
+
+	/*miniCamera_ = new MiniCamera(camera_);
+	miniCamera_->Init();*/
 
 	isSceneChanging_ = false;
 
@@ -109,15 +111,15 @@ void SceneManager::Update(void)
 		scene_->Update();
 	}
 
-	// ミニカメラ
-	miniCamera_->Update();
+	//// ミニカメラ
+	//miniCamera_->Update();
 	
 }
 
 void SceneManager::Draw(void)
 {
 	
-	miniCamera_->DrawScreen();
+	//miniCamera_->DrawScreen();
 
 	// 描画先グラフィック領域の指定
 	// (３Ｄ描画で使用するカメラの設定などがリセットされる)
@@ -129,8 +131,8 @@ void SceneManager::Draw(void)
 	// 各シーンの描画処理
 	scene_->Draw();
 
-	// ミニカメラ
-	miniCamera_->Draw();
+	//// ミニカメラ
+	//miniCamera_->Draw();
 
 	// 暗転・明転
 	fader_->Draw();
@@ -150,8 +152,8 @@ void SceneManager::Destroy(void)
 	camera_->Release();
 	delete camera_;
 
-	miniCamera_->Release();
-	delete miniCamera_;
+	//miniCamera_->Release();
+	//delete miniCamera_;
 
 	// インスタンスのメモリ解放
 	delete instance_;
@@ -202,7 +204,7 @@ SceneManager::SceneManager(void)
 	deltaTime_ = 1.0f / 60.0f;
 
 	camera_ = nullptr;
-	miniCamera_ = nullptr;
+	/*miniCamera_ = nullptr;*/
 
 }
 
@@ -231,6 +233,7 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 		scene_ = new TitleScene();
 		break;
 	case SCENE_ID::GAME:
+		scene_ = new GameScene();
 		break;
 	}
 

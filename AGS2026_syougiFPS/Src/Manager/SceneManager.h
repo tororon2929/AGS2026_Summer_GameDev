@@ -3,7 +3,7 @@
 class SceneBase;
 class Fader;
 class Camera;
-class MiniCamera;
+//class MiniCamera;
 
 class SceneManager
 {
@@ -77,8 +77,8 @@ private:
 	// カメラ
 	Camera* camera_;
 
-	// ミニカメラ
-	MiniCamera* miniCamera_;
+	//// ミニカメラ
+	//MiniCamera* miniCamera_;
 
 	// シーン遷移中判定
 	bool isSceneChanging_;
