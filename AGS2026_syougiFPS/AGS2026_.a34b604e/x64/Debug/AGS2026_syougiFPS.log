@@ -1,0 +1,17 @@
+﻿  Application.cpp
+  Fader.cpp
+  Quaternion.cpp
+  Vector2.cpp
+  main.cpp
+  Camera.cpp
+  InputManager.cpp
+  MiniCamera.cpp
+  SceneManager.cpp
+  Grid.cpp
+  Player.cpp
+  GameScene.cpp
+  SceneBase.cpp
+  TitleScene.cpp
+  AsoUtility.cpp
+  コードを生成中...
+  AGS2026_syougiFPS.vcxproj -> C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\AGS2026_syougiFPS.exe

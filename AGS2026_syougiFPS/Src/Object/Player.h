@@ -58,6 +58,8 @@ public:
 
 	// ƒWƒƒƒ“ƒv”»’è
 	bool isJump_;
+
+	VECTOR pos;
   
 
 	// ó‘Ô‘JˆÚ

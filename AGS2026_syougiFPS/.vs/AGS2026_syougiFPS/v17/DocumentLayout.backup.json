@@ -9,6 +9,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +26,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Application.h",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.h",
+              "RelativeDocumentMoniker": "Src\\Application.h",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.h",
+              "RelativeToolTip": "Src\\Application.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-11T03:23:30.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Application.cpp",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.cpp",
+              "RelativeDocumentMoniker": "Src\\Application.cpp",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.cpp",
+              "RelativeToolTip": "Src\\Application.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-11T03:22:34.181Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -28,7 +62,7 @@
               "RelativeDocumentMoniker": "Src\\Object\\Player.h",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h",
               "RelativeToolTip": "Src\\Object\\Player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAD0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-05-11T00:55:59.19Z",
               "EditorCaption": ""
@@ -41,7 +75,7 @@
               "RelativeDocumentMoniker": "Src\\Object\\Player.cpp",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp",
               "RelativeToolTip": "Src\\Object\\Player.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-05-11T00:50:41.226Z",
               "EditorCaption": ""
