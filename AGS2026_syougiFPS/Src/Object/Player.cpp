@@ -19,7 +19,7 @@ void Player::Update(void)
 void Player::Draw(void)
 {
 	//ƒ‚ƒfƒ‹‚Ì•`‰æ
-	MV1DrawModel(Fu.mv1);
+	MV1DrawModel(piece_model);
 }
 
 void Player::Release(void)

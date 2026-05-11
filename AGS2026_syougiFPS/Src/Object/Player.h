@@ -10,6 +10,8 @@ private:
 	// ジャンプ力
 	static constexpr float POW_JUMP = 35.0f;
 
+	//モデルID
+	int piece_model;
 
 	// 状態
 	enum class STATE
@@ -56,6 +58,7 @@ public:
 
 	// ジャンプ判定
 	bool isJump_;
+  
 
 	// 状態遷移
 	void ChangeState(STATE state);
