@@ -12,7 +12,7 @@ public:
 	enum class SRC
 	{
 		PlayBpard,
-	
+
 	};
 
 	// 明示的にインステンスを生成する

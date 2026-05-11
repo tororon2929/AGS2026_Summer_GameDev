@@ -1,4 +1,4 @@
-#include "PlayBpard.h"
+#include "../Object/PlayBpard.h"
 #include "../Manager/ResourceManager.h"
 #include <DxLib.h>
 

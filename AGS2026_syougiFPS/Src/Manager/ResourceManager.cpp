@@ -32,10 +32,10 @@ void ResourceManager::Init(void)
 	Resource* res;
 
 	// ”Õ–Êƒ‚ƒfƒ‹
-	res = new RES(RES_T::MODEL, PATH_MDL +"PlayBpard.mv1");
+	res = new RES(RES_T::MODEL, PATH_MDL + "PlayBpard.mv1");
 	resourcesMap_.emplace(SRC::PlayBpard, res);
-	
-	
+
+
 
 }
 
