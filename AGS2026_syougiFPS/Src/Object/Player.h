@@ -10,6 +10,8 @@ private:
 	// ƒWƒƒƒ“ƒv—Í
 	static constexpr float POW_JUMP = 35.0f;
 
+	Player(void);
+	~Player(void);
 
 	void Init(void);
 	void Update(void);
