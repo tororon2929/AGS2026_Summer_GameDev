@@ -4,7 +4,7 @@
 #include "../Object/Grid.h"
 #include "../Common/Camera.h"
 #include "../Object/PlayBpard.h"
-
+#include "../Manager/LightManager.h" 
 GameScene::GameScene(void) : SceneBase(), grid_(nullptr), playBoard_(nullptr) {}
 
 // 【重要】デストラクタの中身（これがないとLNK2019が出ます）
@@ -18,6 +18,10 @@ void GameScene::Init(void) {
     if (playBoard_) {
         playBoard_->Initialize();
     }
+
+    // ライトの生成
+    lightManager_ = new LightManager();
+  
 }
 
 void GameScene::Update(void) {
@@ -32,6 +36,10 @@ void GameScene::Draw(void) {
 
     camera->SetBeforeDraw();
 
+    // 描画前にライトの設定を反映させる！
+    if (lightManager_) {
+        lightManager_->applyLighting();
+    }
     if (grid_) grid_->Draw();
 
     // 盤面の描画
@@ -51,5 +59,10 @@ void GameScene::Release(void) {
     if (playBoard_) {
         delete playBoard_;
         playBoard_ = nullptr;
+    }
+
+    if (lightManager_) {
+        delete lightManager_;
+        lightManager_ = nullptr;
     }
 }

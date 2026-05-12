@@ -3,6 +3,7 @@
 
 class Grid;
 class PlayBpard; // 前方宣言を追加
+class LightManager; // 前方宣言
 
 class GameScene : public SceneBase
 {
@@ -17,4 +18,5 @@ public:
 private:
     Grid* grid_;
     PlayBpard* playBoard_; // 盤面オブジェクトを追加
+    LightManager* lightManager_; // 追加
 };
