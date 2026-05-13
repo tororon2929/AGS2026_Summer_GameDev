@@ -53,13 +53,25 @@ public:
 	//移動方向
 	VECTOR moveDir;
 
-	// ジャンプ量
+	//ジャンプ量
 	VECTOR jumpPow_;
 
-	// ジャンプ判定
+	//ジャンプ判定
 	bool isJump_;
 
+	//移動量
+	VECTOR movePow_;
+
+	//移動後の座標
+	VECTOR movedPos_;
+
 	VECTOR pos;
+
+	//ジャンプ判定
+	bool isJump;
+
+	//ジャンプの入力受付時間
+
   
 
 	// 状態遷移
@@ -67,5 +79,13 @@ public:
 	void ChangeStateNone(void);
 	void ChangeStatePlay(void);
 
+	//操作
+	void ProcessMove(void);
+	void ProcessJump(void);
+
+	//衝突判定
+	void Collision(void);
+	void CollisionGravity(void);
+	
 };
 
