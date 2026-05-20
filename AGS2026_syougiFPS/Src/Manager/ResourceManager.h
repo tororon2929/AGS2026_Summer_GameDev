@@ -12,6 +12,8 @@ public:
 	enum class SRC
 	{
 		PlayBpard,
+		Ou,
+		Gyoku,
 
 	};
 

@@ -34,6 +34,12 @@ void ResourceManager::Init(void)
 	// ”Õ–Êƒ‚ƒfƒ‹
 	res = new RES(RES_T::MODEL, PATH_MDL + "PlayBpard.mv1");
 	resourcesMap_.emplace(SRC::PlayBpard, res);
+	// ”Õ–Êƒ‚ƒfƒ‹
+	res = new RES(RES_T::MODEL, PATH_MDL + "Ou.mv1");
+	resourcesMap_.emplace(SRC::Ou, res);
+
+	res = new RES(RES_T::MODEL, PATH_MDL + "Ou.mv1");
+	resourcesMap_.emplace(SRC::Gyoku, res);
 
 
 

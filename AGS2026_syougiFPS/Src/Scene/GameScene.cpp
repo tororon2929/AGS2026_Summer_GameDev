@@ -5,9 +5,10 @@
 #include "../Common/Camera.h"
 #include "../Object/PlayBpard.h"
 #include "../Manager/LightManager.h" 
-GameScene::GameScene(void) : SceneBase(), grid_(nullptr), playBoard_(nullptr) {}
+#include "../Object/Ou.h"
 
-// 【重要】デストラクタの中身（これがないとLNK2019が出ます）
+GameScene::GameScene(void) : SceneBase(), grid_(nullptr), playBoard_(nullptr), /*ou_(nullptr),*/ lightManager_(nullptr) {}
+
 GameScene::~GameScene(void) {}
 
 void GameScene::Init(void) {
@@ -19,33 +20,73 @@ void GameScene::Init(void) {
         playBoard_->Initialize();
     }
 
-    // ライトの生成
+    // エラー解消：Ouのコンストラクタに合わせて引数 (x, y, isPlayer) を渡す
+  /*  ou_ = new Ou(4, 0, true);*/
+
     lightManager_ = new LightManager();
-  
 }
 
 void GameScene::Update(void) {
     if (grid_) grid_->Update();
+
+    // 王の更新処理（必要であれば）
+    // if (ou_) ou_->Update(); 
+
+    if (playBoard_)
+    {
+        playBoard_->Update();
+    }
     Camera* camera = SceneManager::GetInstance().GetCamera();
     if (camera) camera->Update();
 }
 
-void GameScene::Draw(void) {
+void GameScene::Draw(void)
+{
     Camera* camera = SceneManager::GetInstance().GetCamera();
     if (!camera) return;
 
     camera->SetBeforeDraw();
 
-    // 描画前にライトの設定を反映させる！
     if (lightManager_) {
         lightManager_->applyLighting();
     }
+
     if (grid_) grid_->Draw();
 
-    // 盤面の描画
     if (playBoard_) {
         playBoard_->Draw();
     }
+
+    // ======================================================
+    // 3D描画終了
+    // ======================================================
+
+    SetDrawScreen(DX_SCREEN_BACK);
+
+    // Zバッファ無効
+    SetUseZBuffer3D(FALSE);
+
+    // ======================================================
+    // 2Dデバッグ表示
+    // ======================================================
+
+    /*DrawFormatString(
+        1400,
+        20,
+        GetColor(255, 0, 0),
+        "DEBUG DRAW OK"
+    );*/
+
+    // ======================================================
+    // 黒マスク
+    // ======================================================
+
+    int sw = 1920;
+    int sh = 1080;
+
+    DrawBox(0, 0, 360, sh, GetColor(0, 0, 0), TRUE);
+
+    DrawBox(sw - 760, 0, sw, sh, GetColor(0, 0, 0), TRUE);
 
     camera->DrawDebug();
 }
@@ -60,7 +101,10 @@ void GameScene::Release(void) {
         delete playBoard_;
         playBoard_ = nullptr;
     }
-
+    /*if (ou_) {
+        delete ou_;
+        ou_ = nullptr;
+    }*/
     if (lightManager_) {
         delete lightManager_;
         lightManager_ = nullptr;

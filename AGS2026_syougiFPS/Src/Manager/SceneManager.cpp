@@ -6,6 +6,7 @@
 #include "MiniCamera.h"
 #include "SceneManager.h"
 #include "../Scene/GameScene.h"
+#include "../Scene/ResultScene.h"
 
 SceneManager* SceneManager::instance_ = nullptr;
 
@@ -232,8 +233,13 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	case SCENE_ID::TITLE:
 		scene_ = new TitleScene();
 		break;
+
 	case SCENE_ID::GAME:
 		scene_ = new GameScene();
+		break;
+
+	case SCENE_ID::RESULT:
+		scene_ = new ResultScene();
 		break;
 	}
 
