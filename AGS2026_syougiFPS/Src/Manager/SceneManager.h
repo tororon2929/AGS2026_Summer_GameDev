@@ -25,6 +25,7 @@ public:
 		NONE,
 		TITLE,
 		GAME,
+		FPS_BATTLE,
 		RESULT,
 	};
 	

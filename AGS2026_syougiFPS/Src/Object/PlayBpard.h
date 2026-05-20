@@ -54,4 +54,10 @@ private:
     bool mPlayerTurn;
 
     bool mGameEnd;
+
+    int mBattleFromX;
+    int mBattleFromY;
+
+    int mBattleToX;
+    int mBattleToY;
 };

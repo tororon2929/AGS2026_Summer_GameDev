@@ -17,7 +17,11 @@ PlayBpard::PlayBpard()
     mMouseOld(false),
     mSelectPiece(nullptr),
     mPlayerTurn(true),
-    mGameEnd(false)
+    mGameEnd(false),
+    mBattleFromX(-1),
+    mBattleFromY(-1),
+    mBattleToX(-1),
+    mBattleToY(-1)
 {
 }
 
@@ -470,7 +474,7 @@ bool PlayBpard::MovePiece(
 
     if (target)
     {
-        // –¡•û‚È‚ç•s‰Â
+        // –¡•û‹Ö~
         if (target->IsPlayer() ==
             piece->IsPlayer())
         {
@@ -478,25 +482,42 @@ bool PlayBpard::MovePiece(
         }
 
         // =========================
-        // ‰¤Œ‚”j
+        // FPSí“¬ŠJn
         // =========================
 
-        if (target->GetType() ==
-            PIECE_OU)
-        {
-            mGameEnd = true;
+        mBattleFromX = fromX;
+        mBattleFromY = fromY;
 
-            SceneManager::GetInstance().ChangeScene(
-                SceneManager::SCENE_ID::RESULT
-            );
-        }
+        mBattleToX = toX;
+        mBattleToY = toY;
+
+        SceneManager::GetInstance().ChangeScene(
+            SceneManager::SCENE_ID::FPS_BATTLE
+        );
+
+        return true;
+    }
+
+        //// =========================
+        //// ‰¤Œ‚”j
+        //// =========================
+
+        //if (target->GetType() ==
+        //    PIECE_OU)
+        //{
+        //    mGameEnd = true;
+
+        //    SceneManager::GetInstance().ChangeScene(
+        //        SceneManager::SCENE_ID::RESULT
+        //    );
+        //}
 
         // =========================
         // “Gíœ
         // =========================
 
-        delete target;
-    }
+      
+    
 
     // =========================
     // ˆÚ“®
