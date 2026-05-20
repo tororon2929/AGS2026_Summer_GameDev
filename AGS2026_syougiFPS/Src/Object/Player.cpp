@@ -116,10 +116,33 @@ void Player::ProcessJump(void)
 
 void Player::Collision(void)
 {
+	CollisionCapsule();
+
+	CollisionGravity();
+	
+
 	//現在座標を起点に移動後の座標を決める
 	movePow_ = VAdd(pos, movePow_);
 }
 
+void Player::CollisionCapsule(void)
+{
+}
+
 void Player::CollisionGravity(void)
 {
+	//ジャンプ量を計算
+	movedPos_ = VAdd(movedPos_, jumpPow_);
+
+	//重力方向
+	VECTOR dirGravity = AsoUtility::DIR_D;
+
+	//重力方向の反対
+	VECTOR dirUpGravity = AsoUtility::DIR_U;
+
+	float checkPow = 10.0f;
+	gravHitPosUp_ = VAdd(movedPos_, VScale(dirUpGravity, powGravity));
+	gravHitPosUp_ = VAdd(gravHitPosUp_, VScale(dirUpGravity, checkPow * 2.0f));
+	gravHitPosDown_ = VAdd(movedPos_, VScale(dirGravity, checkPow));
+	for(const auto c :)
 }

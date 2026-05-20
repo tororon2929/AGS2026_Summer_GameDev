@@ -10,6 +10,9 @@ private:
 	// ジャンプ力
 	static constexpr float POW_JUMP = 35.0f;
 
+	//重力の強さ
+	static constexpr float powGravity = 0.98f;
+
 	//モデルID
 	int piece_model;
 
@@ -65,15 +68,21 @@ public:
 	//移動後の座標
 	VECTOR movedPos_;
 
+	//衝突判定に用いられるコライダー
+	std::vector<Colloder*> colliders;
+
+	//衝突チェック
+	VECTOR gravHitPosDown_;
+	VECTOR gravHitPosUp_;
+
 	VECTOR pos;
 
 	//ジャンプ判定
 	bool isJump;
 
 	//ジャンプの入力受付時間
-
+	float stepJump_;
   
-
 	// 状態遷移
 	void ChangeState(STATE state);
 	void ChangeStateNone(void);
@@ -85,6 +94,7 @@ public:
 
 	//衝突判定
 	void Collision(void);
+	void CollisionCapsule(void);
 	void CollisionGravity(void);
 	
 };
