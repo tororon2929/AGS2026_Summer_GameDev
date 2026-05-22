@@ -1,5 +1,7 @@
 #pragma once
 #include<DxLib.h>
+class Collider;
+
 class Player
 {
 private:
@@ -69,7 +71,7 @@ public:
 	VECTOR movedPos_;
 
 	//衝突判定に用いられるコライダー
-	std::vector<Colloder*> colliders;
+	std::vector<Collider*> colliders;
 
 	//衝突チェック
 	VECTOR gravHitPosDown_;

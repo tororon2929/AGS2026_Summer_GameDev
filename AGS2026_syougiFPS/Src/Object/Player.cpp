@@ -144,5 +144,11 @@ void Player::CollisionGravity(void)
 	gravHitPosUp_ = VAdd(movedPos_, VScale(dirUpGravity, powGravity));
 	gravHitPosUp_ = VAdd(gravHitPosUp_, VScale(dirUpGravity, checkPow * 2.0f));
 	gravHitPosDown_ = VAdd(movedPos_, VScale(dirGravity, checkPow));
-	for(const auto c :)
+	for (const auto c : colliders)
+	{
+		auto hit = MV1CollCheck_Line(
+			c->modelId_, -1, gravHitPosUp_, gravHitPosDown_);
+
+		if(hit.HitFlag>0&&VDot(dir))
+	}
 }
