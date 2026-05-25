@@ -3,7 +3,7 @@
 class SceneBase;
 class Fader;
 class Camera;
-class MiniCamera;
+//class MiniCamera;
 
 class SceneManager
 {
@@ -24,7 +24,9 @@ public:
 
 		NONE,
 		TITLE,
-		GAME
+		GAME,
+		FPS_BATTLE,
+		RESULT,
 	};
 	
 	// インスタンスの生成
@@ -77,8 +79,8 @@ private:
 	// カメラ
 	Camera* camera_;
 
-	// ミニカメラ
-	MiniCamera* miniCamera_;
+	//// ミニカメラ
+	//MiniCamera* miniCamera_;
 
 	// シーン遷移中判定
 	bool isSceneChanging_;
