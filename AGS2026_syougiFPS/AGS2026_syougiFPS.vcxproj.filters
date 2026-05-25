@@ -1,141 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ソース ファイル\Scr">
-      <UniqueIdentifier>{7f091bc1-55ab-41bd-9631-3541d34d8cf1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Scr\Manager">
-      <UniqueIdentifier>{95d52920-a101-47ef-96bf-640140d03cdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Scr\Scene">
-      <UniqueIdentifier>{952a6dad-39cb-4d05-9090-901293f06dbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Scr\Common">
-      <UniqueIdentifier>{115b8cbd-b5b3-4270-8aa3-f08f6d34c762}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Src\Common\Collider.cpp" />
+    <ClCompile Include="Src\Application.cpp" />
+    <ClCompile Include="Src\Common\Camera.cpp" />
+    <ClCompile Include="Src\Common\Fader.cpp" />
+    <ClCompile Include="Src\Common\Quaternion.cpp" />
+    <ClCompile Include="Src\Common\Vector2.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Manager\InputManager.cpp" />
+    <ClCompile Include="Src\Manager\MiniCamera.cpp" />
+    <ClCompile Include="Src\Manager\SceneManager.cpp" />
+    <ClCompile Include="Src\Object\Grid.cpp" />
+    <ClCompile Include="Src\Object\Player.cpp" />
+    <ClCompile Include="Src\Scene\GameScene.cpp" />
+    <ClCompile Include="Src\Scene\SceneBase.cpp" />
+    <ClCompile Include="Src\Scene\TitleScene.cpp" />
+    <ClCompile Include="Src\Utility\AsoUtility.cpp" />
+    <ClCompile Include="Src\Object\Gyoku.cpp" />
+    <ClCompile Include="Src\Object\Ou.cpp" />
+    <ClCompile Include="Src\Object\pieceBase.cpp" />
+    <ClCompile Include="Src\Object\PlayBpard.cpp" />
+    <ClCompile Include="Src\Manager\Camera.cpp" />
+    <ClCompile Include="Src\Manager\LightManager.cpp" />
+    <ClCompile Include="Src\Manager\Resource.cpp" />
+    <ClCompile Include="Src\Manager\ResourceManager.cpp" />
+    <ClCompile Include="Src\Common\Cell.cpp" />
+    <ClCompile Include="Src\Common\MouseCursor.cpp" />
+    <ClCompile Include="Src\Common\Vector3.cpp" />
+    <ClCompile Include="Src\Scene\FPSBattleScene.cpp" />
+    <ClCompile Include="Src\Scene\ResultScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Application.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Utility\AsoUtility.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\GameScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\SceneBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Scene\TitleScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Grid.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\InputManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\MiniCamera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Manager\SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\Fader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\Quaternion.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\Vector2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Src\Object\Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Common\Collider.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-=======
-    <ClCompile Include="Src\Common\Camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
->>>>>>> main
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Src\Application.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\main.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Utility\AsoUtility.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\GameScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\SceneBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Scene\TitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Grid.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\InputManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\MiniCamera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\SceneManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Fader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Quaternion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Vector2.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Src\Object\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Collider.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-=======
-    <ClInclude Include="Src\Common\Camera.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
->>>>>>> main
+    <ClInclude Include="Src\Common\Collider.h" />
+    <ClInclude Include="Src\Application.h" />
+    <ClInclude Include="Src\Common\Camera.h" />
+    <ClInclude Include="Src\Common\Fader.h" />
+    <ClInclude Include="Src\Common\Quaternion.h" />
+    <ClInclude Include="Src\Common\Vector2.h" />
+    <ClInclude Include="Src\main.h" />
+    <ClInclude Include="Src\Manager\InputManager.h" />
+    <ClInclude Include="Src\Manager\MiniCamera.h" />
+    <ClInclude Include="Src\Manager\SceneManager.h" />
+    <ClInclude Include="Src\Object\Grid.h" />
+    <ClInclude Include="Src\Object\Player.h" />
+    <ClInclude Include="Src\Scene\GameScene.h" />
+    <ClInclude Include="Src\Scene\SceneBase.h" />
+    <ClInclude Include="Src\Scene\TitleScene.h" />
+    <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Object\Gyoku.h" />
+    <ClInclude Include="Src\Object\Ou.h" />
+    <ClInclude Include="Src\Object\pieceBase.h" />
+    <ClInclude Include="Src\Object\PlayBpard.h" />
+    <ClInclude Include="Src\Manager\Camera.h" />
+    <ClInclude Include="Src\Manager\LightManager.h" />
+    <ClInclude Include="Src\Manager\Resource.h" />
+    <ClInclude Include="Src\Manager\ResourceManager.h" />
+    <ClInclude Include="Src\Common\Cell.h" />
+    <ClInclude Include="Src\Common\MouseCursor.h" />
+    <ClInclude Include="Src\Common\Vector3.h" />
+    <ClInclude Include="Src\Scene\FPSBattleScene.h" />
+    <ClInclude Include="Src\Scene\ResultScene.h" />
   </ItemGroup>
 </Project>

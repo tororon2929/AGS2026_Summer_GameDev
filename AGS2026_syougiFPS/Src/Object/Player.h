@@ -11,8 +11,7 @@ private:
 
 	// ƒWƒƒƒ“ƒv—Í
 	static constexpr float POW_JUMP = 35.0f;
-
-<<<<<<< HEAD
+ 
 	//d—Í‚Ì‹­‚³
 	static constexpr float powGravity = 0.98f;
 
@@ -41,8 +40,7 @@ private:
 		OU
 	};
 
-=======
->>>>>>> main
+
 	Player(void);
 	~Player(void);
 

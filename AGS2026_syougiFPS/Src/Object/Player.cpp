@@ -146,9 +146,21 @@ void Player::CollisionGravity(void)
 	gravHitPosDown_ = VAdd(movedPos_, VScale(dirGravity, checkPow));
 	for (const auto c : colliders)
 	{
+		// 地面との衝突
 		auto hit = MV1CollCheck_Line(
 			c->modelId_, -1, gravHitPosUp_, gravHitPosDown_);
 
-		if(hit.HitFlag>0&&VDot(dir))
+		if (hit.HitFlag > 0 && VDot(dirGravity, jumpPow_) > 0.9f)
+		{
+			//衝突地点から、少し上に移動
+			movedPos_ = VAdd(hit.HitPosition, VScale(dirUpGravity, 2.0f));
+
+			//ジャンプリセット
+			jumpPow_ = AsoUtility::VECTOR_ZERO;
+			stepJump_ = 0.0f;
+
+			
+			isJump_ = false;
+		}
 	}
 }
