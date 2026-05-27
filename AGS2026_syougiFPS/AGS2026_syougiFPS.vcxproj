@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\Capsule.cpp" />
     <ClCompile Include="Src\Common\Cell.cpp" />
     <ClCompile Include="Src\Common\Collider.cpp" />
     <ClCompile Include="Src\Application.cpp" />
@@ -158,8 +159,10 @@
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
+    <ClCompile Include="Src\Common\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\Capsule.h" />
     <ClInclude Include="Src\Common\Cell.h" />
     <ClInclude Include="Src\Common\Collider.h" />
     <ClInclude Include="Src\Application.h" />
@@ -189,6 +192,7 @@
     <ClInclude Include="Src\Scene\SceneBase.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Common\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

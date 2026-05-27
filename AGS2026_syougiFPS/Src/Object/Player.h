@@ -13,7 +13,7 @@ private:
 	static constexpr float POW_JUMP = 35.0f;
  
 	//重力の強さ
-	static constexpr float powGravity = 0.98f;
+	static constexpr float powGravity = 0.5f;
 
 	//モデルID
 	int piece_model;
@@ -47,6 +47,12 @@ private:
 	void Init(void);
 	void Update(void);
 	void Draw(void);
+
+	void AddCollider(std::weak_ptr<Collider>collider);
+	void ClearCollider(void);
+
+	const Capsule& GetCapsule(void) const;
+
 	void Release(void);
 
 public:
@@ -72,7 +78,7 @@ public:
 	VECTOR movedPos_;
 
 	//衝突判定に用いられるコライダー
-	std::vector<Collider*> colliders;
+	std::vector<std::weak_ptr<Collider>> colliders_;
 
 	//衝突チェック
 	VECTOR gravHitPosDown_;

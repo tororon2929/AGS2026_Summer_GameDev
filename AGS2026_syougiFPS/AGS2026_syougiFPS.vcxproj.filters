@@ -30,6 +30,8 @@
     <ClCompile Include="Src\Common\Vector3.cpp" />
     <ClCompile Include="Src\Scene\FPSBattleScene.cpp" />
     <ClCompile Include="Src\Scene\ResultScene.cpp" />
+    <ClCompile Include="Src\Common\Capsule.cpp" />
+    <ClCompile Include="Src\Common\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -61,5 +63,7 @@
     <ClInclude Include="Src\Common\Vector3.h" />
     <ClInclude Include="Src\Scene\FPSBattleScene.h" />
     <ClInclude Include="Src\Scene\ResultScene.h" />
+    <ClInclude Include="Src\Common\Capsule.h" />
+    <ClInclude Include="Src\Common\Transform.h" />
   </ItemGroup>
 </Project>

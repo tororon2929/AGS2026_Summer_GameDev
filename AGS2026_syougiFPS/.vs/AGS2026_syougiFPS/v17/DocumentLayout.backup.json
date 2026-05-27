@@ -3,24 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Transform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Transform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Transform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Transform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Capsule.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Capsule.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Capsule.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Capsule.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Quaternion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Quaternion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Quaternion.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Quaternion.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Scene\\GameScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -46,11 +70,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Transform.cpp",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Transform.cpp",
+              "RelativeDocumentMoniker": "Src\\Common\\Transform.cpp",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Transform.cpp",
+              "RelativeToolTip": "Src\\Common\\Transform.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-27T04:12:31.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Quaternion.h",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Quaternion.h",
+              "RelativeDocumentMoniker": "Src\\Common\\Quaternion.h",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Quaternion.h",
+              "RelativeToolTip": "Src\\Common\\Quaternion.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-27T04:12:01.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Quaternion.cpp",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Quaternion.cpp",
+              "RelativeDocumentMoniker": "Src\\Common\\Quaternion.cpp",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Quaternion.cpp",
+              "RelativeToolTip": "Src\\Common\\Quaternion.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-27T04:12:00.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Transform.h",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Transform.h",
+              "RelativeDocumentMoniker": "Src\\Common\\Transform.h",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Transform.h",
+              "RelativeToolTip": "Src\\Common\\Transform.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-27T04:05:51.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Capsule.cpp",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Capsule.cpp",
+              "RelativeDocumentMoniker": "Src\\Common\\Capsule.cpp",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Capsule.cpp",
+              "RelativeToolTip": "Src\\Common\\Capsule.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-27T04:03:55.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Capsule.h",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Capsule.h",
+              "RelativeDocumentMoniker": "Src\\Common\\Capsule.h",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Capsule.h",
+              "RelativeToolTip": "Src\\Common\\Capsule.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-27T04:03:38.439Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "GameScene.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Scene\\GameScene.cpp",
               "RelativeDocumentMoniker": "Src\\Scene\\GameScene.cpp",
@@ -58,12 +160,11 @@
               "RelativeToolTip": "Src\\Scene\\GameScene.cpp",
               "ViewState": "AgIAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-05-25T03:15:11.519Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-25T03:15:11.519Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "Collider.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Collider.cpp",
               "RelativeDocumentMoniker": "Src\\Common\\Collider.cpp",
@@ -75,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "InputManager.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\InputManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\InputManager.cpp",
@@ -87,33 +188,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h",
               "RelativeDocumentMoniker": "Src\\Object\\Player.h",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h",
               "RelativeToolTip": "Src\\Object\\Player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADUAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-05-11T00:55:59.19Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Player.cpp",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp",
               "RelativeToolTip": "Src\\Object\\Player.cpp",
-              "ViewState": "AgIAAIIAAAAAAAAAAADgv5YAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAIYAAAAAAAAAAAApwJoAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-05-11T00:50:41.226Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "AsoUtility.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Utility\\AsoUtility.cpp",
               "RelativeDocumentMoniker": "Src\\Utility\\AsoUtility.cpp",
@@ -125,7 +226,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "Collider.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Collider.h",
               "RelativeDocumentMoniker": "Src\\Common\\Collider.h",
@@ -137,7 +238,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.cpp",
               "RelativeDocumentMoniker": "Src\\Application.cpp",
@@ -149,7 +250,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "Application.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Application.h",
               "RelativeDocumentMoniker": "Src\\Application.h",

@@ -2,6 +2,7 @@
 #include "../Application.h"
 #include "../Manager/InputManager.h"
 #include "../Utility/AsoUtility.h"	
+#include "../Common/Collider.h"
 
 Player::Player(void)
 	:piece_model(-1)
@@ -127,6 +128,7 @@ void Player::Collision(void)
 
 void Player::CollisionCapsule(void)
 {
+
 }
 
 void Player::CollisionGravity(void)
@@ -144,11 +146,11 @@ void Player::CollisionGravity(void)
 	gravHitPosUp_ = VAdd(movedPos_, VScale(dirUpGravity, powGravity));
 	gravHitPosUp_ = VAdd(gravHitPosUp_, VScale(dirUpGravity, checkPow * 2.0f));
 	gravHitPosDown_ = VAdd(movedPos_, VScale(dirGravity, checkPow));
-	for (const auto c : colliders)
+	for (const auto c : colliders_)
 	{
 		// ’n–Ê‚Æ‚ÌÕ“Ë
 		auto hit = MV1CollCheck_Line(
-			c->modelId_, -1, gravHitPosUp_, gravHitPosDown_);
+			c.lock()->modelId_, -1, gravHitPosUp_, gravHitPosDown_);
 
 		if (hit.HitFlag > 0 && VDot(dirGravity, jumpPow_) > 0.9f)
 		{
