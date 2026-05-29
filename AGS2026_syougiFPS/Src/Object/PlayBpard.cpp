@@ -468,116 +468,80 @@ bool PlayBpard::MovePiece(
     int toX,
     int toY)
 {
-    Cell* fromCell =
-        &mCells[fromY][fromX];
+    Cell* fromCell = &mCells[fromY][fromX];
+    Cell* toCell = &mCells[toY][toX];
+    PieceBase* piece = fromCell->GetPiece();
 
-    Cell* toCell =
-        &mCells[toY][toX];
+    // 駒無しチェック
+    if (!piece) return false;
 
-    PieceBase* piece =
-        fromCell->GetPiece();
+    // 移動可能判定（駒固有のルール）
+    if (!piece->CanMove(toX, toY)) return false;
 
-    // =========================
-    // 駒無し
-    // =========================
-
-    if (!piece)
-    {
-        return false;
-    }
-
-    // =========================
-    // 移動可能判定
-    // =========================
-
-    if (!piece->CanMove(toX, toY))
-    {
-        return false;
-    }
-
-    // =========================
-    // 移動先
-    // =========================
-
-    PieceBase* target =
-        toCell->GetPiece();
-
-    // =========================
-    // 駒がある
-    // =========================
+    // 移動先の駒を確認
+    PieceBase* target = toCell->GetPiece();
 
     if (target)
     {
-        // 味方禁止
-        if (target->IsPlayer() ==
-            piece->IsPlayer())
+        // 味方の駒は取れない
+        if (target->IsPlayer() == piece->IsPlayer())
         {
             return false;
         }
 
-        // =========================
-        // FPS戦闘開始
-        // =========================
+        // =====================================================
+        // 王または玉が取られたかの判定（リザルト画面へ）
+        // =====================================================
+        // PIECE_OU や PIECE_GYOKU の定義に合わせて調整してください
+        // 一般的に王(PIECE_OU)か玉(PIECE_GYOKU)が取られたら終了
+        if (target->GetType() == PIECE_OU || target->GetType() == PIECE_GYOKU)
+        {
+            mGameEnd = true;
+            delete target; // 駒を削除
+            toCell->SetPiece(nullptr);
 
-        mBattleFromX = fromX;
-        mBattleFromY = fromY;
-
-        mBattleToX = toX;
-        mBattleToY = toY;
-
-        SceneManager::GetInstance().ChangeScene(
-            SceneManager::SCENE_ID::FPS_BATTLE
-        );
-
-        return true;
+            // リザルト画面へ遷移
+            SceneManager::GetInstance().ChangeScene(
+                SceneManager::SCENE_ID::RESULT
+            );
+            // 終了処理へ入るため、ここで移動処理を完結させる
+        }
+        else
+        {
+            // =====================================================
+            // 通常の駒（歩兵など）を取る処理
+            // =====================================================
+            delete target; // メモリから削除
+            toCell->SetPiece(nullptr); // マスを空にする
+        }
     }
 
-        //// =========================
-        //// 王撃破
-        //// =========================
-
-        //if (target->GetType() ==
-        //    PIECE_OU)
-        //{
-        //    mGameEnd = true;
-
-        //    SceneManager::GetInstance().ChangeScene(
-        //        SceneManager::SCENE_ID::RESULT
-        //    );
-        //}
-
-        // =========================
-        // 敵削除
-        // =========================
-
-      
-    
+    // =====================================================
+    // FPS戦闘シーンへの移行を無効化（一旦切る）
+    // =====================================================
+    /*
+    mBattleFromX = fromX;
+    mBattleFromY = fromY;
+    mBattleToX = toX;
+    mBattleToY = toY;
+    SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
+    return true;
+    */
 
     // =========================
-    // 移動
+    // 実際の移動処理
     // =========================
-
     toCell->SetPiece(piece);
-
     fromCell->SetPiece(nullptr);
 
-    // =========================
-    // マス更新
-    // =========================
-
+    // 駒の内部論理座標を更新
     piece->SetPos(toX, toY);
 
-    // =========================
-    // ワールド座標更新
-    // =========================
-
-    piece->SetWorldPos(
-        toCell->GetWorldPos()
-    );
+    // 駒の3Dモデル表示位置を更新
+    piece->SetWorldPos(toCell->GetWorldPos());
 
     return true;
 }
-
 Cell* PlayBpard::GetCell(int x, int y)
 {
     return &mCells[y][x];
