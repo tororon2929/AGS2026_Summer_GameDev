@@ -4,9 +4,10 @@
 enum PieceType
 {
     PIECE_NONE,
-    PIECE_PAWN,
+    PIECE_FU,
     PIECE_OU,
-    PIECE_GYOKU
+    PIECE_GYOKU,
+  
 };
 
 class PieceBase

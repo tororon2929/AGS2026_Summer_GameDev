@@ -15,7 +15,7 @@ Camera::~Camera(void) {}
 
 void Camera::Init(void)
 {
-    pos_ = VGet(55.0f, TOP_HEIGHT, -30.0f);
+    pos_ = VGet(5.0f, TOP_HEIGHT, -3.0f);
     angles_ = VGet(DX_PI_F / 2.0f, 0.0f, 0.0f);
     rot_ = Quaternion::Euler(angles_);
 
@@ -85,13 +85,13 @@ void Camera::SwitchMode(void)
 // „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
 void Camera::UpdateTopDown(void)
 {
-  /*  if (CheckHitKey(KEY_INPUT_W)) pos_.z += TOP_MOVE_SPEED;
+    if (CheckHitKey(KEY_INPUT_W)) pos_.z += TOP_MOVE_SPEED;
     if (CheckHitKey(KEY_INPUT_S)) pos_.z -= TOP_MOVE_SPEED;
     if (CheckHitKey(KEY_INPUT_A)) pos_.x -= TOP_MOVE_SPEED;
     if (CheckHitKey(KEY_INPUT_D)) pos_.x += TOP_MOVE_SPEED;
 
     if (CheckHitKey(KEY_INPUT_Q)) pos_.y += TOP_ZOOM_SPEED;
-    if (CheckHitKey(KEY_INPUT_E)) pos_.y -= TOP_ZOOM_SPEED;*/
+    if (CheckHitKey(KEY_INPUT_E)) pos_.y -= TOP_ZOOM_SPEED;
 
     // ‚“xƒNƒ‰ƒ“ƒv
     if (pos_.y < TOP_HEIGHT_MIN) pos_.y = TOP_HEIGHT_MIN;
@@ -148,6 +148,8 @@ void Camera::UpdateFPS(void)
     if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
     if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
 
+
+    
     // ‚‚³ŒÅ’è
     pos_.y = FPS_EYE_HEIGHT;
 }

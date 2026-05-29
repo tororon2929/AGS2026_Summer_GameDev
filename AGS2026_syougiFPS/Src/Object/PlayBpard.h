@@ -60,4 +60,22 @@ private:
 
     int mBattleToX;
     int mBattleToY;
+
+	int SetScreenPosX;
+	int SetScreenPosY;
+
+    int SetScreenPosX2;
+    int SetScreenPosY2;
+
+    int SetScreenPosX3;
+    int SetScreenPosY3;
+
+    int SetScreenPosX4;
+    int SetScreenPosY4;
+
+    int SetScreenPosX5;
+    int SetScreenPosY5;
+
+    int SetWorldPosY;
+    
 };

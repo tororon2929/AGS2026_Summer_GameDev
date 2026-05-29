@@ -33,9 +33,9 @@ private:
     bool       prevMKey_;
 
     // 俯瞰視点パラメータ
-    static constexpr float TOP_HEIGHT = 500.0f;
-    static constexpr float TOP_MOVE_SPEED = 3.0f;
-    static constexpr float TOP_ZOOM_SPEED = 5.0f;
+    static constexpr float TOP_HEIGHT =50.0f;
+    static constexpr float TOP_MOVE_SPEED = 1.0f;
+    static constexpr float TOP_ZOOM_SPEED = 1.0f;
     static constexpr float TOP_HEIGHT_MIN = 50.0f;
     static constexpr float TOP_HEIGHT_MAX = 800.0f;
 

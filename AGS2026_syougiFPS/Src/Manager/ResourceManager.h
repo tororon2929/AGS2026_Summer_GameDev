@@ -14,6 +14,7 @@ public:
 		PlayBpard,
 		Ou,
 		Gyoku,
+		Fu,
 
 	};
 

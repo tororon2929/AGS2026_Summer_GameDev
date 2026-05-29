@@ -1,11 +1,11 @@
+#include <DxLib.h>
 #include "../Object/PlayBpard.h"
 #include "../Manager/ResourceManager.h"
 #include "../Object/Ou.h"
 #include "../Common/Cell.h"
 #include "../Object/Gyoku.h"
 #include "../Manager/SceneManager.h"
-#include <DxLib.h>
-
+#include "../Object/Fu.h"
 PlayBpard::PlayBpard()
     : m_handle(-1),
     mCellSizeX(159),
@@ -21,7 +21,18 @@ PlayBpard::PlayBpard()
     mBattleFromX(-1),
     mBattleFromY(-1),
     mBattleToX(-1),
-    mBattleToY(-1)
+    mBattleToY(-1),
+    SetScreenPosX(373),
+	SetScreenPosY(0),
+    SetScreenPosX2(535),
+    SetScreenPosY2(170),
+    SetScreenPosX3(695),
+    SetScreenPosY3(345),
+    SetScreenPosX4(855),
+    SetScreenPosY4(515),
+    SetScreenPosX5(1016),
+    SetScreenPosY5(690),
+    SetWorldPosY(0)
 {
 }
 
@@ -52,79 +63,79 @@ void PlayBpard::Initialize()
     // =========================
 
     // 1行目
-    mCells[0][0].SetScreenPos(354, 0);
-    mCells[0][1].SetScreenPos(515, 0);
-    mCells[0][2].SetScreenPos(675, 0);
-    mCells[0][3].SetScreenPos(837, 0);
-    mCells[0][4].SetScreenPos(1000, 0);
+    mCells[0][0].SetScreenPos(SetScreenPosX, SetScreenPosY);
+    mCells[0][1].SetScreenPos(SetScreenPosX2, SetScreenPosY);
+    mCells[0][2].SetScreenPos(SetScreenPosX3, SetScreenPosY);
+    mCells[0][3].SetScreenPos(SetScreenPosX4, SetScreenPosY);
+    mCells[0][4].SetScreenPos(SetScreenPosX5, SetScreenPosY);
 
     // 2行目
-    mCells[1][0].SetScreenPos(352, 169);
-    mCells[1][1].SetScreenPos(514, 169);
-    mCells[1][2].SetScreenPos(677, 169);
-    mCells[1][3].SetScreenPos(837, 169);
-    mCells[1][4].SetScreenPos(1000, 169);
+    mCells[1][0].SetScreenPos(SetScreenPosX, SetScreenPosY2);
+    mCells[1][1].SetScreenPos(SetScreenPosX2, SetScreenPosY2);
+    mCells[1][2].SetScreenPos(SetScreenPosX3, SetScreenPosY2);
+    mCells[1][3].SetScreenPos(SetScreenPosX4, SetScreenPosY2);
+    mCells[1][4].SetScreenPos(SetScreenPosX5, SetScreenPosY2);
 
     // 3行目
-    mCells[2][0].SetScreenPos(354, 344);
-    mCells[2][1].SetScreenPos(514, 344);
-    mCells[2][2].SetScreenPos(677, 344);
-    mCells[2][3].SetScreenPos(837, 344);
-    mCells[2][4].SetScreenPos(1000, 344);
+    mCells[2][0].SetScreenPos(SetScreenPosX, SetScreenPosY3);
+    mCells[2][1].SetScreenPos(SetScreenPosX2, SetScreenPosY3);
+    mCells[2][2].SetScreenPos(SetScreenPosX3, SetScreenPosY3);
+    mCells[2][3].SetScreenPos(SetScreenPosX4, SetScreenPosY3);
+    mCells[2][4].SetScreenPos(SetScreenPosX5, SetScreenPosY3);
 
     // 4行目
-    mCells[3][0].SetScreenPos(354, 516);
-    mCells[3][1].SetScreenPos(515, 516);
-    mCells[3][2].SetScreenPos(676, 516);
-    mCells[3][3].SetScreenPos(836, 516);
-    mCells[3][4].SetScreenPos(1000, 516);
+    mCells[3][0].SetScreenPos(SetScreenPosX, SetScreenPosY4);
+    mCells[3][1].SetScreenPos(SetScreenPosX2, SetScreenPosY4);
+    mCells[3][2].SetScreenPos(SetScreenPosX3, SetScreenPosY4);
+    mCells[3][3].SetScreenPos(SetScreenPosX4, SetScreenPosY4);
+    mCells[3][4].SetScreenPos(SetScreenPosX5, SetScreenPosY4);
 
     // 5行目
-    mCells[4][0].SetScreenPos(355, 688);
-    mCells[4][1].SetScreenPos(513, 688);
-    mCells[4][2].SetScreenPos(674, 688);
-    mCells[4][3].SetScreenPos(836, 688);
-    mCells[4][4].SetScreenPos(1000, 688);
+    mCells[4][0].SetScreenPos(SetScreenPosX, SetScreenPosY5);
+    mCells[4][1].SetScreenPos(SetScreenPosX2, SetScreenPosY5);
+    mCells[4][2].SetScreenPos(SetScreenPosX3, SetScreenPosY5);
+    mCells[4][3].SetScreenPos(SetScreenPosX4, SetScreenPosY5);
+    mCells[4][4].SetScreenPos(SetScreenPosX5, SetScreenPosY5);
 
 
    // =========================
   // Cellの3D座標
   // =========================
 
-    mCells[0][0].SetWorldPos(VGet(-80.0f, 60.0f, 240.0f));
-    mCells[0][1].SetWorldPos(VGet(-40.0f, 60.0f, 240.0f));
-    mCells[0][2].SetWorldPos(VGet(0.0f, 60.0f, 240.0f));
-    mCells[0][3].SetWorldPos(VGet(45.0f, 60.0f, 240.0f));
-    mCells[0][4].SetWorldPos(VGet(86.0f, 60.0f, 240.0f));
+    mCells[0][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 9.25f));
+    mCells[0][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 9.25f));
+    mCells[0][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 9.25f));
+    mCells[0][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 9.25f));
+    mCells[0][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 9.25f));
 
     // 2行目
-    mCells[1][0].SetWorldPos(VGet(-80.0f, 60.0f, 195.0f));
-    mCells[1][1].SetWorldPos(VGet(-40.0f, 60.0f, 195.0f));
-    mCells[1][2].SetWorldPos(VGet(0.0f, 60.0f, 195.0f));
-    mCells[1][3].SetWorldPos(VGet(45.0f, 60.0f, 195.0f));
-    mCells[1][4].SetWorldPos(VGet(86.0f, 60.0f, 195.0f));
+    mCells[1][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 4.5f));
+    mCells[1][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 4.5f));
+    mCells[1][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 4.5f));
+    mCells[1][3].SetWorldPos(VGet(4.5f, SetWorldPosY,4.5f));
+    mCells[1][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 4.5f));
 
 
     // 3行目
-    mCells[2][0].SetWorldPos(VGet(-80.0f, 60.0f, 150.0f));
-    mCells[2][1].SetWorldPos(VGet(-40.0f, 60.0f, 150.0f));
-    mCells[2][2].SetWorldPos(VGet(0.0f, 60.0f, 150.0f));
-    mCells[2][3].SetWorldPos(VGet(45.0f, 60.0f, 150.0f));
-    mCells[2][4].SetWorldPos(VGet(86.0f, 60.0f, 150.0f));
+    mCells[2][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 0.0f));
+    mCells[2][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 0.0f));
+    mCells[2][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 0.0f));
+    mCells[2][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 0.0f));
+    mCells[2][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 0.0f));
 
     // 4行目
-    mCells[3][0].SetWorldPos(VGet(-80.0f, 60.0f, 105.0f));
-    mCells[3][1].SetWorldPos(VGet(-40.0f, 60.0f, 105.0f));
-    mCells[3][2].SetWorldPos(VGet(0.0f, 60.0f, 105.0f));
-    mCells[3][3].SetWorldPos(VGet(45.0f, 60.0f, 105.0f));
-    mCells[3][4].SetWorldPos(VGet(86.0f, 60.0f, 105.0f));
+    mCells[3][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -4.5f));
+    mCells[3][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -4.5f));
+    mCells[3][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -4.5f));
+    mCells[3][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -4.5f));
+    mCells[3][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -4.5f));
 
     // 5行目
-    mCells[4][0].SetWorldPos(VGet(-80.0f, 60.0f, 60.0f));
-    mCells[4][1].SetWorldPos(VGet(-40.0f, 60.0f, 60.0f));
-    mCells[4][2].SetWorldPos(VGet(0.0f, 60.0f, 60.0f));
-    mCells[4][3].SetWorldPos(VGet(45.0f, 60.0f, 60.0f));
-    mCells[4][4].SetWorldPos(VGet(86.0f, 60.0f, 60.0f));
+    mCells[4][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -9.25f));
+    mCells[4][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -9.25f));
+    mCells[4][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -9.25f));
+    mCells[4][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -9.25f));
+    mCells[4][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -9.25f));
 
     /*for (int y = 0; y < 5; y++)
     {
@@ -163,7 +174,23 @@ void PlayBpard::Initialize()
 
     mCells[0][2].SetPiece(gyoku);
 
-    mPlayerTurn = true;
+    // プレイヤー歩
+    for (int x = 0; x <= 4; x++) // X座標 1, 2, 3 に配置
+    {
+        Fu* playerFu = new Fu(x, 3, true);
+        playerFu->SetWorldPos(mCells[3][x].GetWorldPos());
+        mCells[3][x].SetPiece(playerFu);
+    }
+   
+
+    // 敵の歩兵（3枚に増やす）
+     // =========================
+    for (int x = 0; x <= 4; x++) // X座標 1, 2, 3 に配置
+    {
+        Fu* enemyFu = new Fu(x, 1, false);
+        enemyFu->SetWorldPos(mCells[1][x].GetWorldPos());
+        mCells[1][x].SetPiece(enemyFu);
+    }
 }
 
 void PlayBpard::Update()
@@ -176,7 +203,7 @@ void PlayBpard::Update()
     {
         return;
     }
-
+  
     // =========================
     // 左クリック
     // =========================
@@ -290,20 +317,22 @@ void PlayBpard::Update()
             mSelectCell = hoverCell;
         }
     }
-
+  
     mMouseOld = mouseNow;
 }
 
 void PlayBpard::Draw()
 {
     // =========================
-    // 盤モデル描画
-    // =========================
+     // 盤モデル描画
+     // =========================
     if (m_handle != -1)
     {
+        // 座標を (0.0f, 0.0f, 0.0f) に固定
         MV1SetPosition(m_handle, VGet(0.0f, 0.0f, 0.0f));
 
-        MV1SetScale(m_handle, VGet(10.0f, 10.0f, 10.0f));
+        // スケールは必要に応じて調整してください（現在は1倍）
+        MV1SetScale(m_handle, VGet(1.0f, 1.0f, 1.0f));
 
         MV1DrawModel(m_handle);
     }
@@ -321,8 +350,8 @@ void PlayBpard::Draw()
             int py = cell->GetScreenY();
 
             // =========================
-  // 通常マス
-  // =========================
+            // 通常マス
+             // =========================
             DrawBox(
                 px,
                 py,
@@ -374,7 +403,10 @@ void PlayBpard::Draw()
             // 駒描画
             if (cell->GetPiece())
             {
+
                 cell->GetPiece()->Draw();
+
+              
             }
         }
     }
@@ -396,7 +428,7 @@ void PlayBpard::Draw()
     // =========================
     // デバッグ表示
     // =========================
-    DrawFormatString(
+   /* DrawFormatString(
         20,
         20,
         GetColor(255, 255, 255),
@@ -412,7 +444,7 @@ void PlayBpard::Draw()
         "Pos : (%d,%d)",
         selectCell->GetScreenX(),
         selectCell->GetScreenY()
-    );
+    );*/
     Cell* hoverCell = GetMouseOverCell();
 
     if (hoverCell)
@@ -426,6 +458,8 @@ void PlayBpard::Draw()
             FALSE
         );
     }
+
+
 }
 
 bool PlayBpard::MovePiece(
