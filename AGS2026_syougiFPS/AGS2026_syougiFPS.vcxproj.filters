@@ -12,7 +12,6 @@
     <ClCompile Include="Src\Manager\MiniCamera.cpp" />
     <ClCompile Include="Src\Manager\SceneManager.cpp" />
     <ClCompile Include="Src\Object\Grid.cpp" />
-    <ClCompile Include="Src\Object\Player.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
@@ -32,6 +31,9 @@
     <ClCompile Include="Src\Scene\ResultScene.cpp" />
     <ClCompile Include="Src\Common\Capsule.cpp" />
     <ClCompile Include="Src\Common\Transform.cpp" />
+    <ClCompile Include="Src\Common\AnimationController.cpp" />
+    <ClCompile Include="Src\Object\Enemy.cpp" />
+    <ClCompile Include="Src\Object\ActorBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -45,7 +47,6 @@
     <ClInclude Include="Src\Manager\MiniCamera.h" />
     <ClInclude Include="Src\Manager\SceneManager.h" />
     <ClInclude Include="Src\Object\Grid.h" />
-    <ClInclude Include="Src\Object\Player.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
@@ -65,5 +66,8 @@
     <ClInclude Include="Src\Scene\ResultScene.h" />
     <ClInclude Include="Src\Common\Capsule.h" />
     <ClInclude Include="Src\Common\Transform.h" />
+    <ClInclude Include="Src\Common\AnimationController.h" />
+    <ClInclude Include="Src\Object\Enemy.h" />
+    <ClInclude Include="Src\Object\ActorBase.h" />
   </ItemGroup>
 </Project>

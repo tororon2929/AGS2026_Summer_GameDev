@@ -41,6 +41,8 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Ou.mv1");
 	resourcesMap_.emplace(SRC::Gyoku, res);
 
+	res = new RES(RES_T::MODEL, PATH_MDL + "Ou.mv1");
+	resourcesMap_.emplace(SRC::ENEMY, res);
 
 
 }

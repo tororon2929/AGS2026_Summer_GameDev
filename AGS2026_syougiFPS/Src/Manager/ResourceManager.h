@@ -14,7 +14,7 @@ public:
 		PlayBpard,
 		Ou,
 		Gyoku,
-
+		ENEMY
 	};
 
 	// 明示的にインステンスを生成する

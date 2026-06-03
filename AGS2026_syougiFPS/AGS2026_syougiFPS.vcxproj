@@ -129,6 +129,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\ActorBase.cpp" />
+    <ClCompile Include="Src\Object\Enemy.cpp" />
+    <ClCompile Include="Src\Common\AnimationController.cpp" />
     <ClCompile Include="Src\Common\Capsule.cpp" />
     <ClCompile Include="Src\Common\Cell.cpp" />
     <ClCompile Include="Src\Common\Collider.cpp" />
@@ -152,7 +155,6 @@
     <ClCompile Include="Src\Object\Ou.cpp" />
     <ClCompile Include="Src\Object\pieceBase.cpp" />
     <ClCompile Include="Src\Object\PlayBpard.cpp" />
-    <ClCompile Include="Src\Object\Player.cpp" />
     <ClCompile Include="Src\Scene\FPSBattleScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Scene\ResultScene.cpp" />
@@ -162,6 +164,9 @@
     <ClCompile Include="Src\Common\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\ActorBase.h" />
+    <ClInclude Include="Src\Object\Enemy.h" />
+    <ClInclude Include="Src\Common\AnimationController.h" />
     <ClInclude Include="Src\Common\Capsule.h" />
     <ClInclude Include="Src\Common\Cell.h" />
     <ClInclude Include="Src\Common\Collider.h" />
@@ -185,7 +190,6 @@
     <ClInclude Include="Src\Object\Ou.h" />
     <ClInclude Include="Src\Object\pieceBase.h" />
     <ClInclude Include="Src\Object\PlayBpard.h" />
-    <ClInclude Include="Src\Object\Player.h" />
     <ClInclude Include="Src\Scene\FPSBattleScene.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Scene\ResultScene.h" />

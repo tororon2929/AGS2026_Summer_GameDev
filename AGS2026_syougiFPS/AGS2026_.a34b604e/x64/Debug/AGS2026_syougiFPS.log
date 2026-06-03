@@ -1,31 +1,18 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1129,5): warning MSB8027: Camera.cpp という名前の複数のファイルでは、同じ場所に出力が生成されます。これにより、不適切なビルド結果が生じる可能性があります。関連するファイルは Src\Common\Camera.cpp, Src\Manager\Camera.cpp です。
-  Ou.cpp
-  Player.cpp
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.h(75,7): error C2039: 'vector': 'std' のメンバーではありません
-  (ソース ファイル 'Src/Object/Player.cpp' をコンパイルしています)
-      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stddef.h(23,15):
-      'std' の宣言を確認してください
+  ActorBase.cpp
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\SceneManager.h(19,26): error C3646: 'LIGHT_DIRECTION': 不明なオーバーライド指定子です
+  (ソース ファイル 'Src/Object/ActorBase.cpp' をコンパイルしています)
   
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.h(75,13): error C2143: 構文エラー: ';' が '<' の前にありません。
-  (ソース ファイル 'Src/Object/Player.cpp' をコンパイルしています)
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\SceneManager.h(19,19): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
+  (ソース ファイル 'Src/Object/ActorBase.cpp' をコンパイルしています)
   
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.h(75,7): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
-  (ソース ファイル 'Src/Object/Player.cpp' をコンパイルしています)
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\SceneManager.h(19,44): error C2440: '初期化中': 'initializer list' から 'const int' に変換できません。
+  (ソース ファイル 'Src/Object/ActorBase.cpp' をコンパイルしています)
+      C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\SceneManager.h(19,44):
+      初期化子に含まれている要素が多すぎます
   
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.h(75,19): error C2039: 'weak_ptr': 'std' のメンバーではありません
-  (ソース ファイル 'Src/Object/Player.cpp' をコンパイルしています)
-      C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stddef.h(23,15):
-      'std' の宣言を確認してください
-  
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.h(75,49): error C2238: ';' の前に無効なトークンがあります。
-  (ソース ファイル 'Src/Object/Player.cpp' をコンパイルしています)
-  
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.cpp(149,22): error C2065: 'colliders_': 定義されていない識別子です。
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.cpp(149,18): error C2734: 'c' : 'const' オブジェクトが 'extern' でない場合、初期化する必要があります。
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.cpp(149,18): error C3531: 'c': 'auto' を含む型のシンボルには初期化子が必要です
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.cpp(149,20): error C2143: 構文エラー: ';' が ':' の前にありません。
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.cpp(149,32): error C2143: 構文エラー: ';' が ')' の前にありません。
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Player.cpp(155,7): error C3536: 'hit': 初期化前に使用することはできません
+  Enemy.cpp
+  ResourceManager.cpp
   FPSBattleScene.cpp
-  AsoUtility.cpp
+  Transform.cpp
   コードを生成中...
