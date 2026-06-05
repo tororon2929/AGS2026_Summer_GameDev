@@ -28,3 +28,7 @@ void Enemy::Draw()
 {
     MV1DrawModel(transform_.modelId);
 }
+
+void Enemy::Release()
+{
+}

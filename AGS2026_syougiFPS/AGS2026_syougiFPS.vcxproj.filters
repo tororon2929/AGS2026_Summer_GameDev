@@ -34,6 +34,7 @@
     <ClCompile Include="Src\Common\AnimationController.cpp" />
     <ClCompile Include="Src\Object\Enemy.cpp" />
     <ClCompile Include="Src\Object\ActorBase.cpp" />
+    <ClCompile Include="Src\Object\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -69,5 +70,6 @@
     <ClInclude Include="Src\Common\AnimationController.h" />
     <ClInclude Include="Src\Object\Enemy.h" />
     <ClInclude Include="Src\Object\ActorBase.h" />
+    <ClInclude Include="Src\Object\Player.h" />
   </ItemGroup>
 </Project>
