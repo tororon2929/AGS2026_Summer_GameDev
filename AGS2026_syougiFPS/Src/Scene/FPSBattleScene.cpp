@@ -33,6 +33,14 @@ void FPSBattleScene::Update()
         player_->Update();
 	}
 
+    if (GetMouseInput() & MOUSE_INPUT_LEFT)
+    {
+        if (player_!= nullptr && enemy_ != nullptr)
+        {
+            
+        }
+    }
+
     // ‰¼FEnter‚Å«Šû‚Ö–ß‚é
 
     if (CheckHitKey(KEY_INPUT_RETURN))

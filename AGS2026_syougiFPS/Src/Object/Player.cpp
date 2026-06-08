@@ -85,4 +85,44 @@ void Player::Update()
 
     // カメラの位置をプレイヤーの座標に、向きを注視点に設定
     SetCameraPositionAndTargetAndUpVec(pos_, target, VGet(0.0f, 1.0f, 0.0f));
+
+    //射撃処理
+    if (GetMouseInput() & MOUSE_INPUT_LEFT)
+    {
+        VECTOR lineStart = pos_;
+
+        float sinH = sinf(angleH_);
+        float cosH = cosf(angleH_);
+        VECTOR lookDir;
+        lookDir.x = cosf(angleV_) * sinH;
+		lookDir.y = sinf(angleV_);
+        lookDir.z = cosf(angleV_) * cosH;
+
+        VECTOR lineEnd = VAdd(lineStart, VScale(lookDir, 10000.0f));
+    }
+}
+
+void Player::Draw()
+{
+    // プレイヤーは見えないので描画処理はなし
+}
+   
+void Player::Release()
+{
+    // 特にリソースを持っていないので解放処理はなし
+}
+
+void Player::GetShotLine(VECTOR* start, VECTOR* end) const
+{
+    *start = pos_;
+
+    float sinH = sinf(angleH_);
+	float cosH = cosf(angleH_);
+    VECTOR lookDir = {
+        cosf(angleV_) * sinH,
+        sinf(angleV_),
+        cosf(angleV_) * cosH
+    };
+
+    *end = VAdd(pos_, VScale(lookDir, 10000.0f));
 }

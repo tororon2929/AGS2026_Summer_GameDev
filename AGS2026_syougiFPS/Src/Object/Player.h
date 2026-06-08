@@ -8,9 +8,13 @@ public:
 
     void Init();
     void Update();
+	void Draw();
+	void Release();
 
-    // 外部からプレイヤーの座標などを取得したい場合用
+    //外部からプレイヤーの座標などを取得
     VECTOR GetPos() const { return pos_; }
+
+    void GetShotLine(VECTOR* start, VECTOR* end)const;
 
 private:
     VECTOR pos_;        // プレイヤーの現在座標（足元または目線）
