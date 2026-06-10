@@ -2,7 +2,7 @@
 #include <cmath>
 
 Player::Player()
-    : pos_({ 0.0f, 50.0f, 0.0f }) // 目線の高さ（Y=50）に初期設定
+    : pos_({ 0.0f, 50.0f, 0.0f }) // 目線の高さに初期設定
     , angleH_(0.0f)
     , angleV_(0.0f)
 {
@@ -14,14 +14,14 @@ Player::~Player()
 
 void Player::Init()
 {
-    // マウスカーソルを非表示にし、画面中央に固定する（FPSの基本設定）
+    // マウスカーソルを非表示にし、画面中央に固定する
     SetMouseDispFlag(FALSE);
     SetMousePoint(640, 360); 
 }
 
 void Player::Update()
 {
-    //マウス入力による視線（カメラ）の回転処理
+    //マウス入力による視線の回転処理
     int mouseX, mouseY;
     GetMousePoint(&mouseX, &mouseY);
 
@@ -36,13 +36,10 @@ void Player::Update()
     angleH_ += deltaX * turnSpeed_;
     angleV_ -= deltaY * turnSpeed_; // 上を向いたらプラス、下を向いたらマイナス
 
-    // 垂直方向の回転制限（真上や真後ろを向けないようにする限制）
+    // 垂直方向の回転制限
     if (angleV_ > DX_PI_F / 2.0f - 0.05f) angleV_ = DX_PI_F / 2.0f - 0.05f;
     if (angleV_ < -DX_PI_F / 2.0f + 0.05f) angleV_ = -DX_PI_F / 2.0f + 0.05f;
 
-    
-    //キーボード入力による移動処理（視線方向を基準に移動）
-    
     // 現在向いている水平方向のベクトルを計算
     float sinH = sinf(angleH_);
     float cosH = cosf(angleH_);
@@ -104,12 +101,10 @@ void Player::Update()
 
 void Player::Draw()
 {
-    // プレイヤーは見えないので描画処理はなし
 }
    
 void Player::Release()
 {
-    // 特にリソースを持っていないので解放処理はなし
 }
 
 void Player::GetShotLine(VECTOR* start, VECTOR* end) const
