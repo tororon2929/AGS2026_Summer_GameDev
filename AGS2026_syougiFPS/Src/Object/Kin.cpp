@@ -86,7 +86,7 @@ void Kin::Draw()
         MV1SetRotationXYZ(mModelHandle, VGet(0.0f, 0.0f, 0.0f));
 
         // プレイヤー専用のオフセット（モデルに合わせて微調整してください）
-        offset = VGet(13.25f, 0.0f, -9.0f);
+        offset = VGet(4.5f, 0.0f, 19.0f);
     }
     else
     {
@@ -94,7 +94,7 @@ void Kin::Draw()
         MV1SetRotationXYZ(mModelHandle, VGet(0.0f, DX_PI_F, 0.0f));
 
         // 敵専用のオフセット（モデルに合わせて微調整してください）
-        offset = VGet(4.5f, 0.0f, 9.0f);
+        offset = VGet(-4.5f, 0.0f, -19.0f);
     }
 
     MV1SetPosition(
@@ -106,72 +106,72 @@ void Kin::Draw()
 
     // デバッグ用：本来の「中心」である mWorldPos に球を表示
     DrawSphere3D(mWorldPos, 0.1f, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
-//       // =========================
-//  // 微調整
-//  // =========================
-//
-//   if (CheckHitKey(KEY_INPUT_UP))
-//   {
-//       mWorldPos.z += 0.25f;
-//   }
-//
-//   if (CheckHitKey(KEY_INPUT_DOWN))
-//   {
-//       mWorldPos.z -= 0.25f;
-//   }
-//
-//   if (CheckHitKey(KEY_INPUT_LEFT))
-//   {
-//       mWorldPos.x -= 0.25f;
-//   }
-//
-//   if (CheckHitKey(KEY_INPUT_RIGHT))
-//   {
-//       mWorldPos.x += 0.25f;
-//   }
-//
-//  
-//  // =========================
-//// デバッグ表示
-//// =========================
-//
-//   DrawFormatString(
-//       1400,
-//       20,
-//       GetColor(255, 255, 255),
-//       "OU POS X: %.2f",
-//       mWorldPos.x
-//   );
-//
-//   DrawFormatString(
-//       1400,
-//       50,
-//       GetColor(255, 255, 255),
-//       "OU POS Y: %.2f",
-//       mWorldPos.y
-//   );
-//
-//   DrawFormatString(
-//       1400,
-//       80,
-//       GetColor(255, 255, 255),
-//       "OU POS Z: %.2f",
-//       mWorldPos.z
-//   );
-//
-//   DrawFormatString(
-//       1400,
-//       110,
-//       GetColor(255, 255, 255),
-//       "BOARD X:%d",
-//       mX
-//   );
-//
-//   DrawFormatString(
-//       1400,
-//       140,
-//       GetColor(255, 255, 255),
-//       "BOARD Y:%d",
-//       mY
-//   );
+       // =========================
+  // 微調整
+  // =========================
+
+   if (CheckHitKey(KEY_INPUT_UP))
+   {
+       mWorldPos.z += 0.25f;
+   }
+
+   if (CheckHitKey(KEY_INPUT_DOWN))
+   {
+       mWorldPos.z -= 0.25f;
+   }
+
+   if (CheckHitKey(KEY_INPUT_LEFT))
+   {
+       mWorldPos.x -= 0.25f;
+   }
+
+   if (CheckHitKey(KEY_INPUT_RIGHT))
+   {
+       mWorldPos.x += 0.25f;
+   }
+
+  
+  // =========================
+// デバッグ表示
+// =========================
+
+   DrawFormatString(
+       1400,
+       20,
+       GetColor(255, 255, 255),
+       "OU POS X: %.2f",
+       mWorldPos.x
+   );
+
+   DrawFormatString(
+       1400,
+       50,
+       GetColor(255, 255, 255),
+       "OU POS Y: %.2f",
+       mWorldPos.y
+   );
+
+   DrawFormatString(
+       1400,
+       80,
+       GetColor(255, 255, 255),
+       "OU POS Z: %.2f",
+       mWorldPos.z
+   );
+
+   DrawFormatString(
+       1400,
+       110,
+       GetColor(255, 255, 255),
+       "BOARD X:%d",
+       mX
+   );
+
+   DrawFormatString(
+       1400,
+       140,
+       GetColor(255, 255, 255),
+       "BOARD Y:%d",
+       mY
+   );
 }

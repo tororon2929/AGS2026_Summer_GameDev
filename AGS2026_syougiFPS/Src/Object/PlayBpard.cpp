@@ -218,24 +218,24 @@ void PlayBpard::Initialize()
     mCells[0][4].SetPiece(enemykaku);
 
 	//金の設置
-    Kin* kin = new Kin(1, 0, true);
-    kin->SetWorldPos(mCells[0][1].GetWorldPos());
-    mCells[0][1].SetPiece(kin);
+    Kin* kin = new Kin(3, 6, true);
+    kin->SetWorldPos(mCells[6][3].GetWorldPos());
+    mCells[6][3].SetPiece(kin);
 
 	//敵の金の設置
-    Kin* enemykin = new Kin(1, 6, false);
-    enemykin->SetWorldPos(mCells[6][1].GetWorldPos());
-	mCells[6][1].SetPiece(enemykin);
+    Kin* enemykin = new Kin(3, 0, false);
+    enemykin->SetWorldPos(mCells[0][3].GetWorldPos());
+	mCells[0][3].SetPiece(enemykin);
 
 	//  銀の設置（プレイヤー側）
-    Gin* gin = new Gin(1, 0, true);
-    gin->SetWorldPos(mCells[0][1].GetWorldPos());
-    mCells[0][3].SetPiece(gin);
+    Gin* gin = new Gin(1, 6, true);
+    gin->SetWorldPos(mCells[6][1].GetWorldPos());
+    mCells[6][1].SetPiece(gin);
 
 	//  銀の設置（敵側）
-    Gin* enemygin = new Gin(1, 6, false);
-	enemygin->SetWorldPos(mCells[6][1].GetWorldPos());
-	mCells[6][3].SetPiece(enemygin);
+    Gin* enemygin = new Gin(1, 0, false);
+	enemygin->SetWorldPos(mCells[0][1].GetWorldPos());
+	mCells[0][1].SetPiece(enemygin);
 
 }
 
