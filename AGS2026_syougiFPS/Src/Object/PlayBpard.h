@@ -21,14 +21,16 @@ public:
     Cell* GetMouseOverCell();
 
     void ShowMovePoint(PieceBase* piece);
-    
+
+    // 移動経路の途中に他の駒がないかチェックする（あればfalse）
+    bool IsPathClear(int fromX, int fromY, int toX, int toY);
 
 private:
 
     int m_handle;
 
-    // 将棋盤
-    Cell mCells[5][5];
+    // 将棋盤を縦7マス、横5マスに修正 (mCells[y][x] -> yが7、xが5)
+    Cell mCells[7][5];
 
     // =========================
     // Cellサイズ
@@ -61,8 +63,8 @@ private:
     int mBattleToX;
     int mBattleToY;
 
-	int SetScreenPosX;
-	int SetScreenPosY;
+    int SetScreenPosX;
+    int SetScreenPosY;
 
     int SetScreenPosX2;
     int SetScreenPosY2;
@@ -76,6 +78,9 @@ private:
     int SetScreenPosX5;
     int SetScreenPosY5;
 
+    int SetScreenPosY6;
+    int SetScreenPosY7;
+
     int SetWorldPosY;
-    
+
 };

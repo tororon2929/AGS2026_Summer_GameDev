@@ -7,6 +7,11 @@ enum PieceType
     PIECE_FU,
     PIECE_OU,
     PIECE_GYOKU,
+    PIECE_HISHA,
+	PIECE_KAKU,
+    PIECE_KIN,
+	PIECE_GIN,
+
   
 };
 
@@ -23,6 +28,8 @@ protected:
 
     // 3Dç¿ïW
     VECTOR mWorldPos;
+
+
 
 public:
 
@@ -45,4 +52,6 @@ public:
     // 3Dç¿ïW
     void SetWorldPos(VECTOR pos);
     VECTOR GetWorldPos() const;
+
+   
 };

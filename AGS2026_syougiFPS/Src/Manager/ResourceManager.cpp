@@ -44,6 +44,18 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Fu.mv1");
 	resourcesMap_.emplace(SRC::Fu, res);
 
+	res = new RES(RES_T::MODEL, PATH_MDL + "Hisya.mv1");
+	resourcesMap_.emplace(SRC::Hisha, res);
+
+	res = new RES(RES_T::MODEL, PATH_MDL + "Kaku.mv1");
+	resourcesMap_.emplace(SRC::Kaku, res);
+
+	res = new RES(RES_T::MODEL, PATH_MDL + "Kin.mv1");
+	resourcesMap_.emplace(SRC::Kin, res);
+
+	res = new RES(RES_T::MODEL, PATH_MDL + "Gin.mv1");
+	resourcesMap_.emplace(SRC::Gin, res);
+
 }
 
 void ResourceManager::Release(void)

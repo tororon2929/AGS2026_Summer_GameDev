@@ -15,6 +15,10 @@ public:
 		Ou,
 		Gyoku,
 		Fu,
+		Kaku,
+		Hisha,
+		Kin,
+		Gin
 
 	};
 
