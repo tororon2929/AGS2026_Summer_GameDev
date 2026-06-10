@@ -18,7 +18,6 @@ C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Common\Q
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Common\Vector2.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\Vector2.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Common\Vector3.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\Vector3.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\main.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\main.obj
-C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\Camera.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\Camera.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\InputManager.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\InputManager.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\LightManager.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\LightManager.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Manager\MiniCamera.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\MiniCamera.obj
@@ -37,3 +36,4 @@ C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Scene\Sc
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Scene\TitleScene.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\TitleScene.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Utility\AsoUtility.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\AsoUtility.obj
 C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Common\Transform.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\Transform.obj
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\Stage.cpp;C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\AGS2026_.a34b604e\x64\Debug\Stage.obj

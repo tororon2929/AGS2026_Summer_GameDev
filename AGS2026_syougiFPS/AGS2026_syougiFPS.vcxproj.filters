@@ -20,7 +20,6 @@
     <ClCompile Include="Src\Object\Ou.cpp" />
     <ClCompile Include="Src\Object\pieceBase.cpp" />
     <ClCompile Include="Src\Object\PlayBpard.cpp" />
-    <ClCompile Include="Src\Manager\Camera.cpp" />
     <ClCompile Include="Src\Manager\LightManager.cpp" />
     <ClCompile Include="Src\Manager\Resource.cpp" />
     <ClCompile Include="Src\Manager\ResourceManager.cpp" />
@@ -40,6 +39,7 @@
     <ClCompile Include="Src\Object\Hisha.cpp" />
     <ClCompile Include="Src\Object\Kaku.cpp" />
     <ClCompile Include="Src\Object\Kin.cpp" />
+    <ClCompile Include="Src\Object\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -61,7 +61,6 @@
     <ClInclude Include="Src\Object\Ou.h" />
     <ClInclude Include="Src\Object\pieceBase.h" />
     <ClInclude Include="Src\Object\PlayBpard.h" />
-    <ClInclude Include="Src\Manager\Camera.h" />
     <ClInclude Include="Src\Manager\LightManager.h" />
     <ClInclude Include="Src\Manager\Resource.h" />
     <ClInclude Include="Src\Manager\ResourceManager.h" />
@@ -81,5 +80,6 @@
     <ClInclude Include="Src\Object\Hisha.h" />
     <ClInclude Include="Src\Object\Kaku.h" />
     <ClInclude Include="Src\Object\Kin.h" />
+    <ClInclude Include="Src\Object\Stage.h" />
   </ItemGroup>
 </Project>

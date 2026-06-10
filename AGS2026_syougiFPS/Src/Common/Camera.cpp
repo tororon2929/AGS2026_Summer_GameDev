@@ -245,3 +245,24 @@ void Camera::Release(void) {}
 const VECTOR& Camera::GetPos(void)    const { return pos_; }
 const VECTOR& Camera::GetAngles(void) const { return angles_; }
 const CameraMode& Camera::GetMode(void)   const { return mode_; }
+
+void Camera::ChangeMode(CameraMode newMode)
+{
+    mode_ = newMode;
+    if (mode_ == CameraMode::FPS)
+    {
+        pos_.y = FPS_EYE_HEIGHT;
+        angles_ = VGet(0.0f, angles_.y, 0.0f);
+        rot_ = Quaternion::Euler(angles_);
+
+        SetMouseDispFlag(FALSE);
+        SetMousePoint(320, 240);
+    }
+    else {
+        pos_.y = TOP_HEIGHT;
+        angles_ = VGet(DX_PI_F / 2.0f, 0.0f, 0.0f);
+        rot_ = Quaternion::Euler(angles_);
+
+		SetMouseDispFlag(TRUE);
+    }
+}

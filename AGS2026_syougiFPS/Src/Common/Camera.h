@@ -21,6 +21,8 @@ public:
     const VECTOR& GetPos(void)    const;
     const VECTOR& GetAngles(void) const;
     const CameraMode& GetMode(void)   const;
+    void Setpos(const VECTOR& newPos) { pos_ = newPos; }
+    void ChangeMode(CameraMode newMode);
 
 
 

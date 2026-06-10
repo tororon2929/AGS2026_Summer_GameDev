@@ -459,7 +459,7 @@ bool PlayBpard::MovePiece(int fromX, int fromY, int toX, int toY)
             delete target;
             toCell->SetPiece(nullptr);
 
-            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
         }
         else
         {

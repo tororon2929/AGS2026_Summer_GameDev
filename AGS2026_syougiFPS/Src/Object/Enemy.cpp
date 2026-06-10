@@ -13,7 +13,7 @@ void Enemy::Init()
 {
     transform_.SetModel(
         ResourceManager::GetInstance().LoadModelDuplicate(
-            ResourceManager::SRC::ENEMY));
+            ResourceManager::SRC::Fu));
 
     transform_.pos = { 100, 0, 100 };
     transform_.Update();

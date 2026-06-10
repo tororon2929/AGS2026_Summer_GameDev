@@ -1,10 +1,10 @@
 #include "Player.h"
+#include"../Common/Camera.h"
 #include <cmath>
 
 Player::Player()
-    : pos_({ 0.0f, 50.0f, 0.0f }) // 目線の高さに初期設定
-    , angleH_(0.0f)
-    , angleV_(0.0f)
+    : pos_({ 0.0f, 10.0f, 0.0f })
+   
 {
 }
 
@@ -14,35 +14,19 @@ Player::~Player()
 
 void Player::Init()
 {
-    // マウスカーソルを非表示にし、画面中央に固定する
-    SetMouseDispFlag(FALSE);
-    SetMousePoint(640, 360); 
+   
 }
 
-void Player::Update()
+void Player::Update(Camera* camera)
 {
-    //マウス入力による視線の回転処理
-    int mouseX, mouseY;
-    GetMousePoint(&mouseX, &mouseY);
+    if (camera == nullptr)return;
 
-    // 画面中央からのズレを移動量として取得
-    int deltaX = mouseX - 640;
-    int deltaY = mouseY - 360;
-
-    // マウスを中央に戻す
-    SetMousePoint(640, 360);
-
-    // 回転角の更新
-    angleH_ += deltaX * turnSpeed_;
-    angleV_ -= deltaY * turnSpeed_; // 上を向いたらプラス、下を向いたらマイナス
-
-    // 垂直方向の回転制限
-    if (angleV_ > DX_PI_F / 2.0f - 0.05f) angleV_ = DX_PI_F / 2.0f - 0.05f;
-    if (angleV_ < -DX_PI_F / 2.0f + 0.05f) angleV_ = -DX_PI_F / 2.0f + 0.05f;
+   
 
     // 現在向いている水平方向のベクトルを計算
-    float sinH = sinf(angleH_);
-    float cosH = cosf(angleH_);
+    VECTOR cameraAngles = camera->GetAngles();
+    float sinH = sinf(cameraAngles.y);
+    float cosH = cosf(cameraAngles.y);
 
     VECTOR moveDir = { 0.0f, 0.0f, 0.0f };
 
@@ -73,16 +57,8 @@ void Player::Update()
         moveDir = VNorm(moveDir);
         pos_ = VAdd(pos_, VScale(moveDir, moveSpeed_));
     }
-    
-    // プレイヤーが見ている「注視点」の座標を計算
-    VECTOR target;
-    target.x = pos_.x + cosf(angleV_) * sinf(angleH_);
-    target.y = pos_.y + sinf(angleV_);
-    target.z = pos_.z + cosf(angleV_) * cosf(angleH_);
 
-    // カメラの位置をプレイヤーの座標に、向きを注視点に設定
-    SetCameraPositionAndTargetAndUpVec(pos_, target, VGet(0.0f, 1.0f, 0.0f));
-
+    camera->Setpos(pos_);
     //射撃処理
     if (GetMouseInput() & MOUSE_INPUT_LEFT)
     {
