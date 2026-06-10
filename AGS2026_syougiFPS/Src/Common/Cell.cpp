@@ -88,3 +88,9 @@ VECTOR Cell::GetWorldPos() const
 {
     return mWorldPos;
 }
+
+void Cell::MoveScreenPos(int x, int y)
+{
+    mScreenX += x;
+    mScreenY += y;
+}

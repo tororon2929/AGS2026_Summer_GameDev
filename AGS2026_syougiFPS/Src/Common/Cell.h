@@ -26,7 +26,7 @@ public:
     Cell();
 
     void Init(int x, int y);
-
+    void MoveScreenPos(int x, int y);
     // Piece
     void SetPiece(PieceBase* piece);
     PieceBase* GetPiece();

@@ -129,6 +129,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Fu.cpp" />
+    <ClCompile Include="Src\Object\Gin.cpp" />
+    <ClCompile Include="Src\Object\Hisha.cpp" />
+    <ClCompile Include="Src\Object\Kaku.cpp" />
+    <ClCompile Include="Src\Object\Kin.cpp" />
     <ClCompile Include="Src\Object\Player.cpp" />
     <ClCompile Include="Src\Object\ActorBase.cpp" />
     <ClCompile Include="Src\Object\Enemy.cpp" />
@@ -165,6 +170,11 @@
     <ClCompile Include="Src\Common\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Fu.h" />
+    <ClInclude Include="Src\Object\Gin.h" />
+    <ClInclude Include="Src\Object\Hisha.h" />
+    <ClInclude Include="Src\Object\Kaku.h" />
+    <ClInclude Include="Src\Object\Kin.h" />
     <ClInclude Include="Src\Object\Player.h" />
     <ClInclude Include="Src\Object\ActorBase.h" />
     <ClInclude Include="Src\Object\Enemy.h" />

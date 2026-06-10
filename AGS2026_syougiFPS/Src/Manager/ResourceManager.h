@@ -14,7 +14,13 @@ public:
 		PlayBpard,
 		Ou,
 		Gyoku,
-		ENEMY
+		Fu,
+		Kaku,
+		Hisha,
+		Kin,
+		Gin,
+		ENEMY,
+
 	};
 
 	// 明示的にインステンスを生成する

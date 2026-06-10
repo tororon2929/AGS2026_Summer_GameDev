@@ -1,6 +1,9 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1129,5): warning MSB8027: Camera.cpp という名前の複数のファイルでは、同じ場所に出力が生成されます。これにより、不適切なビルド結果が生じる可能性があります。関連するファイルは Src\Common\Camera.cpp, Src\Manager\Camera.cpp です。
-  Player.cpp
-  FPSBattleScene.cpp
+  Fu.cpp
+  Gin.cpp
+  Hisha.cpp
+  Kaku.cpp
+  Kin.cpp
   コードを生成中...
 AGS2026_.a34b604e\x64\Debug\Camera.obj : warning LNK4042: オブジェクトの指定が重複しています。余分なものは無視されます。
 EffekseerForDXLib_vs2019_x64_d.lib(EffekseerForDXLib.obj) : warning LNK4099: PDB 'EffekseerForDXLib_vs2019_x64_d.pdb' が 'EffekseerForDXLib_vs2019_x64_d.lib(EffekseerForDXLib.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerForDXLib_vs2019_x64_d.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。

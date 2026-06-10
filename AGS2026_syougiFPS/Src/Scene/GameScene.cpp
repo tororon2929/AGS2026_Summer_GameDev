@@ -47,6 +47,7 @@ void GameScene::Draw(void)
 
     camera->SetBeforeDraw();
 
+   
     if (lightManager_) {
         lightManager_->applyLighting();
     }
@@ -56,6 +57,8 @@ void GameScene::Draw(void)
     if (playBoard_) {
         playBoard_->Draw();
     }
+
+    camera->DrawDebug();
 
     // ======================================================
     // 3D描画終了
@@ -81,14 +84,14 @@ void GameScene::Draw(void)
     // 黒マスク
     // ======================================================
 
-    int sw = 1920;
+   /*int sw = 1920;
     int sh = 1080;
 
     DrawBox(0, 0, 360, sh, GetColor(0, 0, 0), TRUE);
 
     DrawBox(sw - 760, 0, sw, sh, GetColor(0, 0, 0), TRUE);
 
-    camera->DrawDebug();
+    camera->DrawDebug();*/
 }
 
 void GameScene::Release(void) {
