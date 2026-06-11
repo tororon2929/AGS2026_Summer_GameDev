@@ -34,6 +34,11 @@ void TitleScene::Update(void)
 		// ƒV[ƒ“‘JˆÚ‚ğÀs
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 	}
+
+	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_B))
+	{
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
+	}
 }
 
 void TitleScene::Draw(void)
