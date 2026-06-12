@@ -21,9 +21,11 @@ private:
     VECTOR pos_;        // プレイヤーの現在座標
     float angleH_;      // 水平方向の回転角度
     float angleV_;      // 垂直方向の回転角度
+    float velocityY_;
 
     
     const float turnSpeed_ = 0.005f; // マウス感度
 	const float moveSpeed_ = 0.2f;// 移動速度
+	const float gravity_ = -0.05f; // 重力加速度
 };
 

@@ -24,7 +24,7 @@ public:
     void Setpos(const VECTOR& newPos) { pos_ = newPos; }
     void ChangeMode(CameraMode newMode);
 
-
+    static constexpr float FPS_EYE_HEIGHT = 30.0f;
 
 private:
     // 宣言順とコンストラクタ初期化リストを必ず合わせる
@@ -45,7 +45,7 @@ private:
     static constexpr float FPS_MOVE_SPEED = 0.2f;
     static constexpr float FPS_ROT_SPEED = 0.002f;
     static constexpr float FPS_PITCH_LIMIT = 1.5f;
-    static constexpr float FPS_EYE_HEIGHT = 10.0f;
+   
 
     VECTOR mWorldPos;
 
