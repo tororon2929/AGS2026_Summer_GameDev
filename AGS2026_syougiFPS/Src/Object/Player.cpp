@@ -21,7 +21,7 @@ void Player::Update(Camera* camera)
 {
     if (camera == nullptr)return;
 
-   
+
 
     // 現在向いている水平方向のベクトルを計算
     VECTOR cameraAngles = camera->GetAngles();
@@ -58,34 +58,41 @@ void Player::Update(Camera* camera)
         pos_ = VAdd(pos_, VScale(moveDir, moveSpeed_));
     }
 
-  
-	// 重力を適用
-	velocityY_ += gravity_;
 
-	// Y座標に重力を適用
+    // 重力を適用
+    velocityY_ += gravity_;
+
+    // Y座標に重力を適用
     pos_.y += velocityY_;
 
-	float floorHeight = Camera::FPS_EYE_HEIGHT; //床の高さ
-
-    if (pos_.y < floorHeight)
+	//プレイヤーが将棋盤の上にいるかどうかの判定
+    if (pos_.x >= -limitX && pos_.x <= limitX && pos_.z >= -limitZ && pos_.z <= limitZ)
     {
-        pos_.y = floorHeight;
-        velocityY_ = 0.0f; // 床に着地したら垂直速度をリセット
-	}
 
-    if (pos_.y <= floorHeight)
-    {
-        if (CheckHitKey(KEY_INPUT_SPACE))
+        if (pos_.y < floorHeight)
         {
-            velocityY_ = 1.2f; // 上向きの初速を与える（数字を大きくすると高く跳びます）
+            pos_.y = floorHeight;
+            velocityY_ = 0.0f; // 床に着地したら垂直速度をリセット
+        }
+
+        if (pos_.y <= floorHeight)
+        {
+            if (CheckHitKey(KEY_INPUT_SPACE))
+            {
+                velocityY_ = 1.2f; // 上向きの初速を与える
+            }
         }
     }
+    else
+    {
 
-    //
-    pos_.y = camera->GetPos().y;
+    }
+
+    VECTOR cameraPos = pos_;
+	cameraPos.y += Camera::FPS_EYE_HEIGHT;
 
 	//カメラの位置をプレイヤーの位置に合わせる
-    camera->Setpos(pos_);
+    camera->Setpos(cameraPos);
 
     //射撃処理
     if (GetMouseInput() & MOUSE_INPUT_LEFT)

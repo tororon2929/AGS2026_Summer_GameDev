@@ -22,7 +22,9 @@ private:
     float angleH_;      // 水平方向の回転角度
     float angleV_;      // 垂直方向の回転角度
     float velocityY_;
-
+    float floorHeight = 10.0f;
+    float limitX = 25.0f;
+    float limitZ = 25.0f;
     
     const float turnSpeed_ = 0.005f; // マウス感度
 	const float moveSpeed_ = 0.2f;// 移動速度

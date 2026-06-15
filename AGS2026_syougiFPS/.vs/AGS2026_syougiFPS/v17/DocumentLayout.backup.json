@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Enemy.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Enemy.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -23,28 +23,32 @@
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Scene\\FPSBattleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Scene\\FPSBattleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Scene\\FPSBattleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Object\\Enemy.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Manager\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Manager\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\MiniCamera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Manager\\MiniCamera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Manager\\InputManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A34B604E-9556-481C-8C53-B8F6B2BDD6C4}|AGS2026_syougiFPS.vcxproj|solutionrelative:Src\\Common\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,11 +58,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "FPSBattleScene.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Scene\\FPSBattleScene.h",
               "RelativeDocumentMoniker": "Src\\Scene\\FPSBattleScene.h",
@@ -67,7 +71,8 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-05T05:13:53.421Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -77,14 +82,15 @@
               "RelativeDocumentMoniker": "Src\\Scene\\FPSBattleScene.cpp",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Scene\\FPSBattleScene.cpp",
               "RelativeToolTip": "Src\\Scene\\FPSBattleScene.cpp",
-              "ViewState": "AgIAACIAAAAAAAAAAAAgwFYAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-05T08:19:40.251Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "SceneManager.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\SceneManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\SceneManager.cpp",
@@ -93,11 +99,12 @@
               "ViewState": "AgIAAOMAAAAAAAAAAAAcwPUAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-05T08:06:06.054Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "MiniCamera.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\MiniCamera.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\MiniCamera.cpp",
@@ -106,24 +113,26 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-05T05:07:55.781Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "SceneManager.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\SceneManager.h",
               "RelativeDocumentMoniker": "Src\\Manager\\SceneManager.h",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\SceneManager.h",
               "RelativeToolTip": "Src\\Manager\\SceneManager.h",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAABwAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAABwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-03T04:53:55.344Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "Enemy.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.h",
               "RelativeDocumentMoniker": "Src\\Object\\Enemy.h",
@@ -132,17 +141,18 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-03T03:53:34.956Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp",
               "RelativeDocumentMoniker": "Src\\Object\\Player.cpp",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.cpp",
               "RelativeToolTip": "Src\\Object\\Player.cpp",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAEUAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-05T08:33:16.108Z",
               "IsPinned": true,
@@ -150,7 +160,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "Enemy.cpp",
+              "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.cpp",
+              "RelativeDocumentMoniker": "Src\\Object\\Enemy.cpp",
+              "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.cpp",
+              "RelativeToolTip": "Src\\Object\\Enemy.cpp",
+              "ViewState": "AgIAABIAAAAAAAAAAAAqwCEAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-06-15T04:28:05.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "InputManager.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Manager\\InputManager.cpp",
               "RelativeDocumentMoniker": "Src\\Manager\\InputManager.cpp",
@@ -158,11 +181,12 @@
               "RelativeToolTip": "Src\\Manager\\InputManager.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-11T08:16:37.25Z"
+              "WhenOpened": "2026-06-11T08:16:37.25Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "Camera.cpp",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.cpp",
               "RelativeDocumentMoniker": "Src\\Common\\Camera.cpp",
@@ -170,19 +194,21 @@
               "RelativeToolTip": "Src\\Common\\Camera.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkBAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-10T06:10:31.312Z"
+              "WhenOpened": "2026-06-10T06:10:31.312Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.h",
               "RelativeDocumentMoniker": "Src\\Common\\Camera.h",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Common\\Camera.h",
               "RelativeToolTip": "Src\\Common\\Camera.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAiwBoAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-10T02:08:37.15Z"
+              "WhenOpened": "2026-06-10T02:08:37.15Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -192,9 +218,10 @@
               "RelativeDocumentMoniker": "Src\\Object\\Player.h",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Player.h",
               "RelativeToolTip": "Src\\Object\\Player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-05T08:32:35.657Z"
+              "WhenOpened": "2026-06-05T08:32:35.657Z",
+              "EditorCaption": ""
             }
           ]
         }
