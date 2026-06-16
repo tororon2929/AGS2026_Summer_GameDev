@@ -56,6 +56,9 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Gin.mv1");
 	resourcesMap_.emplace(SRC::Gin, res);
 
+	res = new RES(RES_T::IMG, PATH_IMG + "Title.png");
+	resourcesMap_.emplace(SRC::Title, res);
+
 }
 
 void ResourceManager::Release(void)

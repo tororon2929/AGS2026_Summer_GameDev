@@ -18,7 +18,8 @@ public:
 		Kaku,
 		Hisha,
 		Kin,
-		Gin
+		Gin,
+		Title,
 
 	};
 
