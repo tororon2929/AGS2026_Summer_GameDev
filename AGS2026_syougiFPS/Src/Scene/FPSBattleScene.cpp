@@ -37,6 +37,11 @@ void FPSBattleScene::Init()
     player_->Init();
 }
 
+void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
+{
+    bullets_.push_back(new Bullet(pos, dir));
+}
+
 void FPSBattleScene::Update()
 {
 
@@ -60,9 +65,36 @@ void FPSBattleScene::Update()
 
     if (GetMouseInput() & MOUSE_INPUT_LEFT)
     {
-        if (player_!= nullptr && enemy_ != nullptr)
+        if (player_ != nullptr && camera_ != nullptr)
         {
+            //弾のスタート位置をカメラ位置にする
+            VECTOR start = camera_->GetPos();
+
+            //カメラ角度から向いてる方向を取得する
+            VECTOR angles = camera_->GetAngles();
             
+            lookDir.x = cosf(angles.x) * sinf(angles.y);
+            lookDir.y = -sinf(angles.x);
+            lookDir.z = cosf(angles.x) * cosf(angles.y);
+
+            start = VAdd(start, VScale(lookDir, 10.0f));
+
+            bullets_.push_back(new Bullet(start, lookDir));
+        }
+    }
+
+    //弾の更新処理
+    for (auto it = bullets_.begin(); it != bullets_.end();)
+    {
+        (*it)->Update();
+
+        //時間か来たら削除
+        if ((*it)->IsDead()) {
+            delete* it;
+            it = bullets_.erase(it);
+        }
+        else {
+            ++it;
         }
     }
 
@@ -103,6 +135,13 @@ void FPSBattleScene::Draw()
     {
         player_->Draw();
     }
+
+    //弾の描画
+    for (auto b : bullets_) {
+        b->Draw();
+    }
+
+    DrawFormatString(0, 0, GetColor(255, 255, 255), "Bullet Count: %d", bullets_.size());
 
     //DrawFormatString(
     //    700,
@@ -151,3 +190,5 @@ void FPSBattleScene::Release()
     }
 
 }
+
+

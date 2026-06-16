@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Bullet.cpp" />
     <ClCompile Include="Src\Object\Fu.cpp" />
     <ClCompile Include="Src\Object\Gin.cpp" />
     <ClCompile Include="Src\Object\Hisha.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Src\Object\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Bullet.h" />
     <ClInclude Include="Src\Object\Fu.h" />
     <ClInclude Include="Src\Object\Gin.h" />
     <ClInclude Include="Src\Object\Hisha.h" />

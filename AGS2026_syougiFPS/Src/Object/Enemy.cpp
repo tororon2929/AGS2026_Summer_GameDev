@@ -13,15 +13,15 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-    transform_.SetModel(
+    /*transform_.SetModel(
         ResourceManager::GetInstance().LoadModelDuplicate(
-            ResourceManager::SRC::Fu));
+            ResourceManager::SRC::Fu));*/
 
     transform_.pos = { 0.0f, 0.0f, 15.0f };
 
     transform_.scl = { 1.0f, 1.0f, 1.0f };
 
-    transform_.quaRot = Quaternion::Euler(VGet(-DX_PI_F / 2.0f, 0.0f, 0.0f));
+    //transform_.quaRot = Quaternion::Euler(VGet(-DX_PI_F / 2.0f, 0.0f, 0.0f));
 
     transform_.Update();
 
@@ -31,14 +31,21 @@ void Enemy::Init()
 
 void Enemy::Update()
 {
-    
-
+   
     transform_.Update();
 }
 
 void Enemy::Draw()
 {
-    MV1DrawModel(transform_.modelId);
+    if (isDummy_) {
+        DrawSphere3D(transform_.pos, 5.0f, 16, GetColor(255, 255, 0), GetColor(255, 255, 255), TRUE);
+    }
+    else
+    {
+        if (transform_.modelId != -1) {
+            MV1DrawModel(transform_.modelId);
+       }
+    };
 }
 
 void Enemy::Release()

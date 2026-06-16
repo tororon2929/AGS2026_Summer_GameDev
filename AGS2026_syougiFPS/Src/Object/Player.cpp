@@ -94,20 +94,7 @@ void Player::Update(Camera* camera)
 	//カメラの位置をプレイヤーの位置に合わせる
     camera->Setpos(cameraPos);
 
-    //射撃処理
-    if (GetMouseInput() & MOUSE_INPUT_LEFT)
-    {
-        VECTOR lineStart = pos_;
-
-        float sinH = sinf(angleH_);
-        float cosH = cosf(angleH_);
-        VECTOR lookDir;
-        lookDir.x = cosf(angleV_) * sinH;
-		lookDir.y = sinf(angleV_);
-        lookDir.z = cosf(angleV_) * cosH;
-
-        VECTOR lineEnd = VAdd(lineStart, VScale(lookDir, 10000.0f));
-    }
+    
 }
 
 void Player::Draw()
@@ -116,6 +103,13 @@ void Player::Draw()
    
 void Player::Release()
 {
+}
+
+VECTOR Player::GetLookDir() const
+{
+    float sinH = sinf(angleH_);
+    float cosH = cosf(angleH_);
+    return{ cosf(angleV_) * sinH,sinf(angleV_),cosf(angleV_) * cosH };
 }
 
 void Player::GetShotLine(VECTOR* start, VECTOR* end) const

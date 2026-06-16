@@ -17,6 +17,7 @@ public:
 private:
 
     Transform transform_;
+    bool isDummy_ = true; // ‰¼ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
 };
 
 

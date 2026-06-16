@@ -40,6 +40,7 @@
     <ClCompile Include="Src\Object\Kaku.cpp" />
     <ClCompile Include="Src\Object\Kin.cpp" />
     <ClCompile Include="Src\Object\Stage.cpp" />
+    <ClCompile Include="Src\Object\Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -81,5 +82,6 @@
     <ClInclude Include="Src\Object\Kaku.h" />
     <ClInclude Include="Src\Object\Kin.h" />
     <ClInclude Include="Src\Object\Stage.h" />
+    <ClInclude Include="Src\Object\Bullet.h" />
   </ItemGroup>
 </Project>
