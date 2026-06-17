@@ -10,6 +10,8 @@
 #include "../Object/Kaku.h"
 #include "../Object/Kin.h"
 #include "../Object/Gin.h"
+#include "../Effect/EffectManager.h"
+#include "../Effect/CutInEffect.h"
 
 PlayBpard::PlayBpard()
     : m_handle(-1),
@@ -237,6 +239,10 @@ void PlayBpard::Initialize()
 	enemygin->SetWorldPos(mCells[0][1].GetWorldPos());
 	mCells[0][1].SetPiece(enemygin);
 
+    const Resource& startRes = ResourceManager::GetInstance().Load(ResourceManager::SRC::Myturn);
+    EffectManager::GetInstance().AddEffect(
+        std::make_unique<CutInEffect>(startRes.handleId_, 1.5f)
+    );
 }
 
 void PlayBpard::Update()
@@ -295,7 +301,18 @@ void PlayBpard::Update()
 
     //    mSelectCell->SetScreenPos(currentX, currentY);
     //}
+    // ==========================================
+    // エフェクトマネージャーの更新 (1秒あたりの経過時間を渡す。1フレーム固定なら 1.0f/60.0f など)
+    // ==========================================
+    EffectManager::GetInstance().Update(1.0f / 60.0f);
 
+    // カットイン演出中の場合は、以降の操作（マウス入力など）を受け付けない
+    if (EffectManager::GetInstance().IsCutInActive())
+    {
+        // マウスの旧状態だけ同期して、プレイヤーが行動できないようにする
+        mMouseOld = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
+        return;
+    }
     // ==========================================
     // 通常のマウス選択処理（既存のもの）
     // ==========================================
@@ -330,7 +347,17 @@ void PlayBpard::Update()
 
                     if (result)
                     {
+                        // ターンを反転
                         mPlayerTurn = !mPlayerTurn;
+
+                        // 切り替わった「後の」ターンに応じたカットインを表示
+                        ResourceManager::SRC srcType = mPlayerTurn ? ResourceManager::SRC::Myturn : ResourceManager::SRC::Enemyturn;
+                        const Resource& turnRes = ResourceManager::GetInstance().Load(srcType);
+
+                        // 1.5秒間（Updateの加算速度に合わせて調整してください）表示されるカットインを登録
+                        EffectManager::GetInstance().AddEffect(
+                            std::make_unique<CutInEffect>(turnRes.handleId_, 1.5f)
+                        );
                     }
                     mSelectPiece = nullptr;
                     ShowMovePoint(nullptr);
@@ -383,7 +410,7 @@ void PlayBpard::Draw()
             int px = cell->GetScreenX();
             int py = cell->GetScreenY();
 
-            DrawBox(px, py, px + mCellSizeX, py + mCellSizeY, GetColor(255, 0, 0), FALSE);
+            //DrawBox(px, py, px + mCellSizeX, py + mCellSizeY, GetColor(255, 0, 0), FALSE);
 
             if (cell->IsSelected())
             {
@@ -395,7 +422,7 @@ void PlayBpard::Draw()
                 DrawBox(px, py, px + mCellSizeX, py + mCellSizeY, GetColor(0, 0, 255), FALSE);
             }
 
-            DrawCircle(px + mCellSizeX / 2, py + mCellSizeY / 2, 5, GetColor(0, 255, 0), TRUE);
+           /* DrawCircle(px + mCellSizeX / 2, py + mCellSizeY / 2, 5, GetColor(0, 255, 0), TRUE);*/
 
             if (cell->GetPiece())
             {
@@ -430,6 +457,10 @@ void PlayBpard::Draw()
             FALSE
         );
     }
+    // ==========================================
+    // エフェクト（カットイン）の描画を一番手前で行う
+    // ==========================================
+    EffectManager::GetInstance().Draw();
 }
 
 bool PlayBpard::MovePiece(int fromX, int fromY, int toX, int toY)
