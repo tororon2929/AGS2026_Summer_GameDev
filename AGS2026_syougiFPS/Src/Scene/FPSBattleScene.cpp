@@ -51,7 +51,7 @@ void FPSBattleScene::Update()
         camera_->Update();
     }
 
-	// ステージの更新
+	// エネミーの更新
     if(enemy_!=nullptr)
     {
         enemy_->Update();
@@ -88,14 +88,36 @@ void FPSBattleScene::Update()
     {
         (*it)->Update();
 
-        //時間か来たら削除
-        if ((*it)->IsDead()) {
+        bool isHit = false;
+        if (enemy_ != nullptr)
+        {
+            //弾と敵の距離の計算
+            float dist = VSize(VSub((*it)->GetPos(), enemy_->GetPos()));
+
+            //ヒット判定
+            if (dist < 7.0f)
+            {
+                isHit = true;
+            }
+        }
+
+        if (isHit)
+        {
+            hitCount++;
+
+            delete* it;
+            it = bullets_.erase(it);
+        }
+        else if ((*it)->IsDead())
+        {
             delete* it;
             it = bullets_.erase(it);
         }
         else {
             ++it;
         }
+
+        
     }
 
     // 仮：Enterで将棋へ戻る
@@ -143,6 +165,9 @@ void FPSBattleScene::Draw()
 
     DrawFormatString(0, 0, GetColor(255, 255, 255), "Bullet Count: %d", bullets_.size());
 
+    DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount);
+}
+
     //DrawFormatString(
     //    700,
     //    400,
@@ -156,7 +181,7 @@ void FPSBattleScene::Draw()
     //    GetColor(255, 255, 0),
     //    "PRESS ENTER TO RETURN"
     //);
-}
+
 
 void FPSBattleScene::Release()
 {

@@ -17,7 +17,7 @@ void Enemy::Init()
         ResourceManager::GetInstance().LoadModelDuplicate(
             ResourceManager::SRC::Fu));*/
 
-    transform_.pos = { 0.0f, 0.0f, 15.0f };
+    transform_.pos = {0.0f, 30.0f, 15.0f };
 
     transform_.scl = { 1.0f, 1.0f, 1.0f };
 
@@ -38,13 +38,19 @@ void Enemy::Update()
 void Enemy::Draw()
 {
     if (isDummy_) {
-        DrawSphere3D(transform_.pos, 5.0f, 16, GetColor(255, 255, 0), GetColor(255, 255, 255), TRUE);
+        DrawSphere3D(
+            transform_.pos, 5.0f, 16, GetColor(255, 255, 0), 
+            GetColor(255, 255, 255), TRUE);
+
+        //âÊñ ÇÃìKìñÇ»èÍèäÇ…ç¿ïWÇï\é¶Ç∑ÇÈ
+        DrawFormatString(0, 50, GetColor(255, 255, 255), "Enemy Pos: x:%.1f y:%.1f z:%.1f",
+            transform_.pos.x, transform_.pos.y, transform_.pos.z);
     }
     else
     {
         if (transform_.modelId != -1) {
             MV1DrawModel(transform_.modelId);
-       }
+        }
     };
 }
 
