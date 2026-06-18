@@ -13,9 +13,9 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-    /*transform_.SetModel(
+    transform_.SetModel(
         ResourceManager::GetInstance().LoadModelDuplicate(
-            ResourceManager::SRC::Fu));*/
+            ResourceManager::SRC::Fu));
 
     transform_.pos = {0.0f, 30.0f, 15.0f };
 
@@ -29,9 +29,14 @@ void Enemy::Init()
 }
 
 
-void Enemy::Update()
+void Enemy::Update(VECTOR playerPos)
 {
-   
+    VECTOR dir = VSub(playerPos, transform_.pos);
+
+    dir = VNorm(dir);
+
+    
+
     transform_.Update();
 }
 
@@ -39,7 +44,7 @@ void Enemy::Draw()
 {
     if (isDummy_) {
         DrawSphere3D(
-            transform_.pos, 5.0f, 16, GetColor(255, 255, 0), 
+            transform_.pos, 3.0f, 4, GetColor(255, 255, 0), 
             GetColor(255, 255, 255), TRUE);
 
         //âÊñ ÇÃìKìñÇ»èÍèäÇ…ç¿ïWÇï\é¶Ç∑ÇÈ
