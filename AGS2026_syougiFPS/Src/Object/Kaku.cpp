@@ -79,8 +79,8 @@ void Kaku::Draw()
 
     MV1DrawModel(mModelHandle);
 
-    //// デバッグ用：本来の「中心」である mWorldPos に球を表示
-    //DrawSphere3D(mWorldPos, 0.1f, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
+    // デバッグ用：本来の「中心」である mWorldPos に球を表示
+    DrawSphere3D(mWorldPos, 0.1f, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
 
  //       =========================
  //  微調整

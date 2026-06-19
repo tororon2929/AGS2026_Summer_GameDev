@@ -109,49 +109,49 @@ void Camera::UpdateTopDown(void)
 // ─────────────────────────────────────────────────────────
 void Camera::UpdateFPS(void)
 {
-    //// マウスで視点回転
-    //int mx, my;
-    //GetMousePoint(&mx, &my);
+    // マウスで視点回転
+    int mx, my;
+    GetMousePoint(&mx, &my);
 
-    //float deltaX = static_cast<float>(mx - 320) * FPS_ROT_SPEED;
-    //float deltaY = static_cast<float>(my - 240) * FPS_ROT_SPEED;
+    float deltaX = static_cast<float>(mx - 320) * FPS_ROT_SPEED;
+    float deltaY = static_cast<float>(my - 240) * FPS_ROT_SPEED;
 
-    //angles_.y += deltaX;
-    //angles_.x += deltaY;
+    angles_.y += deltaX;
+    angles_.x += deltaY;
 
-    //// ピッチをクランプ
-    //if (angles_.x > FPS_PITCH_LIMIT) angles_.x = FPS_PITCH_LIMIT;
-    //if (angles_.x < -FPS_PITCH_LIMIT) angles_.x = -FPS_PITCH_LIMIT;
+    // ピッチをクランプ
+    if (angles_.x > FPS_PITCH_LIMIT) angles_.x = FPS_PITCH_LIMIT;
+    if (angles_.x < -FPS_PITCH_LIMIT) angles_.x = -FPS_PITCH_LIMIT;
 
-    //// マウスを中央に戻す
-    //SetMousePoint(320, 240);
+    // マウスを中央に戻す
+    SetMousePoint(320, 240);
 
-    //// Yaw → Pitch の順に合成（ジンバルロック回避）
-    //Quaternion qYaw = Quaternion::AngleAxis(
-    //    angles_.y, VGet(0.0f, 1.0f, 0.0f));
-    //Quaternion qPitch = Quaternion::AngleAxis(
-    //    angles_.x, VGet(1.0f, 0.0f, 0.0f));
-    //rot_ = Quaternion::Mult(qYaw, qPitch);
+    // Yaw → Pitch の順に合成（ジンバルロック回避）
+    Quaternion qYaw = Quaternion::AngleAxis(
+        angles_.y, VGet(0.0f, 1.0f, 0.0f));
+    Quaternion qPitch = Quaternion::AngleAxis(
+        angles_.x, VGet(1.0f, 0.0f, 0.0f));
+    rot_ = Quaternion::Mult(qYaw, qPitch);
 
-    //// 移動方向をクォータニオンで変換
-    //VECTOR forward = rot_.GetForward();
-    //VECTOR right = rot_.GetRight();
+    // 移動方向をクォータニオンで変換
+    VECTOR forward = rot_.GetForward();
+    VECTOR right = rot_.GetRight();
 
-    //// XZ平面に投影（空中浮遊しない）
-    //forward.y = 0.0f;
-    //right.y = 0.0f;
-    //forward = AsoUtility::VNormalize(forward);
-    //right = AsoUtility::VNormalize(right);
+    // XZ平面に投影（空中浮遊しない）
+    forward.y = 0.0f;
+    right.y = 0.0f;
+    forward = AsoUtility::VNormalize(forward);
+    right = AsoUtility::VNormalize(right);
 
-    //if (CheckHitKey(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, FPS_MOVE_SPEED));
-    //if (CheckHitKey(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -FPS_MOVE_SPEED));
-    //if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
-    //if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
+    if (CheckHitKey(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, FPS_MOVE_SPEED));
+    if (CheckHitKey(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -FPS_MOVE_SPEED));
+    if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
+    if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
 
 
-    //
-    //// 高さ固定
-    //pos_.y = FPS_EYE_HEIGHT;
+    
+    // 高さ固定
+    pos_.y = FPS_EYE_HEIGHT;
 }
 
 // ─────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ void Camera::SetBeforeDraw(void)
 // ─────────────────────────────────────────────────────────
 void Camera::DrawDebug(void)
 {
-   /* int y = 10;
+    int y = 10;
     const int         LINE = 20;
     const unsigned int COL = GetColor(0, 255, 0);
 
@@ -237,7 +237,7 @@ void Camera::DrawDebug(void)
     else {
         DrawFormatString(10, y, COL,
             "WASD:移動  Mouse:視点回転");
-    }*/
+    }
 }
 
 void Camera::Release(void) {}

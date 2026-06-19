@@ -86,7 +86,7 @@ void Kin::Draw()
         MV1SetRotationXYZ(mModelHandle, VGet(0.0f, 0.0f, 0.0f));
 
         // プレイヤー専用のオフセット（モデルに合わせて微調整してください）
-        offset = VGet(4.5f, 0.0f, 19.0f);
+        offset = VGet(13.25f, 0.0f, -9.0f);
     }
     else
     {
@@ -94,7 +94,7 @@ void Kin::Draw()
         MV1SetRotationXYZ(mModelHandle, VGet(0.0f, DX_PI_F, 0.0f));
 
         // 敵専用のオフセット（モデルに合わせて微調整してください）
-        offset = VGet(-4.5f, 0.0f, -19.0f);
+        offset = VGet(4.5f, 0.0f, 9.0f);
     }
 
     MV1SetPosition(
@@ -104,33 +104,33 @@ void Kin::Draw()
 
     MV1DrawModel(mModelHandle);
 
-  //  // デバッグ用：本来の「中心」である mWorldPos に球を表示
-  //  DrawSphere3D(mWorldPos, 0.1f, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
-  //     // =========================
-  //// 微調整
-  //// =========================
-
-  // if (CheckHitKey(KEY_INPUT_UP))
-  // {
-  //     mWorldPos.z += 0.25f;
-  // }
-
-  // if (CheckHitKey(KEY_INPUT_DOWN))
-  // {
-  //     mWorldPos.z -= 0.25f;
-  // }
-
-  // if (CheckHitKey(KEY_INPUT_LEFT))
-  // {
-  //     mWorldPos.x -= 0.25f;
-  // }
-
-  // if (CheckHitKey(KEY_INPUT_RIGHT))
-  // {
-  //     mWorldPos.x += 0.25f;
-  // }
-
-  
+    // デバッグ用：本来の「中心」である mWorldPos に球を表示
+    DrawSphere3D(mWorldPos, 0.1f, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
+//       // =========================
+//  // 微調整
+//  // =========================
+//
+//   if (CheckHitKey(KEY_INPUT_UP))
+//   {
+//       mWorldPos.z += 0.25f;
+//   }
+//
+//   if (CheckHitKey(KEY_INPUT_DOWN))
+//   {
+//       mWorldPos.z -= 0.25f;
+//   }
+//
+//   if (CheckHitKey(KEY_INPUT_LEFT))
+//   {
+//       mWorldPos.x -= 0.25f;
+//   }
+//
+//   if (CheckHitKey(KEY_INPUT_RIGHT))
+//   {
+//       mWorldPos.x += 0.25f;
+//   }
+//
+//  
 //  // =========================
 //// デバッグ表示
 //// =========================
