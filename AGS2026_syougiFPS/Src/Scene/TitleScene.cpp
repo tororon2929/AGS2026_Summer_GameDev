@@ -1,4 +1,4 @@
-#include <cmath>
+ï»¿#include <cmath>
 #include <DxLib.h>
 #include "../Manager/InputManager.h"
 #include "../Manager/SceneManager.h"
@@ -10,22 +10,22 @@ TitleScene::TitleScene(void) : SceneBase()
 {
 	titleGraphHandle_ = -1;
 
-	// ƒƒS‚Ì‰Šú’liDraw‚ÅŽg—p‚³‚ê‚Ä‚¢‚éŒÅ’è’l‚ð‘ã“üj
+	// ãƒ­ã‚´ã®åˆæœŸå€¤ï¼ˆDrawã§ä½¿ç”¨ã•ã‚Œã¦ã„ã‚‹å›ºå®šå€¤ã‚’ä»£å…¥ï¼‰
 	logoX_ = 785;
 	logoY_ = 225;
 	logoScale_ = 0.5;
 
 	boardModelHandle_ = -1;
-	boardPos_ = VGet(53.0f, -1.0f, 15.0f); // «Šû”Õ‚ª‰æ–Ê’†‰›‚ÉŒ©‚¦‚é‚æ‚¤‰ŠúˆÊ’u‚ð­‚µ‰º‚°‚Ä‚¢‚Ü‚·
+	boardPos_ = VGet(53.0f, -1.0f, 15.0f); // å°†æ£‹ç›¤ãŒç”»é¢ä¸­å¤®ã«è¦‹ãˆã‚‹ã‚ˆã†åˆæœŸä½ç½®ã‚’å°‘ã—ä¸‹ã’ã¦ã„ã¾ã™
 	boardRotY_ = 0.0f;
-	boardRotPitch_ = -0.58f;               // «Šû”Õ‚ÌXŽ²‰ñ“]ƒfƒoƒbƒO—p
-	boardRotYaw_ = 0.64f;                 // «Šû”Õ‚ÌYŽ²‰ñ“]ƒfƒoƒbƒO—p
+	boardRotPitch_ = -0.58f;               // å°†æ£‹ç›¤ã®Xè»¸å›žè»¢ãƒ‡ãƒãƒƒã‚°ç”¨
+	boardRotYaw_ = 0.64f;                 // å°†æ£‹ç›¤ã®Yè»¸å›žè»¢ãƒ‡ãƒãƒƒã‚°ç”¨
 	boardRotSpeed_ = 0.01f;
 
-	// --- ƒJƒƒ‰‚Ì‰ŠúÝ’èi–{”Ô‘z’è‚ÌŒÅ’èˆÊ’uj ---
+	// --- ã‚«ãƒ¡ãƒ©ã®åˆæœŸè¨­å®šï¼ˆæœ¬ç•ªæƒ³å®šã®å›ºå®šä½ç½®ï¼‰ ---
 	cameraRadius_ = 250.0f;
-	cameraPitch_ = 0.84f;      // ã‰º30“x
-	cameraYaw_ = 0.58f;                  // ³–Ê‚©‚ç
+	cameraPitch_ = 0.84f;      // ä¸Šä¸‹30åº¦
+	cameraYaw_ = 0.58f;                  // æ­£é¢ã‹ã‚‰
 	prevMouseX_ = 0;
 	prevMouseY_ = 0;
 }
@@ -41,56 +41,55 @@ void TitleScene::Init(void)
 
 	boardModelHandle_ = ResourceManager::GetInstance().LoadModelDuplicate(ResourceManager::SRC::PlayBpard);
 
-	// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ð•\Ž¦‚·‚é
+	// ãƒžã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
 	SetMouseDispFlag(TRUE);
 }
 
 void TitleScene::Update(void)
 {
-	int mouseX, mouseY;
-	int mouseInput = GetMouseInput();
-	GetMousePoint(&mouseX, &mouseY);
+	// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’å–å¾—
+	int padInput = GetJoypadInputState(DX_INPUT_PAD1);
 
-	float deltaX = (float)(mouseX - prevMouseX_);
-	float deltaY = (float)(mouseY - prevMouseY_);
-
-	// --- «Šû”Õ‚ÌŽ©“®‰ñ“] • ƒfƒoƒbƒO‰ñ“]‘€ì ---
-	// ¶ƒNƒŠƒbƒN‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢Žž‚ÍŽ©“®‰ñ“]
-	if (!(mouseInput & MOUSE_INPUT_LEFT))
+	// ðŸ’¡ Aãƒœã‚¿ãƒ³(PAD_INPUT_1) ã¾ãŸã¯ Enterã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã¸
+	if ((padInput & PAD_INPUT_1) || CheckHitKey(KEY_INPUT_SPACE))
 	{
-		boardRotY_ += boardRotSpeed_;
-		if (boardRotY_ > DX_PI_F * 2.0f) { boardRotY_ -= DX_PI_F * 2.0f; }
-		if (boardRotY_ < 0.0f) { boardRotY_ += DX_PI_F * 2.0f; }
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
+	}
+
+	// --- ä»¥ä¸‹ã€æ—¢å­˜ã®èƒŒæ™¯ã®å°†æ£‹ç›¤å›žè»¢å‡¦ç†ãªã© ---
+	boardRotY_ += boardRotSpeed_;
+	if (boardRotY_ > DX_PI_F * 2) {
+		boardRotY_ -= DX_PI_F * 2;
 	}
 	//else
 	//{
-	//	// ¶ƒNƒŠƒbƒNƒhƒ‰ƒbƒO‚Å«Šû”Õ‚ÌŠp“x‚ðƒfƒoƒbƒO”÷’²®
+	//	// å·¦ã‚¯ãƒªãƒƒã‚¯ãƒ‰ãƒ©ãƒƒã‚°ã§å°†æ£‹ç›¤ã®è§’åº¦ã‚’ãƒ‡ãƒãƒƒã‚°å¾®èª¿æ•´
 	//	boardRotYaw_ -= deltaX * 0.005f;
 	//	boardRotPitch_ += deltaY * 0.005f;
 	//}
 
-	//// --- ƒfƒoƒbƒO—pƒJƒƒ‰ƒ}ƒEƒX‘€ìi‰EƒNƒŠƒbƒNƒhƒ‰ƒbƒOj ---
+	//// --- ãƒ‡ãƒãƒƒã‚°ç”¨ã‚«ãƒ¡ãƒ©ãƒžã‚¦ã‚¹æ“ä½œï¼ˆå³ã‚¯ãƒªãƒƒã‚¯ãƒ‰ãƒ©ãƒƒã‚°ï¼‰ ---
 	//if (mouseInput & MOUSE_INPUT_RIGHT)
 	//{
-	//	cameraYaw_ -= deltaX * 0.005f;   // ¶‰E‰ñ“]
-	//	cameraPitch_ += deltaY * 0.005f;   // ã‰º‰ñ“]
+	//	cameraYaw_ -= deltaX * 0.005f;   // å·¦å³å›žè»¢
+	//	cameraPitch_ += deltaY * 0.005f;   // ä¸Šä¸‹å›žè»¢
 
-	//	// ƒJƒƒ‰”½“]ƒK[ƒh
+	//	// ã‚«ãƒ¡ãƒ©åè»¢ã‚¬ãƒ¼ãƒ‰
 	//	if (cameraPitch_ > (DX_PI_F / 2.0f) - 0.05f)  cameraPitch_ = (DX_PI_F / 2.0f) - 0.05f;
 	//	if (cameraPitch_ < -(DX_PI_F / 2.0f) + 0.05f) cameraPitch_ = -(DX_PI_F / 2.0f) + 0.05f;
 	//}
 
-	//// ƒ}ƒEƒXˆÊ’u‚Ì•Û‘¶
+	//// ãƒžã‚¦ã‚¹ä½ç½®ã®ä¿å­˜
 	//prevMouseX_ = mouseX;
 	//prevMouseY_ = mouseY;
 
-	//// ƒ}ƒEƒXƒzƒC[ƒ‹‚Ü‚½‚Í [PageUp]/[PageDown] ‚ÅƒJƒƒ‰‚Ì‹——£‚ð’²®iƒY[ƒ€j
+	//// ãƒžã‚¦ã‚¹ãƒ›ã‚¤ãƒ¼ãƒ«ã¾ãŸã¯ [PageUp]/[PageDown] ã§ã‚«ãƒ¡ãƒ©ã®è·é›¢ã‚’èª¿æ•´ï¼ˆã‚ºãƒ¼ãƒ ï¼‰
 	//int wheel = GetMouseWheelRotVol();
 	//if (wheel > 0 || CheckHitKey(KEY_INPUT_PGUP)) { cameraRadius_ -= 2.0f; }
 	//if (wheel < 0 || CheckHitKey(KEY_INPUT_PGDN)) { cameraRadius_ += 2.0f; }
 	//if (cameraRadius_ < 5.0f) cameraRadius_ = 5.0f;
 
-	//// --- «Šû”Õ‚ÌˆÚ“®‘€ì ---
+	//// --- å°†æ£‹ç›¤ã®ç§»å‹•æ“ä½œ ---
 	//if (CheckHitKey(KEY_INPUT_LEFT)) { boardPos_.x -= 0.2f; }
 	//if (CheckHitKey(KEY_INPUT_RIGHT)) { boardPos_.x += 0.2f; }
 	//if (CheckHitKey(KEY_INPUT_UP)) { boardPos_.z += 0.2f; }
@@ -98,34 +97,30 @@ void TitleScene::Update(void)
 	//if (CheckHitKey(KEY_INPUT_Q)) { boardPos_.y += 0.2f; }
 	//if (CheckHitKey(KEY_INPUT_E)) { boardPos_.y -= 0.2f; }
 
-	// ƒV[ƒ“‘JˆÚ
-	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_SPACE))
-	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
-	}
+
 }
 
 void TitleScene::Draw(void)
 {
-	// --- ‹…–ÊÀ•W‚©‚çƒJƒƒ‰‚Ì3DˆÊ’u‚ðŒvŽZ ---
+	// --- çƒé¢åº§æ¨™ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã®3Dä½ç½®ã‚’è¨ˆç®— ---
 	float cx = cameraRadius_ * cosf(cameraPitch_) * sinf(cameraYaw_);
 	float cy = cameraRadius_ * sinf(cameraPitch_);
 	float cz = cameraRadius_ * cosf(cameraPitch_) * cosf(cameraYaw_);
 
-	// ƒJƒƒ‰‚Ì’Ž‹“_‚ÆˆÊ’uiƒJƒƒ‰Ž©‘Ì‚ÍŒÅ’èAƒfƒoƒbƒOŽž‚Ì‚Ýcx, cy, cz‚ª•Ï‰»j
+	// ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã¨ä½ç½®ï¼ˆã‚«ãƒ¡ãƒ©è‡ªä½“ã¯å›ºå®šã€ãƒ‡ãƒãƒƒã‚°æ™‚ã®ã¿cx, cy, czãŒå¤‰åŒ–ï¼‰
 	VECTOR targetPos = VGet(0.0f, 0.0f, 0.0f);
 	VECTOR cameraPos = VGet(cx, cy, cz);
 
-	// ƒJƒƒ‰Ý’è‚ð“K—p
+	// ã‚«ãƒ¡ãƒ©è¨­å®šã‚’é©ç”¨
 	SetCameraPositionAndTargetAndUpVec(cameraPos, targetPos, VGet(0.0f, 1.0f, 0.0f));
 
-	// --- «Šû”Õ(3Dƒ‚ƒfƒ‹)‚Ì•`‰æ ---
+	// --- å°†æ£‹ç›¤(3Dãƒ¢ãƒ‡ãƒ«)ã®æç”» ---
 	if (boardModelHandle_ != -1)
 	{
-		// Ž©“®‰ñ“](boardRotY_) + ƒfƒoƒbƒO‰ñ“](Pitch, Yaw)‚ð‡¬
+		// è‡ªå‹•å›žè»¢(boardRotY_) + ãƒ‡ãƒãƒƒã‚°å›žè»¢(Pitch, Yaw)ã‚’åˆæˆ
 		Quaternion qAuto = Quaternion::Euler(0.0f, (double)boardRotY_, 0.0f);
 		Quaternion qDebug = Quaternion::Euler((double)boardRotPitch_, (double)boardRotYaw_, 0.0f);
-		Quaternion qTotal = qDebug.Mult(qAuto); // ‰ñ“]‚ÌŠ|‚¯‡‚í‚¹
+		Quaternion qTotal = qDebug.Mult(qAuto); // å›žè»¢ã®æŽ›ã‘åˆã‚ã›
 
 		MATRIX matRot = qTotal.ToMatrix();
 		MATRIX matTrans = MGetTranslate(boardPos_);
@@ -135,13 +130,13 @@ void TitleScene::Draw(void)
 		MV1DrawModel(boardModelHandle_);
 	}
 
-	// ƒ^ƒCƒgƒ‹ƒƒS‚Ì•`‰æ
+	// ã‚¿ã‚¤ãƒˆãƒ«ãƒ­ã‚´ã®æç”»
 	if (titleGraphHandle_ != -1)
 	{
 		DrawRotaGraph(logoX_, logoY_, logoScale_, 0.0, titleGraphHandle_, TRUE);
 	}
 
-	//// ‘SƒfƒoƒbƒOî•ñ‚Ì•\Ž¦
+	//// å…¨ãƒ‡ãƒãƒƒã‚°æƒ…å ±ã®è¡¨ç¤º
 	//unsigned int white = GetColor(255, 255, 255);
 	//unsigned int yellow = GetColor(255, 255, 0);
 	//unsigned int green = GetColor(0, 255, 128);

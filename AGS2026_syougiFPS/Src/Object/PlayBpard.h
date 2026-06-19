@@ -26,7 +26,9 @@ public:
     bool IsPathClear(int fromX, int fromY, int toX, int toY);
 
 private:
-
+    int mPadCursorX = 2; // コントローラー用カーソルの初期X位置 (5マスの真ん中)
+    int mPadCursorY = 3; // コントローラー用カーソルの初期Y位置 (7マスの真ん中)
+    int mPadOldInput = 0; // 前フレームのボタン状態
     int m_handle;
 
     // 将棋盤を縦7マス、横5マスに修正 (mCells[y][x] -> yが7、xが5)

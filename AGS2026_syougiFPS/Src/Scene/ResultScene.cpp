@@ -1,6 +1,7 @@
-#include "ResultScene.h"
+﻿#include "ResultScene.h"
 #include <DxLib.h>
 #include "../Manager/SceneManager.h"
+#include"../Manager/InputManager.h"
 
 ResultScene::ResultScene()
 {
@@ -16,12 +17,12 @@ void ResultScene::Init()
 
 void ResultScene::Update()
 {
-    // Enter�Ń^�C�g���֖߂�
-    if (CheckHitKey(KEY_INPUT_RETURN))
+    int padInput = GetJoypadInputState(DX_INPUT_PAD1);
+
+    // 💡 Aボタン(PAD_INPUT_1) または Enterキーでタイトルへ戻る
+    if ((padInput & PAD_INPUT_1) || CheckHitKey(KEY_INPUT_SPACE))
     {
-        SceneManager::GetInstance().ChangeScene(
-            SceneManager::SCENE_ID::TITLE
-        );
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
     }
 }
 

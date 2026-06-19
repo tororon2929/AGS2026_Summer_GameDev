@@ -20,6 +20,8 @@ public:
 		Kin,
 		Gin,
 		Title,
+		Myturn,
+		Enemyturn,
 
 	};
 
