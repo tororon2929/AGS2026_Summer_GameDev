@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <DxLib.h> // © ‚±‚ê‚ğ’Ç‰Á
 class SceneBase;
 class Fader;
 class Camera;

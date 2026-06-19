@@ -1,23 +1,45 @@
 #pragma once
-#include<DxLib.h>
+#include <DxLib.h>
+#include"../Common/Transform.h"
+class Camera;
+
 class Player
 {
-private:
-	// スピード
-	static constexpr float SPEED_MOVE = 5.0f;
-	static constexpr float SPEED_RUN = 10.0f;
-
-	// ジャンプ力
-	static constexpr float POW_JUMP = 35.0f;
-
-	Player(void);
-	~Player(void);
-
-	void Init(void);
-	void Update(void);
-	void Draw(void);
-
 public:
-	
+    Player();
+    ~Player();
+
+    void Init();
+    void Update(Camera* camera);
+	void Draw();
+	void Release();
+
+    //外部からプレイヤーの座標などを取得
+    VECTOR GetPos() const { return pos_; }
+    VECTOR GetLookDir()const;
+    void GetShotLine(VECTOR* start, VECTOR* end)const;
+    
+    int GetHP() const { return hp_; }
+    bool IsInvincible() const { return invincibleTimer_ > 0; }
+    void Damage(int value);
+   
+private:
+    
+
+    VECTOR pos_;        // プレイヤーの現在座標
+    float angleH_;      // 水平方向の回転角度
+    float angleV_;      // 垂直方向の回転角度
+    float velocityY_;
+    float floorHeight = 30.0f;
+    float limitX = 25.0f;
+    float limitZ = 25.0f;
+    
+    const float turnSpeed_ = 0.005f; // マウス感度
+	const float moveSpeed_ = 0.2f;// 移動速度
+	const float gravity_ = -0.05f; // 重力加速度
+
+    int hp_ = 100;
+    int invincibleTimer_ = 0;
+    
 };
 

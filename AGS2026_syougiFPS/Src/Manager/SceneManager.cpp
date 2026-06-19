@@ -238,7 +238,7 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	case SCENE_ID::GAME:
 		scene_ = new GameScene();
 		break;
-
+		
 	case SCENE_ID::FPS_BATTLE:
 		scene_ = new FPSBattleScene();
 		break;

@@ -19,9 +19,13 @@ public:
 		Hisha,
 		Kin,
 		Gin,
+<<<<<<< HEAD
 		Title,
 		Myturn,
 		Enemyturn,
+=======
+		ENEMY,
+>>>>>>> 守口
 
 	};
 
