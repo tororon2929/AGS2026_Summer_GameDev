@@ -56,7 +56,6 @@ void TitleScene::Update(void)
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 	}
 
-<<<<<<< HEAD
 	// --- 以下、既存の背景の将棋盤回転処理など ---
 	boardRotY_ += boardRotSpeed_;
 	if (boardRotY_ > DX_PI_F * 2) {
@@ -99,12 +98,10 @@ void TitleScene::Update(void)
 	//if (CheckHitKey(KEY_INPUT_E)) { boardPos_.y -= 0.2f; }
 
 
-=======
 	if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_B))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
 	}
->>>>>>> 守口
 }
 
 void TitleScene::Draw(void)

@@ -41,6 +41,9 @@
     <ClCompile Include="Src\Object\Kin.cpp" />
     <ClCompile Include="Src\Object\Stage.cpp" />
     <ClCompile Include="Src\Object\Bullet.cpp" />
+    <ClCompile Include="Src\Effect\CutInEffect.cpp" />
+    <ClCompile Include="Src\Effect\EffectBase.cpp" />
+    <ClCompile Include="Src\Effect\EffectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -83,5 +86,8 @@
     <ClInclude Include="Src\Object\Kin.h" />
     <ClInclude Include="Src\Object\Stage.h" />
     <ClInclude Include="Src\Object\Bullet.h" />
+    <ClInclude Include="Src\Effect\CutInEffect.h" />
+    <ClInclude Include="Src\Effect\EffectBase.h" />
+    <ClInclude Include="Src\Effect\EffectManager.h" />
   </ItemGroup>
 </Project>

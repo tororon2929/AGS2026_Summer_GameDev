@@ -56,7 +56,6 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Gin.mv1");
 	resourcesMap_.emplace(SRC::Gin, res);
 
-<<<<<<< HEAD
 	res = new RES(RES_T::IMG, PATH_IMG + "Title.png");
 	resourcesMap_.emplace(SRC::Title, res);
 
@@ -65,9 +64,7 @@ void ResourceManager::Init(void)
 
 	res = new RES(RES_T::IMG, PATH_IMG + "Enemyturn.png");
 	resourcesMap_.emplace(SRC::Enemyturn, res);
-=======
 
->>>>>>> 守口
 
 }
 
