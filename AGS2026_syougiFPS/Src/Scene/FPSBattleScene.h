@@ -4,6 +4,7 @@
 #include "SceneBase.h"
 #include "../Object/Enemy.h"
 #include"../Object/Bullet.h"
+#include"../Application.h"
 
 class Enemy;
 class Player;
@@ -33,7 +34,11 @@ private:
     Camera* camera_ = nullptr;
     Stage* stage_ = nullptr;
 
-
     VECTOR lookDir;
     std::vector<Bullet*> bullets_;
+
+    int crosshairImg_ = -1;
+    int centerX = Application::SCREEN_SIZE_X / 2;
+    int centerY = Application::SCREEN_SIZE_Y / 2;
+   
 };

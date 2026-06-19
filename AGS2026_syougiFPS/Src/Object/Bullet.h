@@ -12,7 +12,7 @@ public:
 private:
     VECTOR pos_;
     VECTOR dir_;
-    int life_ = 120; // 60フレームで消える
+    int life_ = 60; // 60フレームで消える
 
     
 

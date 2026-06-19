@@ -35,7 +35,12 @@ void Enemy::Update(VECTOR playerPos)
 
     dir = VNorm(dir);
 
-    
+    transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
+
+    if (transform_.pos.y < floorHeight)
+    {
+        transform_.pos.y = floorHeight;
+    }
 
     transform_.Update();
 }

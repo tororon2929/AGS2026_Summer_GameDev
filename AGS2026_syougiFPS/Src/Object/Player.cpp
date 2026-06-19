@@ -21,7 +21,10 @@ void Player::Update(Camera* camera)
 {
     if (camera == nullptr)return;
 
-
+    if (invincibleTimer_ > 0)
+    {
+        invincibleTimer_--;
+    }
 
     // 現在向いている水平方向のベクトルを計算
     VECTOR cameraAngles = camera->GetAngles();
@@ -97,6 +100,16 @@ void Player::Update(Camera* camera)
     
 }
 
+void Player::Damage(int value)
+{
+    if (IsInvincible()) return;
+
+    hp_ -= value;
+    if (hp_ < 0) hp_ = 0;
+
+    invincibleTimer_ = 60;
+}
+
 void Player::Draw()
 {
 }
@@ -126,3 +139,5 @@ void Player::GetShotLine(VECTOR* start, VECTOR* end) const
 
     *end = VAdd(pos_, VScale(lookDir, 10000.0f));
 }
+
+

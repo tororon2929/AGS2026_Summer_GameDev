@@ -1,6 +1,7 @@
 #include "FPSBattleScene.h"
 #include <DxLib.h>
 #include "../Manager/SceneManager.h"
+#include "../Manager/ResourceManager.h"
 #include "../Common/Camera.h"
 #include "../Object/Stage.h"
 #include "../Object/Enemy.h"
@@ -35,6 +36,8 @@ void FPSBattleScene::Init()
 	// プレイヤーの初期化
     player_ = new Player();
     player_->Init();
+
+    crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 }
 
 void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
@@ -52,9 +55,9 @@ void FPSBattleScene::Update()
     }
 
 	// エネミーの更新
-    if(enemy_!=nullptr)
+    if(enemy_ != nullptr && player_ != nullptr)
     {
-        enemy_->Update();
+        enemy_->Update(player_->GetPos());
 	}
 
 	// プレイヤーの更新
@@ -63,6 +66,19 @@ void FPSBattleScene::Update()
         player_->Update(camera_);
 	}
 
+    if (enemy_ != nullptr && player_ != nullptr)
+    {
+        if (!player_->IsInvincible())
+        {
+            float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
+            if (dist < 6.0f) 
+            {
+                player_->Damage(20); // 20ダメージ与えて自動で無敵化
+
+                
+            }
+        }
+    }
     if (GetMouseInput() & MOUSE_INPUT_LEFT)
     {
         if (player_ != nullptr && camera_ != nullptr)
@@ -163,9 +179,26 @@ void FPSBattleScene::Draw()
         b->Draw();
     }
 
+    if (player_ != nullptr)
+    {
+        int hpX = 50;
+        int hpY = Application::SCREEN_SIZE_Y - 100;
+        unsigned int color = player_->IsInvincible() ? GetColor(255, 165, 0) : GetColor(0, 255, 0); // 無敵中はオレンジ
+
+        DrawFormatString(hpX, hpY, color, "PLAYER HP: %d / 100 %s",
+            player_->GetHP(), player_->IsInvincible() ? "[INVINCIBLE]" : "");
+    }
+
+    if (crosshairImg_ != -1)
+    {
+        DrawRotaGraph(centerX, centerY, 1.0, 0.0, crosshairImg_, TRUE);
+    }
+
     DrawFormatString(0, 0, GetColor(255, 255, 255), "Bullet Count: %d", bullets_.size());
 
     DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount);
+
+
 }
 
     //DrawFormatString(
@@ -212,6 +245,12 @@ void FPSBattleScene::Release()
 		camera_->Release();
 		delete camera_;
 		camera_ = nullptr;
+    }
+
+    if (crosshairImg_ != -1)
+    {
+        DeleteGraph(crosshairImg_);
+        crosshairImg_ = -1;
     }
 
 }
