@@ -365,7 +365,7 @@ FodyWeavers.xsd
 Log.txt
 
 *.dwo
-AGS2026_syougiFPS/.vs/
+AGS2026_syougiFPS/.vs
 AGS2026_syougiFPS/AGS2026_.a34b604e/
 AGS2026_syougiFPS/x64/
 AGS2026_syougiFPS/Log.txt
