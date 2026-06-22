@@ -24,7 +24,7 @@ public:
     void Draw() override;
     void Release() override;
 
-    int hitCount = 0;
+    int hitCount_ = 0;
    
     //’e‚ğ’Ç‰Á‚·‚éŠÖ”
     void AddBullet(VECTOR pos, VECTOR dir);

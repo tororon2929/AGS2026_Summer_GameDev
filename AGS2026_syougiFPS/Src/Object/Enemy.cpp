@@ -37,6 +37,12 @@ void Enemy::Update(VECTOR playerPos)
 
     transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
 
+    if (VSquareSize(dir) > 0.0f)
+    {
+        dir = VNorm(dir);
+        transform_.pos = VAdd(transform_.pos, VScale(dir, 0.1f));
+    }
+
     if (transform_.pos.y < floorHeight)
     {
         transform_.pos.y = floorHeight;
@@ -66,4 +72,13 @@ void Enemy::Draw()
 
 void Enemy::Release()
 {
+}
+
+void Enemy::Damage(int value)
+{
+    hp_ -= value;
+    if (hp_ < 0)
+    {
+        hp_ = 0;
+    }
 }

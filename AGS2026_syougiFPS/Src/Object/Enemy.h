@@ -5,6 +5,7 @@
 class Enemy
 {
 public:
+    int hp_ = 100;
 
     Enemy();
     ~Enemy();
@@ -15,6 +16,9 @@ public:
 	void Release();
 
     VECTOR GetPos() const { return transform_.pos; }
+
+    void Damage(int value);
+    bool IsDead() const { return hp_ <= 0; }
 
     
 private:

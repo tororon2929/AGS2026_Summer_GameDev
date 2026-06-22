@@ -6,6 +6,7 @@
 #include "../Object/Stage.h"
 #include "../Object/Enemy.h"
 #include "../Object/Player.h"
+#include"../Application.h"
 
 
 FPSBattleScene::FPSBattleScene()
@@ -114,17 +115,16 @@ void FPSBattleScene::Update()
             if (dist < 7.0f)
             {
                 isHit = true;
+
+                //敵にダメージ
+                enemy_->Damage(5);
+
+                hitCount_++;
             }
         }
 
-        if (isHit)
-        {
-            hitCount++;
-
-            delete* it;
-            it = bullets_.erase(it);
-        }
-        else if ((*it)->IsDead())
+       
+        if (isHit||(*it)->IsDead())
         {
             delete* it;
             it = bullets_.erase(it);
@@ -134,6 +134,15 @@ void FPSBattleScene::Update()
         }
 
         
+    }
+
+    if (enemy_!= nullptr)
+    {
+        if (enemy_->IsDead())
+        {
+            delete enemy_;
+            enemy_ = nullptr;
+        }
     }
 
     // 仮：Enterで将棋へ戻る
@@ -196,7 +205,7 @@ void FPSBattleScene::Draw()
 
     DrawFormatString(0, 0, GetColor(255, 255, 255), "Bullet Count: %d", bullets_.size());
 
-    DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount);
+    DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount_);
 
 
 }
