@@ -136,13 +136,20 @@ void FPSBattleScene::Update()
         
     }
 
-    if (enemy_!= nullptr)
+    if (player_ != nullptr && player_->GetHP() <= 0)
     {
-        if (enemy_->IsDead())
-        {
-            delete enemy_;
-            enemy_ = nullptr;
-        }
+        SceneManager::GetInstance().SetGameClear(false);
+
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+        return;
+    }
+
+    if (enemy_ == nullptr)
+    {
+        SceneManager::GetInstance().SetGameClear(true);
+
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+        return;
     }
 
     // ‰¼FEnter‚Å«Šû‚Ö–ß‚é

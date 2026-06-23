@@ -88,7 +88,10 @@ void Player::Update(Camera* camera)
     }
     else
     {
-
+        if (pos_.y < fallLimitHeight)
+        {
+            hp_ = 0;
+        }
     }
 
     VECTOR cameraPos = pos_;

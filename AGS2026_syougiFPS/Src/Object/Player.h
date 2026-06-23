@@ -33,6 +33,8 @@ private:
     float floorHeight = 30.0f;
     float limitX = 25.0f;
     float limitZ = 25.0f;
+
+    float fallLimitHeight = floorHeight - 50.0f;
     
     const float turnSpeed_ = 0.005f; // マウス感度
 	const float moveSpeed_ = 0.2f;// 移動速度
