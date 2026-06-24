@@ -143,15 +143,15 @@ void Camera::UpdateFPS(void)
     forward = AsoUtility::VNormalize(forward);
     right = AsoUtility::VNormalize(right);
 
-    if (CheckHitKey(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, FPS_MOVE_SPEED));
-    if (CheckHitKey(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -FPS_MOVE_SPEED));
-    if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
-    if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
 
 
-    
-    // ‚‚³ŒÅ’è
-    pos_.y = FPS_EYE_HEIGHT;
+    //
+    //// ‚‚³ŒÅ’è
+    //pos_.y = FPS_EYE_HEIGHT;
 }
 
 // „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ

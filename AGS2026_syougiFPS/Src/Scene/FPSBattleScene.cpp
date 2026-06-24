@@ -178,6 +178,22 @@ void FPSBattleScene::Draw()
         stage_->Draw();
 	}
 
+    for (int i = 0; i < 40; i++)
+    {
+        int alpha = 255 - (i * 6);
+        if (alpha < 0)alpha = 0;
+
+        SetDrawBlendMode(DX_BLENDMODE_ADD,alpha);
+        float currentY = y + (i * 0.15f) + sinf(time + i * 0.1f) * 1.5f;
+
+        DrawLine3D(VGet(-limitx, currentY, -limitz), VGet(limitx, currentY, -limitz), auraColor);
+        DrawLine3D(VGet(limitx, currentY, -limitz), VGet(limitx, currentY, limitz), auraColor);
+        DrawLine3D(VGet(limitx, currentY, limitz), VGet(-limitx, currentY, limitz), auraColor);
+        DrawLine3D(VGet(-limitx, currentY, limitz), VGet(-limitx, currentY, -limitz), auraColor);
+    }
+
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 	// “G‚Ì•`‰æ
     if (enemy_ != nullptr)
     {

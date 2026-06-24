@@ -37,11 +37,13 @@ private:
     float fallLimitHeight = floorHeight - 50.0f;
     
     const float turnSpeed_ = 0.005f; // マウス感度
-	const float moveSpeed_ = 0.2f;// 移動速度
+	const float moveSpeed_ = 0.1f;// 移動速度
 	const float gravity_ = -0.05f; // 重力加速度
+
 
     int hp_ = 100;
     int invincibleTimer_ = 0;
+    int jumpCount_ = 0;
     
 };
 

@@ -61,6 +61,8 @@ void Player::Update(Camera* camera)
         pos_ = VAdd(pos_, VScale(moveDir, moveSpeed_));
     }
 
+    static bool preSpacePressed = false;
+    bool currentSpacePressed = CheckHitKey(KEY_INPUT_SPACE);
 
     // 重力を適用
     velocityY_ += gravity_;
@@ -76,26 +78,37 @@ void Player::Update(Camera* camera)
         {
             pos_.y = floorHeight;
             velocityY_ = 0.0f; // 床に着地したら垂直速度をリセット
-        }
 
-        if (pos_.y <= floorHeight)
-        {
-            if (CheckHitKey(KEY_INPUT_SPACE))
-            {
-                velocityY_ = 1.2f; // 上向きの初速を与える
-            }
-        }
+            jumpCount_ = 0;
+        } 
     }
     else
     {
+        float fallLimitHeight = floorHeight - 50.0f;
         if (pos_.y < fallLimitHeight)
         {
             hp_ = 0;
         }
     }
 
+    if (currentSpacePressed && !preSpacePressed)
+    {
+        if (pos_.y <= floorHeight)
+        {
+            velocityY_ = 1.2f;
+            jumpCount_ = 1;
+        }
+    }
+    else if (jumpCount_ == 1)
+    {
+        velocityY_ = 1.0f;
+        jumpCount_ = 2;
+    }
+    preSpacePressed = currentSpacePressed;
+
+
     VECTOR cameraPos = pos_;
-	cameraPos.y += Camera::FPS_EYE_HEIGHT;
+    cameraPos.y += 0.3f;
 
 	//カメラの位置をプレイヤーの位置に合わせる
     camera->Setpos(cameraPos);
