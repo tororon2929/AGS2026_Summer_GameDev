@@ -3,6 +3,8 @@
 #include "Ou.h"
 #include "../Common/Cell.h"
 
+class CpuPlayer;
+
 class PlayBpard
 {
 public:
@@ -26,6 +28,8 @@ public:
     bool IsPathClear(int fromX, int fromY, int toX, int toY);
 
 private:
+    CpuPlayer* m_cpuPlayer = nullptr;
+    int mCpuThinkTimer = 0;
     int mPadCursorX = 2; // コントローラー用カーソルの初期X位置 (5マスの真ん中)
     int mPadCursorY = 3; // コントローラー用カーソルの初期Y位置 (7マスの真ん中)
     int mPadOldInput = 0; // 前フレームのボタン状態

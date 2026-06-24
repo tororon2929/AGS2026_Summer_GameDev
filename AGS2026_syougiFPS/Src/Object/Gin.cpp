@@ -89,7 +89,7 @@ void Gin::Draw()
         MV1SetRotationXYZ(mModelHandle, VGet(0.0f, 0.0f, 0.0f));
 
         // プレイヤー専用のオフセット（モデルに合わせて微調整してください）
-        offset = VGet(9.0f, 0.0f, -9.0f);
+        offset = VGet(9.0f, 0.0f, 19.0f);
     }
     else
     {
@@ -97,7 +97,7 @@ void Gin::Draw()
         MV1SetRotationXYZ(mModelHandle, VGet(0.0f, DX_PI_F, 0.0f));
 
         // 敵専用のオフセット（モデルに合わせて微調整してください）
-        offset = VGet(-9.0f, 0.0f, 9.0f);
+        offset = VGet(-9.0f, 0.0f, -19.0f);
     }
 
     MV1SetPosition(

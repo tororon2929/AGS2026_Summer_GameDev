@@ -13,6 +13,7 @@
 #include "../Effect/EffectManager.h"
 #include "../Effect/CutInEffect.h"
 #include"../Manager/InputManager.h"
+#include "CpuPlayer.h"
 
 PlayBpard::PlayBpard()
     : m_handle(-1),
@@ -48,6 +49,7 @@ PlayBpard::PlayBpard()
 
 PlayBpard::~PlayBpard()
 {
+    delete m_cpuPlayer;
 }
 
 void PlayBpard::Initialize()
@@ -56,6 +58,9 @@ void PlayBpard::Initialize()
         ResourceManager::GetInstance().Load(ResourceManager::SRC::PlayBpard);
 
     m_handle = res.handleId_;
+    // ひとまずEasyモードでCPUを生成
+    m_cpuPlayer = new CpuPlayer(CpuPlayer::Level::Easy);
+    mCpuThinkTimer = 0;
 
     // =========================
     // Cell初期化 (縦7 x 横5)
@@ -250,119 +255,156 @@ void PlayBpard::Update()
 {
     if (mGameEnd) return;
 
-	InputManager& inp = InputManager::GetInstance();
-    // -------------------------------------------------------------
-    // 1. 各種入力状態の取得 (コントローラー & マウス)
-    // -------------------------------------------------------------
-    int padInput = GetJoypadInputState(DX_INPUT_PAD1);
-    int padTrg = padInput & ~mPadOldInput;
-    mPadOldInput = padInput; // 状態を保存
+    if (mPlayerTurn) {
+        // --------------------------------------------
+        // 現在実装されている「人間のマウス・パッド操作」の処理
+        // --------------------------------------------
+        InputManager& inp = InputManager::GetInstance();
+        // -------------------------------------------------------------
+        // 1. 各種入力状態の取得 (コントローラー & マウス)
+        // -------------------------------------------------------------
+        int padInput = GetJoypadInputState(DX_INPUT_PAD1);
+        int padTrg = padInput & ~mPadOldInput;
+        mPadOldInput = padInput; // 状態を保存
 
-    // マウスの左クリック状態を取得
-    int mouseInput = GetMouseInput();
-    bool mouseClickTrg = (mouseInput & MOUSE_INPUT_LEFT) && !mMouseOld;
-    mMouseOld = (mouseInput & MOUSE_INPUT_LEFT); // 状態を保存
+        // マウスの左クリック状態を取得
+        int mouseInput = GetMouseInput();
+        bool mouseClickTrg = (mouseInput & MOUSE_INPUT_LEFT) && !mMouseOld;
+        mMouseOld = (mouseInput & MOUSE_INPUT_LEFT); // 状態を保存
 
-    // キーボードの矢印キーの単発押し判定 (デバッグ用)
-    static bool keyUpOld = false, keyDownOld = false, keyLeftOld = false, keyRightOld = false;
-    bool keyUp = CheckHitKey(KEY_INPUT_UP);
-    bool keyDown = CheckHitKey(KEY_INPUT_DOWN);
-    bool keyLeft = CheckHitKey(KEY_INPUT_LEFT);
-    bool keyRight = CheckHitKey(KEY_INPUT_RIGHT);
+        // キーボードの矢印キーの単発押し判定 (デバッグ用)
+        static bool keyUpOld = false, keyDownOld = false, keyLeftOld = false, keyRightOld = false;
+        bool keyUp = CheckHitKey(KEY_INPUT_UP);
+        bool keyDown = CheckHitKey(KEY_INPUT_DOWN);
+        bool keyLeft = CheckHitKey(KEY_INPUT_LEFT);
+        bool keyRight = CheckHitKey(KEY_INPUT_RIGHT);
 
-    // -------------------------------------------------------------
-    // 2. 枠（カーソル）の移動処理
-    // -------------------------------------------------------------
-    // コントローラーの十字キー/スティック、またはキーボードの矢印キーで枠だけを動かす
-    if ((padTrg & PAD_INPUT_UP) || (keyUp && !keyUpOld)) { mPadCursorY = (mPadCursorY > 0) ? mPadCursorY - 1 : 0; }
-    if ((padTrg & PAD_INPUT_DOWN) || (keyDown && !keyDownOld)) { mPadCursorY = (mPadCursorY < 6) ? mPadCursorY + 1 : 6; }
-    if ((padTrg & PAD_INPUT_LEFT) || (keyLeft && !keyLeftOld)) { mPadCursorX = (mPadCursorX > 0) ? mPadCursorX - 1 : 0; }
-    if ((padTrg & PAD_INPUT_RIGHT) || (keyRight && !keyRightOld)) { mPadCursorX = (mPadCursorX < 4) ? mPadCursorX + 1 : 4; }
+        // -------------------------------------------------------------
+        // 2. 枠（カーソル）の移動処理
+        // -------------------------------------------------------------
+        // コントローラーの十字キー/スティック、またはキーボードの矢印キーで枠だけを動かす
+        if ((padTrg & PAD_INPUT_UP) || (keyUp && !keyUpOld)) { mPadCursorY = (mPadCursorY > 0) ? mPadCursorY - 1 : 0; }
+        if ((padTrg & PAD_INPUT_DOWN) || (keyDown && !keyDownOld)) { mPadCursorY = (mPadCursorY < 6) ? mPadCursorY + 1 : 6; }
+        if ((padTrg & PAD_INPUT_LEFT) || (keyLeft && !keyLeftOld)) { mPadCursorX = (mPadCursorX > 0) ? mPadCursorX - 1 : 0; }
+        if ((padTrg & PAD_INPUT_RIGHT) || (keyRight && !keyRightOld)) { mPadCursorX = (mPadCursorX < 4) ? mPadCursorX + 1 : 4; }
 
-    keyUpOld = keyUp; keyDownOld = keyDown; keyLeftOld = keyLeft; keyRightOld = keyRight;
+        keyUpOld = keyUp; keyDownOld = keyDown; keyLeftOld = keyLeft; keyRightOld = keyRight;
 
-    // マウスがどこかのマスの上に乗っている場合は、枠をマウス位置に同期する
-    Cell* hoverCell = GetMouseOverCell();
-    if (hoverCell)
-    {
-        for (int y = 0; y < 7; y++)
+        // マウスがどこかのマスの上に乗っている場合は、枠をマウス位置に同期する
+        Cell* hoverCell = GetMouseOverCell();
+        if (hoverCell)
         {
-            for (int x = 0; x < 5; x++)
+            for (int y = 0; y < 7; y++)
             {
-                if (&mCells[y][x] == hoverCell)
+                for (int x = 0; x < 5; x++)
                 {
-                    mPadCursorX = x;
-                    mPadCursorY = y;
+                    if (&mCells[y][x] == hoverCell)
+                    {
+                        mPadCursorX = x;
+                        mPadCursorY = y;
+                    }
                 }
             }
         }
-    }
 
-    // -------------------------------------------------------------
-    // 3. 決定アクション（Aボタン または マウス左クリックされた瞬間）
-    // -------------------------------------------------------------
-    // 💡 ここがポイント：枠がどこにあろうと、Aボタンか左クリックを押さない限り以下の選択処理は走らない
-    bool isSelectAction = (padTrg & PAD_INPUT_1) || mouseClickTrg;
+        // -------------------------------------------------------------
+        // 3. 決定アクション（Aボタン または マウス左クリックされた瞬間）
+        // -------------------------------------------------------------
+        // 💡 ここがポイント：枠がどこにあろうと、Aボタンか左クリックを押さない限り以下の選択処理は走らない
+        bool isSelectAction = (padTrg & PAD_INPUT_1) || mouseClickTrg;
 
-    if (isSelectAction)
-    {
-        // 現在、緑枠（カーソル）が合っているマスを対象にする
-        Cell* targetCell = &mCells[mPadCursorY][mPadCursorX];
-
-        if (mSelectPiece == nullptr)
+        if (isSelectAction)
         {
-            // 【フェーズ1: 自分の駒を選択する】
-            PieceBase* piece = targetCell->GetPiece();
-            if (piece && piece->IsPlayer() == mPlayerTurn)
-            {
-                mSelectPiece = piece;
-                ShowMovePoint(mSelectPiece); // 移動可能マスを青くハイライト
-            }
-        }
-        else
-        {
-            // 【フェーズ2: すでに駒を選んでいる状態で、移動先を選ぶ】
-            if (targetCell->IsMovePoint())
-            {
-                int fromX = mSelectPiece->GetX();
-                int fromY = mSelectPiece->GetY();
+            // 現在、緑枠（カーソル）が合っているマスを対象にする
+            Cell* targetCell = &mCells[mPadCursorY][mPadCursorX];
 
-                // 駒を移動させる
-                if (MovePiece(fromX, fromY, mPadCursorX, mPadCursorY))
+            if (mSelectPiece == nullptr)
+            {
+                // 【フェーズ1: 自分の駒を選択する】
+                PieceBase* piece = targetCell->GetPiece();
+                if (piece && piece->IsPlayer() == mPlayerTurn)
                 {
-                    mSelectPiece = nullptr;
-                    // 青いハイライトを消す
-                    for (int y = 0; y < 7; y++) {
-                        for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
-                    }
-                    mPlayerTurn = !mPlayerTurn; // ターン交代
+                    mSelectPiece = piece;
+                    ShowMovePoint(mSelectPiece); // 移動可能マスを青くハイライト
                 }
             }
             else
             {
-                // 移動先ではない場所でボタンが押された場合
-                PieceBase* piece = targetCell->GetPiece();
-                if (piece && piece->IsPlayer() == mPlayerTurn)
+                // 【フェーズ2: すでに駒を選んでいる状態で、移動先を選ぶ】
+                if (targetCell->IsMovePoint())
                 {
-                    // 別の自分の駒だったら、その駒を選び直す
-                    mSelectPiece = piece;
-                    for (int y = 0; y < 7; y++) {
-                        for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                    int fromX = mSelectPiece->GetX();
+                    int fromY = mSelectPiece->GetY();
+
+                    // 駒を移動させる
+                    if (MovePiece(fromX, fromY, mPadCursorX, mPadCursorY))
+                    {
+                        mSelectPiece = nullptr;
+                        // 青いハイライトを消す
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                        }
+                        mPlayerTurn = !mPlayerTurn; // ターン交代
                     }
-                    ShowMovePoint(mSelectPiece);
                 }
                 else
                 {
-                    // 空白マスなどなら選択をキャンセルする
-                    mSelectPiece = nullptr;
-                    for (int y = 0; y < 7; y++) {
-                        for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                    // 移動先ではない場所でボタンが押された場合
+                    PieceBase* piece = targetCell->GetPiece();
+                    if (piece && piece->IsPlayer() == mPlayerTurn)
+                    {
+                        // 別の自分の駒だったら、その駒を選び直す
+                        mSelectPiece = piece;
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                        }
+                        ShowMovePoint(mSelectPiece);
+                    }
+                    else
+                    {
+                        // 空白マスなどなら選択をキャンセルする
+                        mSelectPiece = nullptr;
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                        }
+                    }
+                }
+            }
+        }
+        // プレイヤーのターン中は、念のためCPUタイマーを0にリセットしておく
+        mCpuThinkTimer = 0;
+    }
+
+    else {
+        // --------------------------------------------
+         // CPUのターン（タイマーによるウェイト処理）
+         // --------------------------------------------
+        mCpuThinkTimer++;
+
+        // 60フレーム（約1秒）経過したら、CPUが手を実行する
+        // ※「少し早めがいい」場合は 30 や 40 に調整してください
+        if (mCpuThinkTimer >= 60)
+        {
+            if (m_cpuPlayer)
+            {
+                MoveCommand cmd = m_cpuPlayer->Think(this);
+
+                // 有効な手が返ってきたら実行
+                if (cmd.fromX != -1)
+                {
+                    if (MovePiece(cmd.fromX, cmd.fromY, cmd.toX, cmd.toY))
+                    {
+                        mPlayerTurn = true;    // 移動成功したらプレイヤーのターンに戻す
+                        mCpuThinkTimer = 0;    // タイマーをリセット
                     }
                 }
             }
         }
     }
+
+    
 }
+	
 void PlayBpard::Draw()
 {
     if (m_handle != -1)

@@ -43,6 +43,9 @@ void TitleScene::Init(void)
 
 	// マウスカーソルを表示する
 	SetMouseDispFlag(TRUE);
+
+	mState = State::Title;
+	mSelectLevelIdx = 0;
 }
 
 void TitleScene::Update(void)

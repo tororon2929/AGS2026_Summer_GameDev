@@ -25,8 +25,17 @@ bool Application::IsReleaseFail(void) const { return isReleaseFail_; }
 
 void Application::Init(void) {
     SetWindowText("3DWorld");
+
+    // 1. 2人のPCで共通の「ゲーム内解像度(1920x1080)」をセット
     SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
-    ChangeWindowMode(true);
+
+    // 2. ウインドウの枠（タイトルバーや閉じるボタン）を非表示にする
+    SetWindowStyleMode(2);
+
+    // 3. ウインドウモードとして起動しつつ、デスクトップ全体にフィットさせる（擬似フルスクリーン）
+    ChangeWindowMode(TRUE);
+    SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
+
     SetUseDirect3DVersion(DX_DIRECT3D_11);
 
     if (DxLib_Init() == -1) {

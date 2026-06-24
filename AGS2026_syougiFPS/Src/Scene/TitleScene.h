@@ -13,8 +13,18 @@ public:
 	void Release(void) override;
 
 private:
-	int titleGraphHandle_;
+	// ★追加: タイトルシーン内での状態管理
+	enum class State
+	{
+		Title,        // スペースキーを押す前の状態
+		SelectLevel   // 難易度を選択している状態
+	};
+	State mState;     // 現在の状態
 
+	// ★追加: 選択中の難易度インデックス (0:簡単, 1:普通, 2:難しい)
+	int mSelectLevelIdx;
+
+	int titleGraphHandle_;
 	int logoX_;
 	int logoY_;
 	double logoScale_;
@@ -24,11 +34,9 @@ private:
 	float boardRotY_;
 	float boardRotSpeed_;
 
-	// --- 将棋盤のデバッグ回転用変数 ★追加 ---
-	float boardRotPitch_; // X軸回転（縦回転）
-	float boardRotYaw_;   // Y軸回転（横回転）
+	float boardRotPitch_;
+	float boardRotYaw_;
 
-	// --- デバッグカメラ操作用変数 ---
 	float cameraRadius_;
 	float cameraPitch_;
 	float cameraYaw_;
