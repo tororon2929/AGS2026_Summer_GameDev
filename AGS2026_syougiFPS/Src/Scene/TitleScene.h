@@ -13,18 +13,9 @@ public:
 	void Release(void) override;
 
 private:
-	// ★追加: タイトルシーン内での状態管理
-	enum class State
-	{
-		Title,        // スペースキーを押す前の状態
-		SelectLevel   // 難易度を選択している状態
-	};
-	State mState;     // 現在の状態
-
-	// ★追加: 選択中の難易度インデックス (0:簡単, 1:普通, 2:難しい)
-	int mSelectLevelIdx;
-
+	// ↓元の変数はすべてそのまま残しています
 	int titleGraphHandle_;
+
 	int logoX_;
 	int logoY_;
 	double logoScale_;
@@ -42,4 +33,15 @@ private:
 	float cameraYaw_;
 	int prevMouseX_;
 	int prevMouseY_;
+
+	// ========================================================
+	// ★追加: 難易度選択の状態管理用の変数
+	// ========================================================
+	enum class State
+	{
+		Title,        // 「PRESS SPACE KEY」の画面
+		SelectLevel   // 難易度を選んでいる画面
+	};
+	State mState;         // 現在の画面状態
+	int mSelectLevelIdx;  // 選択中の難易度 (0: EASY, 1: NORMAL, 2: HARD)
 };

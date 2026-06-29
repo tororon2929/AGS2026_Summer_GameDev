@@ -63,7 +63,10 @@ public:
 	// カメラの取得
 	Camera* GetCamera(void) const;
 
+	void SetCpuLevel(int level) { mCpuLevel = level; }
+	int GetCpuLevel() const { return mCpuLevel; }
 private:
+	int mCpuLevel = 0;
 
 	// 静的インスタンス
 	static SceneManager* instance_;

@@ -28,6 +28,10 @@ TitleScene::TitleScene(void) : SceneBase()
 	cameraYaw_ = 0.58f;                  // 正面から
 	prevMouseX_ = 0;
 	prevMouseY_ = 0;
+
+	mState = State::Title;
+	mSelectLevelIdx = 0;
+
 }
 
 TitleScene::~TitleScene(void)
@@ -43,9 +47,6 @@ void TitleScene::Init(void)
 
 	// マウスカーソルを表示する
 	SetMouseDispFlag(TRUE);
-
-	mState = State::Title;
-	mSelectLevelIdx = 0;
 }
 
 void TitleScene::Update(void)
@@ -53,11 +54,11 @@ void TitleScene::Update(void)
 	// コントローラーの入力状態を取得
 	int padInput = GetJoypadInputState(DX_INPUT_PAD1);
 
-	// 💡 Aボタン(PAD_INPUT_1) または Enterキーが押されたらゲームシーンへ
-	if ((padInput & PAD_INPUT_1) || CheckHitKey(KEY_INPUT_SPACE))
-	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
-	}
+	//// 💡 Aボタン(PAD_INPUT_1) または Enterキーが押されたらゲームシーンへ
+	//if ((padInput & PAD_INPUT_1) || CheckHitKey(KEY_INPUT_SPACE))
+	//{
+	//	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
+	//}
 
 	// --- 以下、既存の背景の将棋盤回転処理など ---
 	boardRotY_ += boardRotSpeed_;
@@ -105,6 +106,59 @@ void TitleScene::Update(void)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
 	}
+
+	// ========================================================
+	// ★ 連続入力を絶対に阻止するキー判定（static変数を分離）
+	// ========================================================
+	static bool isWKeyOld = false;
+	static bool isSKeyOld = false;
+	static bool isSpaceKeyOld = false;
+
+	bool isWKeyNow = (CheckHitKey(KEY_INPUT_W) == 1);
+	bool isSKeyNow = (CheckHitKey(KEY_INPUT_S) == 1);
+	bool isSpaceKeyNow = (CheckHitKey(KEY_INPUT_SPACE) == 1);
+
+	// 押した瞬間だけのトリガー判定
+	bool isWKeyTrg = (isWKeyNow && !isWKeyOld);
+	bool isSKeyTrg = (isSKeyNow && !isSKeyOld);
+	bool isSpaceKeyTrg = (isSpaceKeyNow && !isSpaceKeyOld);
+
+	// 次のフレームのために保存
+	isWKeyOld = isWKeyNow;
+	isSKeyOld = isSKeyNow;
+	isSpaceKeyOld = isSpaceKeyNow;
+
+	// ========================================================
+	// ★重要: switch-case、または互いに干渉しない if-else に修正
+	// ========================================================
+	if (mState == State::Title)
+	{
+		// タイトル画面でスペースが押されたら難易度選択へ
+		if (isSpaceKeyTrg)
+		{
+			mState = State::SelectLevel;
+		}
+	}
+	else if (mState == State::SelectLevel) // ★『else if』にすることで、上の処理で状態が変わってもこのフレーム内では絶対に実行されなくなります
+	{
+		// Wキーで上
+		if (isWKeyTrg)
+		{
+			if (mSelectLevelIdx > 0) mSelectLevelIdx--;
+		}
+		// Sキーで下
+		if (isSKeyTrg)
+		{
+			if (mSelectLevelIdx < 2) mSelectLevelIdx++;
+		}
+
+		// 難易度選択画面でスペースが押されたらゲーム開始
+		if (isSpaceKeyTrg)
+		{
+			SceneManager::GetInstance().SetCpuLevel(mSelectLevelIdx);
+			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
+		}
+	}
 }
 
 void TitleScene::Draw(void)
@@ -142,7 +196,33 @@ void TitleScene::Draw(void)
 	{
 		DrawRotaGraph(logoX_, logoY_, logoScale_, 0.0, titleGraphHandle_, TRUE);
 	}
+	// ========================================================
+	// ★追加: 画面状態（State）に応じたテキストの描画
+	// ========================================================
+	unsigned int white = GetColor(255, 255, 255);
+	unsigned int yellow = GetColor(255, 255, 0);
 
+	if (mState == State::Title)
+	{
+		// 最初は元の文字をそのまま点滅なしで表示
+		DrawFormatString(830, 650, white, "PRESS SPACE KEY TO START");
+	}
+	else if (mState == State::SelectLevel)
+	{
+		// 難易度選択のUIテキスト（相方のPCの解像度に合わせて座標を微調整してください）
+		DrawFormatString(860, 500, white, "SELECT CPU LEVEL");
+
+		// 現在カーソルが合っている難易度だけ黄色(yellow)にする
+		unsigned int easyColor = (mSelectLevelIdx == 0) ? yellow : white;
+		unsigned int normalColor = (mSelectLevelIdx == 1) ? yellow : white;
+		unsigned int hardColor = (mSelectLevelIdx == 2) ? yellow : white;
+
+		DrawFormatString(890, 580, easyColor, "%s EASY", (mSelectLevelIdx == 0) ? "-> " : "   ");
+		DrawFormatString(890, 630, normalColor, "%s NORMAL", (mSelectLevelIdx == 1) ? "-> " : "   ");
+		DrawFormatString(890, 680, hardColor, "%s HARD", (mSelectLevelIdx == 2) ? "-> " : "   ");
+
+		DrawFormatString(810, 780, white, "[W/S]: Select    [SPACE]: Confirm");
+	}
 	//// 全デバッグ情報の表示
 	//unsigned int white = GetColor(255, 255, 255);
 	//unsigned int yellow = GetColor(255, 255, 0);
