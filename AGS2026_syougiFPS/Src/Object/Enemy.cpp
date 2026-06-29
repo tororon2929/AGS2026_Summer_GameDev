@@ -35,7 +35,7 @@ void Enemy::Update(VECTOR playerPos)
 
     dir = VNorm(dir);
 
-    transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
+    //transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
 
     if (VSquareSize(dir) > 0.0f)
     {

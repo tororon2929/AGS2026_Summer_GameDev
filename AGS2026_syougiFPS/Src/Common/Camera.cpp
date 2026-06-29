@@ -251,7 +251,7 @@ void Camera::ChangeMode(CameraMode newMode)
     mode_ = newMode;
     if (mode_ == CameraMode::FPS)
     {
-        pos_.y = FPS_EYE_HEIGHT;
+        //pos_.y = FPS_EYE_HEIGHT;
         angles_ = VGet(0.0f, angles_.y, 0.0f);
         rot_ = Quaternion::Euler(angles_);
 

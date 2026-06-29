@@ -58,7 +58,7 @@ void FPSBattleScene::Update()
 	// エネミーの更新
     if(enemy_ != nullptr && player_ != nullptr)
     {
-        enemy_->Update(player_->GetPos());
+        //enemy_->Update(player_->GetPos());
 	}
 
 	// プレイヤーの更新
@@ -231,6 +231,12 @@ void FPSBattleScene::Draw()
     DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount_);
 
 
+    if (CheckHitKey(KEY_INPUT_LSHIFT)) {
+        DrawString(10, 100, "SHIFT PUSHED: DASH SPEED ACTIVE", GetColor(255, 255, 0));
+    }
+    else {
+        DrawString(10, 100, "NORMAL SPEED ACTIVE", GetColor(255, 255, 255));
+    }
 }
 
     //DrawFormatString(

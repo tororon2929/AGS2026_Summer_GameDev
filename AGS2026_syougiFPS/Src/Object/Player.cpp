@@ -43,12 +43,12 @@ void Player::Update(Camera* camera)
         moveDir.x -= sinH;
         moveDir.z -= cosH;
     }
-    if (CheckHitKey(KEY_INPUT_D)) // 右ストレイフ
+    if (CheckHitKey(KEY_INPUT_D)) // 右移動
     {
         moveDir.x += cosH;
         moveDir.z -= sinH;
     }
-    if (CheckHitKey(KEY_INPUT_A)) // 左ストレイフ
+    if (CheckHitKey(KEY_INPUT_A)) // 左移動
     {
         moveDir.x -= cosH;
         moveDir.z += sinH;
@@ -58,6 +58,13 @@ void Player::Update(Camera* camera)
     if (VSquareSize(moveDir) > 0.0f)
     {
         moveDir = VNorm(moveDir);
+        //ダッシュの判定
+        float currentSpeed = moveSpeed_;
+        if (CheckHitKey(KEY_INPUT_LSHIFT))
+        {
+            currentSpeed = dashSpeed_;
+        }
+
         pos_ = VAdd(pos_, VScale(moveDir, moveSpeed_));
     }
 
@@ -114,6 +121,7 @@ void Player::Update(Camera* camera)
     camera->Setpos(cameraPos);
 
     
+    
 }
 
 void Player::Damage(int value)
@@ -124,6 +132,8 @@ void Player::Damage(int value)
     if (hp_ < 0) hp_ = 0;
 
     invincibleTimer_ = 60;
+
+    
 }
 
 void Player::Draw()

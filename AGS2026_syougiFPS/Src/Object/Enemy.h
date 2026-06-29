@@ -26,7 +26,7 @@ private:
     Transform transform_;
     bool isDummy_ = true; // ‰¼ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
     float moveTimer_ = 0.0f;
-    float moveSpeed = 0.03f;
+    float moveSpeed = 0.02f;
     float floorHeight = 20.0f;
     
 };
