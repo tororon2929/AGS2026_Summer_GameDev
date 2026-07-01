@@ -112,7 +112,7 @@ void FPSBattleScene::Update()
             float dist = VSize(VSub((*it)->GetPos(), enemy_->GetPos()));
 
             //ƒqƒbƒg”»’è
-            if (dist < 7.0f)
+            if (dist < enemy_->GetRadius())
             {
                 isHit = true;
 
@@ -231,12 +231,7 @@ void FPSBattleScene::Draw()
     DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount_);
 
 
-    if (CheckHitKey(KEY_INPUT_LSHIFT)) {
-        DrawString(10, 100, "SHIFT PUSHED: DASH SPEED ACTIVE", GetColor(255, 255, 0));
-    }
-    else {
-        DrawString(10, 100, "NORMAL SPEED ACTIVE", GetColor(255, 255, 255));
-    }
+    
 }
 
     //DrawFormatString(

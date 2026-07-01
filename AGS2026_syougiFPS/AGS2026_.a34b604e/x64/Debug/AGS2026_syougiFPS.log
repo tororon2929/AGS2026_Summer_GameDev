@@ -1,10 +1,2 @@
-﻿  Player.cpp
-  FPSBattleScene.cpp
-  コードを生成中...
-Effekseer_vs2019_x64_d.lib(Effekseer.Manager.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Manager.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelRenderer.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Renderer.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(ShaderGenerator.obj) : warning LNK4099: PDB '' が 'EffekseerRendererDX9_vs2019_x64_d.lib(ShaderGenerator.obj)' で、または '' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelRenderer.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Renderer.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+﻿  Enemy.cpp
   AGS2026_syougiFPS.vcxproj -> C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\AGS2026_syougiFPS.exe

@@ -38,7 +38,7 @@ private:
     
     const float turnSpeed_ = 0.005f; // マウス感度
 	const float moveSpeed_ = 0.05f;// 移動速度
-    const float dashSpeed_ = 1.00f;
+    const float dashSpeed_ = 0.15f;
 	const float gravity_ = -0.05f; // 重力加速度
 
 

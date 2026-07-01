@@ -65,7 +65,15 @@ void Player::Update(Camera* camera)
             currentSpeed = dashSpeed_;
         }
 
-        pos_ = VAdd(pos_, VScale(moveDir, moveSpeed_));
+
+        if (CheckHitKey(KEY_INPUT_LSHIFT)) {
+            DrawString(10, 100, "SHIFT PUSHED: DASH SPEED ACTIVE", GetColor(255, 255, 0));
+        }
+        else {
+            DrawString(10, 100, "NORMAL SPEED ACTIVE", GetColor(255, 255, 255));
+        }
+
+        pos_ = VAdd(pos_, VScale(moveDir, currentSpeed));
     }
 
     static bool preSpacePressed = false;

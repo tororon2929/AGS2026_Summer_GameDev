@@ -1,8 +1,5 @@
 #include "Enemy.h"
 #include "../Manager/ResourceManager.h"
-
-
-
 Enemy::Enemy()
 {
 }
@@ -17,7 +14,7 @@ void Enemy::Init()
         ResourceManager::GetInstance().LoadModelDuplicate(
             ResourceManager::SRC::Fu));
 
-    transform_.pos = {0.0f, 30.0f, 15.0f };
+    transform_.pos = {0.0f, 50.0f, 15.0f };
 
     transform_.scl = { 1.0f, 1.0f, 1.0f };
 
@@ -35,7 +32,7 @@ void Enemy::Update(VECTOR playerPos)
 
     dir = VNorm(dir);
 
-    //transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
+    transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
 
     if (VSquareSize(dir) > 0.0f)
     {
@@ -65,9 +62,20 @@ void Enemy::Draw()
     else
     {
         if (transform_.modelId != -1) {
+            VECTOR modelPos;
+            modelPos.x = transform_.pos.x - (-17.620f);
+            modelPos.y = transform_.pos.y - (24.958f);
+            modelPos.z = transform_.pos.z - (-9.576f);
+
+            //補正した位置をモデルにセット
+            MV1SetPosition(transform_.modelId, modelPos);
+
+            //描画
             MV1DrawModel(transform_.modelId);
         }
     };
+
+    DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }
 
 void Enemy::Release()
