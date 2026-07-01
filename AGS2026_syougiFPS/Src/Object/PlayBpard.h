@@ -89,4 +89,12 @@ private:
 
     int SetWorldPosY;
 
+    int SetScreenPosZ;
+    int SetScreenPosZ2;
+    int SetScreenPosZ3;
+    int SetScreenPosZ4;
+    int SetScreenPosZ5;
+    int SetScreenPosZ6;
+    int SetScreenPosZ7;
+
 };

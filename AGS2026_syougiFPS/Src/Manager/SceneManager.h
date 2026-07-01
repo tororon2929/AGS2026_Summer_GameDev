@@ -65,6 +65,7 @@ public:
 
 	void SetCpuLevel(int level) { mCpuLevel = level; }
 	int GetCpuLevel() const { return mCpuLevel; }
+	
 private:
 	int mCpuLevel = 0;
 

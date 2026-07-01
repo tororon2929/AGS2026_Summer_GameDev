@@ -1,10 +1,10 @@
 ﻿#include <DxLib.h>
+#include "../Manager/SceneManager.h"
 #include "../Object/PlayBpard.h"
 #include "../Manager/ResourceManager.h"
 #include "../Object/Ou.h"
 #include "../Common/Cell.h"
 #include "../Object/Gyoku.h"
-#include "../Manager/SceneManager.h"
 #include "../Object/Fu.h"
 #include "../Object/Hisha.h"
 #include "../Object/Kaku.h"
@@ -14,6 +14,7 @@
 #include "../Effect/CutInEffect.h"
 #include"../Manager/InputManager.h"
 #include "CpuPlayer.h"
+#include "../Manager/SoundManager.h"
 
 PlayBpard::PlayBpard()
     : m_handle(-1),
@@ -43,7 +44,14 @@ PlayBpard::PlayBpard()
     SetScreenPosY5(495),
     SetScreenPosY6(620),
     SetScreenPosY7(745),
-    SetWorldPosY(0)
+    SetWorldPosY(0),
+    SetScreenPosZ(14.0f),
+    SetScreenPosZ2(9.25f),
+    SetScreenPosZ3(4.5f),
+    SetScreenPosZ4(0.0f),
+    SetScreenPosZ5(-4.5f),
+    SetScreenPosZ6(-9.25f),
+    SetScreenPosZ7(-14.0f)
 {
 }
 
@@ -58,8 +66,23 @@ void PlayBpard::Initialize()
         ResourceManager::GetInstance().Load(ResourceManager::SRC::PlayBpard);
 
     m_handle = res.handleId_;
-    // ひとまずEasyモードでCPUを生成
-    m_cpuPlayer = new CpuPlayer(CpuPlayer::Level::Easy);
+    // ========================================================
+     // ★難易度の分岐処理（必ず関数の内側に記述します）
+     // ========================================================
+    int selectedLevel = SceneManager::GetInstance().GetCpuLevel();
+    CpuPlayer::Level cpuLevel = CpuPlayer::Level::Easy;
+
+    if (selectedLevel == 1)
+    {
+        cpuLevel = CpuPlayer::Level::Normal;
+    }
+    else if (selectedLevel == 2)
+    {
+        cpuLevel = CpuPlayer::Level::Hard;
+    }
+
+    // 選択された難易度でAIを生成
+    m_cpuPlayer = new CpuPlayer(cpuLevel);
     mCpuThinkTimer = 0;
 
     // =========================
@@ -76,7 +99,7 @@ void PlayBpard::Initialize()
     // =========================
     // Cell画面座標 (変更なし)
     // =========================
-
+    
     // 1行目
     mCells[0][0].SetScreenPos(SetScreenPosX, SetScreenPosY);
     mCells[0][1].SetScreenPos(SetScreenPosX2, SetScreenPosY);
@@ -131,53 +154,53 @@ void PlayBpard::Initialize()
     // =========================
 
     // 1行目
-    mCells[0][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 14.0f));
-    mCells[0][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 14.0f));
-    mCells[0][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 14.0f));
-    mCells[0][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 14.0f));
-    mCells[0][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 14.0f));
+    mCells[0][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ));
 
     // 2行目
-    mCells[1][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 9.25f));
-    mCells[1][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 9.25f));
-    mCells[1][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 9.25f));
-    mCells[1][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 9.25f));
-    mCells[1][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 9.25f));
+    mCells[1][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ2));
 
     // 3行目
-    mCells[2][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 4.5f));
-    mCells[2][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 4.5f));
-    mCells[2][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 4.5f));
-    mCells[2][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 4.5f));
-    mCells[2][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 4.5f));
+    mCells[2][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ3));
 
     // 4行目
-    mCells[3][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 0.0f));
-    mCells[3][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 0.0f));
-    mCells[3][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 0.0f));
-    mCells[3][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 0.0f));
-    mCells[3][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 0.0f));
+    mCells[3][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ4));
 
     // 5行目
-    mCells[4][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -4.5f));
-    mCells[4][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -4.5f));
-    mCells[4][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -4.5f));
-    mCells[4][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -4.5f));
-    mCells[4][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -4.5f));
+    mCells[4][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ5));
 
     // 6行目
-    mCells[5][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -9.25f));
-    mCells[5][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -9.25f));
-    mCells[5][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -9.25f));
-    mCells[5][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -9.25f));
-    mCells[5][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -9.25f));
+    mCells[5][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ6));
 
     // 7行目
-    mCells[6][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -14.0f));
-    mCells[6][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -14.0f));
-    mCells[6][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -14.0f));
-    mCells[6][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -14.0f));
-    mCells[6][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -14.0f));
+    mCells[6][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ7));
 
     // 王の設置 (変更なし)
     Ou* ou = new Ou(2, 6, true);
@@ -231,9 +254,9 @@ void PlayBpard::Initialize()
     mCells[6][3].SetPiece(kin);
 
 	//敵の金の設置
-    Kin* enemykin = new Kin(3, 0, false);
-    enemykin->SetWorldPos(mCells[0][3].GetWorldPos());
-	mCells[0][3].SetPiece(enemykin);
+    Kin* enemykin = new Kin(1, 0, false);
+    enemykin->SetWorldPos(mCells[0][1].GetWorldPos());
+	mCells[0][1].SetPiece(enemykin);
 
 	//  銀の設置（プレイヤー側）
     Gin* gin = new Gin(1, 6, true);
@@ -241,14 +264,18 @@ void PlayBpard::Initialize()
     mCells[6][1].SetPiece(gin);
 
 	//  銀の設置（敵側）
-    Gin* enemygin = new Gin(1, 0, false);
-	enemygin->SetWorldPos(mCells[0][1].GetWorldPos());
-	mCells[0][1].SetPiece(enemygin);
+    Gin* enemygin = new Gin(3, 0, false);
+	enemygin->SetWorldPos(mCells[0][3].GetWorldPos());
+	mCells[0][3].SetPiece(enemygin);
 
     const Resource& startRes = ResourceManager::GetInstance().Load(ResourceManager::SRC::Myturn);
     EffectManager::GetInstance().AddEffect(
         std::make_unique<CutInEffect>(startRes.handleId_, 1.5f)
     );
+
+    SoundManager::GetInstance().Init();
+    
+
 }
 
 void PlayBpard::Update()
@@ -327,6 +354,7 @@ void PlayBpard::Update()
                     mSelectPiece = piece;
                     ShowMovePoint(mSelectPiece); // 移動可能マスを青くハイライト
                 }
+
             }
             else
             {
@@ -339,6 +367,7 @@ void PlayBpard::Update()
                     // 駒を移動させる
                     if (MovePiece(fromX, fromY, mPadCursorX, mPadCursorY))
                     {
+                        SoundManager::GetInstance().PlaySE(SoundManager::SE::Shot1);
                         mSelectPiece = nullptr;
                         // 青いハイライトを消す
                         for (int y = 0; y < 7; y++) {
@@ -387,8 +416,9 @@ void PlayBpard::Update()
         {
             if (m_cpuPlayer)
             {
+                SoundManager::GetInstance().PlaySE(SoundManager::SE::Shot1);
                 MoveCommand cmd = m_cpuPlayer->Think(this);
-
+                
                 // 有効な手が返ってきたら実行
                 if (cmd.fromX != -1)
                 {
@@ -396,6 +426,7 @@ void PlayBpard::Update()
                     {
                         mPlayerTurn = true;    // 移動成功したらプレイヤーのターンに戻す
                         mCpuThinkTimer = 0;    // タイマーをリセット
+
                     }
                 }
             }

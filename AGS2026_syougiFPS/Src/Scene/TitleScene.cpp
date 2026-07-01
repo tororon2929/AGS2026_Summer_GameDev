@@ -5,6 +5,7 @@
 #include "../Manager/ResourceManager.h"
 #include "../Common/Quaternion.h"
 #include "TitleScene.h"
+#include "../Manager/SoundManager.h"
 
 TitleScene::TitleScene(void) : SceneBase()
 {
@@ -47,6 +48,9 @@ void TitleScene::Init(void)
 
 	// マウスカーソルを表示する
 	SetMouseDispFlag(TRUE);
+
+	SoundManager::GetInstance().Init();
+	SoundManager::GetInstance().PlayBGM(SoundManager::BGM::Title, true);
 }
 
 void TitleScene::Update(void)
@@ -137,6 +141,7 @@ void TitleScene::Update(void)
 		if (isSpaceKeyTrg)
 		{
 			mState = State::SelectLevel;
+			SoundManager::GetInstance().PlaySE(SoundManager::SE::Select);
 		}
 	}
 	else if (mState == State::SelectLevel) // ★『else if』にすることで、上の処理で状態が変わってもこのフレーム内では絶対に実行されなくなります
@@ -145,11 +150,13 @@ void TitleScene::Update(void)
 		if (isWKeyTrg)
 		{
 			if (mSelectLevelIdx > 0) mSelectLevelIdx--;
+			SoundManager::GetInstance().PlaySE(SoundManager::SE::Select);
 		}
 		// Sキーで下
 		if (isSKeyTrg)
 		{
 			if (mSelectLevelIdx < 2) mSelectLevelIdx++;
+			SoundManager::GetInstance().PlaySE(SoundManager::SE::Select);
 		}
 
 		// 難易度選択画面でスペースが押されたらゲーム開始
@@ -159,6 +166,7 @@ void TitleScene::Update(void)
 			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 		}
 	}
+	
 }
 
 void TitleScene::Draw(void)
@@ -240,4 +248,5 @@ void TitleScene::Draw(void)
 
 void TitleScene::Release(void)
 {
+	SoundManager::GetInstance().Release();
 }

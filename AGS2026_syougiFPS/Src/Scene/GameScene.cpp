@@ -6,7 +6,7 @@
 #include "../Object/PlayBpard.h"
 #include "../Manager/LightManager.h" 
 #include "../Object/Ou.h"
-
+#include "../Manager/SoundManager.h"
 GameScene::GameScene(void) : SceneBase(), grid_(nullptr), playBoard_(nullptr), /*ou_(nullptr),*/ lightManager_(nullptr) {}
 
 GameScene::~GameScene(void) {}
@@ -24,7 +24,17 @@ void GameScene::Init(void) {
   /*  ou_ = new Ou(4, 0, true);*/
 
     lightManager_ = new LightManager();
-}
+    SoundManager::GetInstance().Init();
+    SoundManager::GetInstance().PlayBGM(SoundManager::BGM::Game, true);
+
+    PlayTime++;
+    if (PlayTime>=60)
+    {
+        SoundManager::GetInstance().PlayBGM(SoundManager::BGM::sisi, true);
+        PlayTime = 0;
+    }
+   }
+   
 
 void GameScene::Update(void) {
     if (grid_) grid_->Update();
@@ -112,4 +122,6 @@ void GameScene::Release(void) {
         delete lightManager_;
         lightManager_ = nullptr;
     }
+    SoundManager::GetInstance().Release();
+
 }
