@@ -28,8 +28,8 @@ private:
     float moveTimer_ = 0.0f;
     float moveSpeed = 0.02f;
     float floorHeight = 20.0f;
-
     float radius_ = 7.0f;
+    float velocityY_ = 0.0f;
 
 };
 

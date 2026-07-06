@@ -58,7 +58,7 @@ void FPSBattleScene::Update()
 	// エネミーの更新
     if(enemy_ != nullptr && player_ != nullptr)
     {
-        //enemy_->Update(player_->GetPos());
+        enemy_->Update(player_->GetPos());
 	}
 
 	// プレイヤーの更新
@@ -75,8 +75,6 @@ void FPSBattleScene::Update()
             if (dist < 6.0f) 
             {
                 player_->Damage(20); // 20ダメージ与えて自動で無敵化
-
-                
             }
         }
     }

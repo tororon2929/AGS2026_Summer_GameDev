@@ -30,19 +30,21 @@ void Enemy::Update(VECTOR playerPos)
 {
     VECTOR dir = VSub(playerPos, transform_.pos);
 
-    dir = VNorm(dir);
-
-    transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
+    dir.y = 0.0f;
 
     if (VSquareSize(dir) > 0.0f)
     {
         dir = VNorm(dir);
-        transform_.pos = VAdd(transform_.pos, VScale(dir, 0.1f));
+        transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
     }
+
+    velocityY_ += -0.05f;
+    transform_.pos.y += velocityY_;
 
     if (transform_.pos.y < floorHeight)
     {
         transform_.pos.y = floorHeight;
+		velocityY_ = 0.0f;
     }
 
     transform_.Update();
@@ -63,10 +65,11 @@ void Enemy::Draw()
     {
         if (transform_.modelId != -1) {
             VECTOR modelPos;
-            modelPos.x = transform_.pos.x - (-17.620f);
-            modelPos.y = transform_.pos.y - (24.958f);
-            modelPos.z = transform_.pos.z - (-9.576f);
 
+            modelPos.x = transform_.pos.x - 17.620f;
+            modelPos.y = transform_.pos.y + 24.958f;
+            modelPos.z = transform_.pos.z - 9.576f;
+         
             //補正した位置をモデルにセット
             MV1SetPosition(transform_.modelId, modelPos);
 
