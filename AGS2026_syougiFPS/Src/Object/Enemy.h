@@ -27,8 +27,10 @@ private:
     bool isDummy_ = false; // ‰¼ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
     float moveTimer_ = 0.0f;
     float moveSpeed = 0.02f;
-    float floorHeight = 20.0f;
-    float radius_ = 7.0f;
+	//’nã‚Ì‚‚³
+    float floorHeight = 25.0f;
+	//“G‚Ì“–‚½‚è”»’è‚Ì”¼Œa
+    float radius_ = 2.0f;
     float velocityY_ = 0.0f;
 
 };

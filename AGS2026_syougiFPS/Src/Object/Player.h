@@ -40,11 +40,16 @@ private:
 	const float moveSpeed_ = 0.05f;// ˆÚ“®‘¬“x
     const float dashSpeed_ = 0.15f;
 	const float gravity_ = -0.05f; // d—Í‰Á‘¬“x
-
+    const int maxHp_ = 100;
 
     int hp_ = 100;
     int invincibleTimer_ = 0;
     int jumpCount_ = 0;
-    
+    int hHpBar_ = -1;
+    int barWidth_ = 0;
+    int barHeight_ = 0;
+    int displayMaxWidth = 767;
+    int drawX = 20;
+    int drawY = 20;
 };
 

@@ -67,17 +67,19 @@ void FPSBattleScene::Update()
         player_->Update(camera_);
 	}
 
+	//ƒvƒŒƒCƒ„[‚Æ“G‚Ì“–‚½‚è”»’è
     if (enemy_ != nullptr && player_ != nullptr)
     {
         if (!player_->IsInvincible())
         {
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
-            if (dist < 6.0f) 
+            if (dist < enemy_->GetRadius()) 
             {
                 player_->Damage(20); // 20ƒ_ƒ[ƒW—^‚¦‚ÄŽ©“®‚Å–³“G‰»
             }
         }
     }
+	// ’e‚Ì”­ŽËˆ—
     if (GetMouseInput() & MOUSE_INPUT_LEFT)
     {
         if (player_ != nullptr && camera_ != nullptr)
@@ -142,13 +144,14 @@ void FPSBattleScene::Update()
         return;
     }
 
-    if (enemy_ == nullptr)
+    if (enemy_ != nullptr && enemy_->IsDead())
     {
-        SceneManager::GetInstance().SetGameClear(true);
+        SceneManager::GetInstance().SetGameClear(false);
 
         SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
     }
+   
 
     // ‰¼FEnter‚Å«Šû‚Ö–ß‚é
 
@@ -225,8 +228,12 @@ void FPSBattleScene::Draw()
     }
 
     DrawFormatString(0, 0, GetColor(255, 255, 255), "Bullet Count: %d", bullets_.size());
-
     DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount_);
+
+    if (enemy_ != nullptr)
+    {
+        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 100", enemy_->hp_);
+    }
 
 
     

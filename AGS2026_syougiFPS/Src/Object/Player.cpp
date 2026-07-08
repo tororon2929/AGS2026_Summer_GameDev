@@ -1,5 +1,6 @@
 #include "Player.h"
 #include"../Common/Camera.h"
+#include"../Application.h"
 #include <cmath>
 
 Player::Player()
@@ -14,7 +15,12 @@ Player::~Player()
 
 void Player::Init()
 {
-   
+   hHpBar_ = LoadGraph("Data/UI/HPbar.png");
+
+   if (hHpBar_ != -1)
+   {
+       GetGraphSize(hHpBar_, &barWidth_, &barHeight_);
+   }
 }
 
 void Player::Update(Camera* camera)
@@ -146,10 +152,35 @@ void Player::Damage(int value)
 
 void Player::Draw()
 {
+	// HPÉoÅ[ÇÃï`âÊ
+    if (hHpBar_ != -1)
+    {
+        int displayHeight = (int)((float)displayMaxWidth * barHeight_ / barWidth_);
+
+        float hpRatio = (float)hp_ / maxHp_;
+        if (hpRatio < 0.0f) hpRatio = 0.0f;
+
+        int srcWidth = (int)(barWidth_ * hpRatio);
+        int drawWidth = (int)(displayMaxWidth * hpRatio);
+
+        if (srcWidth > 0 && drawWidth > 0)
+        {
+            DrawRectExtendGraph(
+                drawX, drawY, drawX + drawWidth, drawY + displayHeight,
+                0, 0, srcWidth, barHeight_,
+                hHpBar_, TRUE);
+        }
+    }
 }
    
 void Player::Release()
 {
+    if (hHpBar_ != -1)
+    {
+        DeleteGraph(hHpBar_);
+        hHpBar_ = -1;
+    }
+
 }
 
 VECTOR Player::GetLookDir() const
