@@ -54,12 +54,11 @@ void Application::Init(void) {
 }
 
 void Application::Run(void) {
-    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0) {
+    while (ProcessMessage() == 0) {
         InputManager::GetInstance().Update();
         SceneManager::GetInstance().Update();
 
         ClearDrawScreen();
-
 
         SceneManager::GetInstance().Draw();
         ScreenFlip();

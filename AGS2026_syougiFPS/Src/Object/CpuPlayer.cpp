@@ -105,18 +105,16 @@ MoveCommand CpuPlayer::Think(PlayBpard* board) {
     case Level::Normal: {
         // 【Normal】「駒が取れるなら、一番価値の高い駒を取る」ロジック
         MoveCommand bestMove = validMoves[0];
-        int maxCapturedValue = -1; // 取れる駒の最大価値を保持
+        int maxCapturedValue = -1;
         std::vector<MoveCommand> bestMovesGroup;
 
         for (const auto& move : validMoves) {
             Cell* targetCell = board->GetCell(move.toX, move.toY);
             if (targetCell) {
                 PieceBase* targetPiece = targetCell->GetPiece();
-                // 移動先にプレイヤーの駒がいる場合
                 if (targetPiece && targetPiece->IsPlayer()) {
                     int val = GetPieceValue(targetPiece);
 
-                    // より価値の高い駒が取れる手を見つけたら更新
                     if (val > maxCapturedValue) {
                         maxCapturedValue = val;
                         bestMovesGroup.clear();
@@ -129,45 +127,77 @@ MoveCommand CpuPlayer::Think(PlayBpard* board) {
             }
         }
 
-        // 取れる駒があった場合は、その中で最も価値の高い手（同価値ならランダム）を返す
         if (maxCapturedValue != -1 && !bestMovesGroup.empty()) {
             int randomIndex = GetRand(static_cast<int>(bestMovesGroup.size()) - 1);
             return bestMovesGroup[randomIndex];
         }
 
-        // 取れる駒がない場合はEasy同様、全体からランダムに動く
         int randomIndex = GetRand(static_cast<int>(validMoves.size()) - 1);
         return validMoves[randomIndex];
     }
 
     case Level::Hard: {
-        // 【Hard】1手読みの簡易評価関数（王手・前進・駒得を重視）
+        // 【Hard】ミニマックス法（実質2手読み評価）
         int bestScore = INT_MIN;
         std::vector<MoveCommand> bestMovesGroup;
+
+        // CPUの自分の駒情報を取得しておく（価値計算に利用）
+        Cell* myFromCell = nullptr;
+        PieceBase* myMovingPiece = nullptr;
 
         for (const auto& move : validMoves) {
             int currentScore = 0;
 
+            myFromCell = board->GetCell(move.fromX, move.fromY);
+            if (!myFromCell) continue;
+            myMovingPiece = myFromCell->GetPiece();
+            if (!myMovingPiece) continue;
+
+            // 1. 相手の駒を奪える場合のプラス評価
             Cell* targetCell = board->GetCell(move.toX, move.toY);
             if (targetCell) {
                 PieceBase* targetPiece = targetCell->GetPiece();
-                // 1. 相手の駒を奪える場合のプラス評価
                 if (targetPiece && targetPiece->IsPlayer()) {
-                    int val = GetPieceValue(targetPiece);
-
-                    // ★修正ポイント: typeidを廃止し、GetType()で安全に王・玉判定
                     PieceType targetType = targetPiece->GetType();
                     if (targetType == PIECE_OU || targetType == PIECE_GYOKU) {
-                        currentScore += 99999; // 勝ち確定の手（玉を捕まえられるなら最優先）
+                        currentScore += 999999; // 王・玉を取れるなら勝利確定なので超最優先
                     }
                     else {
-                        currentScore += val * 10; // 駒の価値を10倍にしてスコアに加算
+                        currentScore += GetPieceValue(targetPiece) * 100; // 駒得の価値を大幅プラス
                     }
                 }
             }
 
-            // 2. 位置（前進）による評価
-            currentScore += move.toY * 5;
+            // 2. 位置（前進）による微小な評価（攻める気持ちを持たせる）
+            currentScore += move.toY * 2;
+
+            // 3. 【ミニマックス（2手読み）】移動した後にプレイヤーから反撃を受けるリスクを予測
+            int maxRiskScore = 0;
+
+            // 盤面全体を走査して、次のプレイヤーのターンで何が起こるかシミュレーション
+            for (int py = 0; py < 7; ++py) {
+                for (int px = 0; px < 5; ++px) {
+                    Cell* pCell = board->GetCell(px, py);
+                    if (!pCell) continue;
+
+                    PieceBase* pPiece = pCell->GetPiece();
+                    // プレイヤーの駒を見つけた場合
+                    if (pPiece && pPiece->IsPlayer()) {
+
+                        // そのプレイヤーの駒が、CPUが「移動しようとしている未来のマス(move.toX, move.toY)」に攻撃できるか？
+                        if (pPiece->CanMove(move.toX, move.toY) && board->IsPathClear(px, py, move.toX, move.toY)) {
+                            // もしプレイヤーに取られてしまうなら、移動させる予定の自分の駒の価値がリスク（損失）になる
+                            int risk = GetPieceValue(myMovingPiece) * 100;
+                            if (risk > maxRiskScore) {
+                                maxRiskScore = risk; // 最も痛い損失を記録
+                            }
+                        }
+                    }
+                }
+            }
+
+            // スコアから予測される最大リスクを引き算する（ミニマックスの核心部分）
+            currentScore -= maxRiskScore;
 
             // 一番スコアの高い手をリストアップ
             if (currentScore > bestScore) {
@@ -180,7 +210,7 @@ MoveCommand CpuPlayer::Think(PlayBpard* board) {
             }
         }
 
-        // 最高評価の手の中からランダムに選択
+        // 最高評価の手の中からランダムに選択（同じ手ばかりになるのを防止）
         if (!bestMovesGroup.empty()) {
             int randomIndex = GetRand(static_cast<int>(bestMovesGroup.size()) - 1);
             return bestMovesGroup[randomIndex];
