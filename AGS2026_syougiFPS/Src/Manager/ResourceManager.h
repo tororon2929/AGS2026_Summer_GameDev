@@ -19,7 +19,7 @@ public:
 		Hisha,
 		Kin,
 		Gin,
-		ENEMY,
+		ENEMY_FU,
 
 	};
 
