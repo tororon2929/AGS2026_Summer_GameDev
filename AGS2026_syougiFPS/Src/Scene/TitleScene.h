@@ -1,16 +1,10 @@
 #pragma once
 #include "SceneBase.h"
-class Grid;
 
 class TitleScene : public SceneBase
 {
-
 public:
-
-	// コンストラクタ
 	TitleScene(void);
-
-	// デストラクタ
 	~TitleScene(void) override;
 
 	void Init(void) override;
@@ -19,9 +13,35 @@ public:
 	void Release(void) override;
 
 private:
+	// ↓元の変数はすべてそのまま残しています
+	int titleGraphHandle_;
 
-	// グリッド線
-	Grid* grid_;
+	int logoX_;
+	int logoY_;
+	double logoScale_;
 
+	int boardModelHandle_;
+	VECTOR boardPos_;
+	float boardRotY_;
+	float boardRotSpeed_;
 
+	float boardRotPitch_;
+	float boardRotYaw_;
+
+	float cameraRadius_;
+	float cameraPitch_;
+	float cameraYaw_;
+	int prevMouseX_;
+	int prevMouseY_;
+
+	// ========================================================
+	// ★追加: 難易度選択の状態管理用の変数
+	// ========================================================
+	enum class State
+	{
+		Title,        // 「PRESS SPACE KEY」の画面
+		SelectLevel   // 難易度を選んでいる画面
+	};
+	State mState;         // 現在の画面状態
+	int mSelectLevelIdx;  // 選択中の難易度 (0: EASY, 1: NORMAL, 2: HARD)
 };

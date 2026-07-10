@@ -1,15 +1,20 @@
-#include <DxLib.h>
+ï»¿#include <DxLib.h>
+#include "../Manager/SceneManager.h"
 #include "../Object/PlayBpard.h"
 #include "../Manager/ResourceManager.h"
 #include "../Object/Ou.h"
 #include "../Common/Cell.h"
 #include "../Object/Gyoku.h"
-#include "../Manager/SceneManager.h"
 #include "../Object/Fu.h"
 #include "../Object/Hisha.h"
 #include "../Object/Kaku.h"
 #include "../Object/Kin.h"
 #include "../Object/Gin.h"
+#include "../Effect/EffectManager.h"
+#include "../Effect/CutInEffect.h"
+#include"../Manager/InputManager.h"
+#include "CpuPlayer.h"
+#include "../Manager/SoundManager.h"
 
 PlayBpard::PlayBpard()
     : m_handle(-1),
@@ -39,12 +44,20 @@ PlayBpard::PlayBpard()
     SetScreenPosY5(495),
     SetScreenPosY6(620),
     SetScreenPosY7(745),
-    SetWorldPosY(0)
+    SetWorldPosY(0),
+    SetScreenPosZ(14.0f),
+    SetScreenPosZ2(9.25f),
+    SetScreenPosZ3(4.5f),
+    SetScreenPosZ4(0.0f),
+    SetScreenPosZ5(-4.5f),
+    SetScreenPosZ6(-9.25f),
+    SetScreenPosZ7(-14.0f)
 {
 }
 
 PlayBpard::~PlayBpard()
 {
+    delete m_cpuPlayer;
 }
 
 void PlayBpard::Initialize()
@@ -53,9 +66,27 @@ void PlayBpard::Initialize()
         ResourceManager::GetInstance().Load(ResourceManager::SRC::PlayBpard);
 
     m_handle = res.handleId_;
+    // ========================================================
+     // â˜…é›£æ˜“åº¦ã®åˆ†å²å‡¦ç†ï¼ˆå¿…ãšé–¢æ•°ã®å†…å´ã«è¨˜è¿°ã—ã¾ã™ï¼‰
+     // ========================================================
+    int selectedLevel = SceneManager::GetInstance().GetCpuLevel();
+    CpuPlayer::Level cpuLevel = CpuPlayer::Level::Easy;
+
+    if (selectedLevel == 1)
+    {
+        cpuLevel = CpuPlayer::Level::Normal;
+    }
+    else if (selectedLevel == 2)
+    {
+        cpuLevel = CpuPlayer::Level::Hard;
+    }
+
+    // é¸æŠã•ã‚ŒãŸé›£æ˜“åº¦ã§AIã‚’ç”Ÿæˆ
+    m_cpuPlayer = new CpuPlayer(cpuLevel);
+    mCpuThinkTimer = 0;
 
     // =========================
-    // Cell‰Šú‰» (c7 x ‰¡5)
+    // CellåˆæœŸåŒ– (ç¸¦7 x æ¨ª5)
     // =========================
     for (int y = 0; y < 7; y++)
     {
@@ -66,52 +97,52 @@ void PlayBpard::Initialize()
     }
 
     // =========================
-    // Cell‰æ–ÊÀ•W (•ÏX‚È‚µ)
+    // Cellç”»é¢åº§æ¨™ (å¤‰æ›´ãªã—)
     // =========================
-
-    // 1s–Ú
+    
+    // 1è¡Œç›®
     mCells[0][0].SetScreenPos(SetScreenPosX, SetScreenPosY);
     mCells[0][1].SetScreenPos(SetScreenPosX2, SetScreenPosY);
     mCells[0][2].SetScreenPos(SetScreenPosX3, SetScreenPosY);
     mCells[0][3].SetScreenPos(SetScreenPosX4, SetScreenPosY);
     mCells[0][4].SetScreenPos(SetScreenPosX5, SetScreenPosY);
 
-    // 2s–Ú
+    // 2è¡Œç›®
     mCells[1][0].SetScreenPos(SetScreenPosX, SetScreenPosY2);
     mCells[1][1].SetScreenPos(SetScreenPosX2, SetScreenPosY2);
     mCells[1][2].SetScreenPos(SetScreenPosX3, SetScreenPosY2);
     mCells[1][3].SetScreenPos(SetScreenPosX4, SetScreenPosY2);
     mCells[1][4].SetScreenPos(SetScreenPosX5, SetScreenPosY2);
 
-    // 3s–Ú
+    // 3è¡Œç›®
     mCells[2][0].SetScreenPos(SetScreenPosX, SetScreenPosY3);
     mCells[2][1].SetScreenPos(SetScreenPosX2, SetScreenPosY3);
     mCells[2][2].SetScreenPos(SetScreenPosX3, SetScreenPosY3);
     mCells[2][3].SetScreenPos(SetScreenPosX4, SetScreenPosY3);
     mCells[2][4].SetScreenPos(SetScreenPosX5, SetScreenPosY3);
 
-    // 4s–Ú
+    // 4è¡Œç›®
     mCells[3][0].SetScreenPos(SetScreenPosX, SetScreenPosY4);
     mCells[3][1].SetScreenPos(SetScreenPosX2, SetScreenPosY4);
     mCells[3][2].SetScreenPos(SetScreenPosX3, SetScreenPosY4);
     mCells[3][3].SetScreenPos(SetScreenPosX4, SetScreenPosY4);
     mCells[3][4].SetScreenPos(SetScreenPosX5, SetScreenPosY4);
 
-    // 5s–Ú
+    // 5è¡Œç›®
     mCells[4][0].SetScreenPos(SetScreenPosX, SetScreenPosY5);
     mCells[4][1].SetScreenPos(SetScreenPosX2, SetScreenPosY5);
     mCells[4][2].SetScreenPos(SetScreenPosX3, SetScreenPosY5);
     mCells[4][3].SetScreenPos(SetScreenPosX4, SetScreenPosY5);
     mCells[4][4].SetScreenPos(SetScreenPosX5, SetScreenPosY5);
 
-    // 6s–Ú
+    // 6è¡Œç›®
     mCells[5][0].SetScreenPos(SetScreenPosX, SetScreenPosY6);
     mCells[5][1].SetScreenPos(SetScreenPosX2, SetScreenPosY6);
     mCells[5][2].SetScreenPos(SetScreenPosX3, SetScreenPosY6);
     mCells[5][3].SetScreenPos(SetScreenPosX4, SetScreenPosY6);
     mCells[5][4].SetScreenPos(SetScreenPosX5, SetScreenPosY6);
 
-    // 7s–Ú
+    // 7è¡Œç›®
     mCells[6][0].SetScreenPos(SetScreenPosX, SetScreenPosY7);
     mCells[6][1].SetScreenPos(SetScreenPosX2, SetScreenPosY7);
     mCells[6][2].SetScreenPos(SetScreenPosX3, SetScreenPosY7);
@@ -119,69 +150,69 @@ void PlayBpard::Initialize()
     mCells[6][4].SetScreenPos(SetScreenPosX5, SetScreenPosY7);
 
     // =========================
-    // Cell‚Ì3DÀ•W (š‚²—v–]’Ê‚è•ÏX‚È‚µ)
+    // Cellã®3Dåº§æ¨™ (â˜…ã”è¦æœ›é€šã‚Šå¤‰æ›´ãªã—)
     // =========================
 
-    // 1s–Ú
-    mCells[0][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 14.0f));
-    mCells[0][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 14.0f));
-    mCells[0][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 14.0f));
-    mCells[0][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 14.0f));
-    mCells[0][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 14.0f));
+    // 1è¡Œç›®
+    mCells[0][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ));
+    mCells[0][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ));
 
-    // 2s–Ú
-    mCells[1][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 9.25f));
-    mCells[1][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 9.25f));
-    mCells[1][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 9.25f));
-    mCells[1][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 9.25f));
-    mCells[1][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 9.25f));
+    // 2è¡Œç›®
+    mCells[1][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ2));
+    mCells[1][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ2));
 
-    // 3s–Ú
-    mCells[2][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 4.5f));
-    mCells[2][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 4.5f));
-    mCells[2][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 4.5f));
-    mCells[2][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 4.5f));
-    mCells[2][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 4.5f));
+    // 3è¡Œç›®
+    mCells[2][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ3));
+    mCells[2][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ3));
 
-    // 4s–Ú
-    mCells[3][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, 0.0f));
-    mCells[3][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, 0.0f));
-    mCells[3][2].SetWorldPos(VGet(0.0f, SetWorldPosY, 0.0f));
-    mCells[3][3].SetWorldPos(VGet(4.5f, SetWorldPosY, 0.0f));
-    mCells[3][4].SetWorldPos(VGet(9.0f, SetWorldPosY, 0.0f));
+    // 4è¡Œç›®
+    mCells[3][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ4));
+    mCells[3][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ4));
 
-    // 5s–Ú
-    mCells[4][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -4.5f));
-    mCells[4][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -4.5f));
-    mCells[4][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -4.5f));
-    mCells[4][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -4.5f));
-    mCells[4][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -4.5f));
+    // 5è¡Œç›®
+    mCells[4][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ5));
+    mCells[4][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ5));
 
-    // 6s–Ú
-    mCells[5][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -9.25f));
-    mCells[5][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -9.25f));
-    mCells[5][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -9.25f));
-    mCells[5][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -9.25f));
-    mCells[5][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -9.25f));
+    // 6è¡Œç›®
+    mCells[5][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ6));
+    mCells[5][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ6));
 
-    // 7s–Ú
-    mCells[6][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, -14.0f));
-    mCells[6][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, -14.0f));
-    mCells[6][2].SetWorldPos(VGet(0.0f, SetWorldPosY, -14.0f));
-    mCells[6][3].SetWorldPos(VGet(4.5f, SetWorldPosY, -14.0f));
-    mCells[6][4].SetWorldPos(VGet(9.0f, SetWorldPosY, -14.0f));
+    // 7è¡Œç›®
+    mCells[6][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][2].SetWorldPos(VGet(0.0f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ7));
+    mCells[6][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ7));
 
-    // ‰¤‚Ìİ’u (•ÏX‚È‚µ)
+    // ç‹ã®è¨­ç½® (å¤‰æ›´ãªã—)
     Ou* ou = new Ou(2, 6, true);
     ou->SetWorldPos(mCells[6][2].GetWorldPos());
     mCells[6][2].SetPiece(ou);
 
-    // ‹Ê‚Ìİ’u (•ÏX‚È‚µ)
+    // ç‰ã®è¨­ç½® (å¤‰æ›´ãªã—)
     Gyoku* gyoku = new Gyoku(2, 0, false);
     gyoku->SetWorldPos(mCells[0][2].GetWorldPos());
     mCells[0][2].SetPiece(gyoku);
 
-    // ƒvƒŒƒCƒ„[•à (‰¡5—ñ•ªƒ‹[ƒv)
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ­© (æ¨ª5åˆ—åˆ†ãƒ«ãƒ¼ãƒ—)
     for (int x = 0; x <= 4; x++)
     {
         Fu* playerFu = new Fu(x, 5, true);
@@ -189,7 +220,7 @@ void PlayBpard::Initialize()
         mCells[5][x].SetPiece(playerFu);
     }
 
-    // “G‚Ì•à•º (‰¡5—ñ•ªƒ‹[ƒv)
+    // æ•µã®æ­©å…µ (æ¨ª5åˆ—åˆ†ãƒ«ãƒ¼ãƒ—)
     for (int x = 0; x <= 4; x++)
     {
         Fu* enemyFu = new Fu(x, 1, false);
@@ -197,173 +228,214 @@ void PlayBpard::Initialize()
         mCells[1][x].SetPiece(enemyFu);
     }
 
-    //”òÔ‚Ìİ’u
+    //é£›è»Šã®è¨­ç½®
     Hisha* hisha = new Hisha(0, 6, true);
     hisha->SetWorldPos(mCells[6][0].GetWorldPos());
     mCells[6][0].SetPiece(hisha);
 
-	//“G‚Ì”òÔ‚Ìİ’u
+	//æ•µã®é£›è»Šã®è¨­ç½®
     Hisha* enemyhisha = new Hisha(0, 0, false);
     enemyhisha->SetWorldPos(mCells[0][0].GetWorldPos());
     mCells[0][0].SetPiece(enemyhisha);
 
-	//Šp‚Ìİ’u
+	//è§’ã®è¨­ç½®
     Kaku* kaku = new Kaku(4, 6, true);
     kaku->SetWorldPos(mCells[6][4].GetWorldPos());
 	mCells[6][4].SetPiece(kaku);
 
-	//“G‚ÌŠp‚Ìİ’u
+	//æ•µã®è§’ã®è¨­ç½®
     Kaku* enemykaku = new Kaku(4, 0, false);
 	enemykaku->SetWorldPos(mCells[0][4].GetWorldPos());
     mCells[0][4].SetPiece(enemykaku);
 
-	//‹à‚Ìİ’u
-    Kin* kin = new Kin(1, 0, true);
-    kin->SetWorldPos(mCells[0][1].GetWorldPos());
-    mCells[0][1].SetPiece(kin);
+	//é‡‘ã®è¨­ç½®
+    Kin* kin = new Kin(3, 6, true);
+    kin->SetWorldPos(mCells[6][3].GetWorldPos());
+    mCells[6][3].SetPiece(kin);
 
-	//“G‚Ì‹à‚Ìİ’u
-    Kin* enemykin = new Kin(1, 6, false);
-    enemykin->SetWorldPos(mCells[6][1].GetWorldPos());
-	mCells[6][1].SetPiece(enemykin);
+	//æ•µã®é‡‘ã®è¨­ç½®
+    Kin* enemykin = new Kin(1, 0, false);
+    enemykin->SetWorldPos(mCells[0][1].GetWorldPos());
+	mCells[0][1].SetPiece(enemykin);
 
-	//  ‹â‚Ìİ’uiƒvƒŒƒCƒ„[‘¤j
-    Gin* gin = new Gin(1, 0, true);
-    gin->SetWorldPos(mCells[0][1].GetWorldPos());
-    mCells[0][3].SetPiece(gin);
+	//  éŠ€ã®è¨­ç½®ï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å´ï¼‰
+    Gin* gin = new Gin(1, 6, true);
+    gin->SetWorldPos(mCells[6][1].GetWorldPos());
+    mCells[6][1].SetPiece(gin);
 
-	//  ‹â‚Ìİ’ui“G‘¤j
-    Gin* enemygin = new Gin(1, 6, false);
-	enemygin->SetWorldPos(mCells[6][1].GetWorldPos());
-	mCells[6][3].SetPiece(enemygin);
+	//  éŠ€ã®è¨­ç½®ï¼ˆæ•µå´ï¼‰
+    Gin* enemygin = new Gin(3, 0, false);
+	enemygin->SetWorldPos(mCells[0][3].GetWorldPos());
+	mCells[0][3].SetPiece(enemygin);
+
+    const Resource& startRes = ResourceManager::GetInstance().Load(ResourceManager::SRC::Myturn);
+    EffectManager::GetInstance().AddEffect(
+        std::make_unique<CutInEffect>(startRes.handleId_, 1.5f)
+    );
+
+    SoundManager::GetInstance().Init();
+    
 
 }
 
 void PlayBpard::Update()
 {
-    if (mGameEnd)
-    {
-        return;
-    }
+    if (mGameEnd) return;
 
-    //// ==========================================
-    //// ƒfƒoƒbƒO‘€ìiƒL[ƒ{[ƒh‚Åƒ}ƒX‚ğ‘I‘ğE”’l‚ğ”÷’²®j
-    //// ==========================================
+    if (mPlayerTurn) {
+        // --------------------------------------------
+        // ç¾åœ¨å®Ÿè£…ã•ã‚Œã¦ã„ã‚‹ã€Œäººé–“ã®ãƒã‚¦ã‚¹ãƒ»ãƒ‘ãƒƒãƒ‰æ“ä½œã€ã®å‡¦ç†
+        // --------------------------------------------
+        InputManager& inp = InputManager::GetInstance();
+        // -------------------------------------------------------------
+        // 1. å„ç¨®å…¥åŠ›çŠ¶æ…‹ã®å–å¾— (ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ & ãƒã‚¦ã‚¹)
+        // -------------------------------------------------------------
+        int padInput = GetJoypadInputState(DX_INPUT_PAD1);
+        int padTrg = padInput & ~mPadOldInput;
+        mPadOldInput = padInput; // çŠ¶æ…‹ã‚’ä¿å­˜
 
-    //// 1. ƒ}ƒX©‘Ì‚Ì‘I‘ğ•ÏXiSHIFTƒL[‚ğ‰Ÿ‚µ‚È‚ª‚ç–îˆóƒL[j
-    //if (CheckHitKey(KEY_INPUT_LSHIFT) || CheckHitKey(KEY_INPUT_RSHIFT))
-    //{
-    //    // ‰Ÿ‚µ‚Á‚Ï‚È‚µ‚Å‚‘¬ˆÚ“®‚µ‚·‚¬‚È‚¢‚æ‚¤AŠÈˆÕ“I‚È“ü—Í§Œäi1ƒtƒŒ[ƒ€‘O‚Ìó‘Ô‚È‚Çj‚ğ“ü‚ê‚é‚Æ‚æ‚è‰õ“K‚É‚È‚è‚Ü‚·‚ªA
-    //    // ¡‰ñ‚ÍƒVƒ“ƒvƒ‹‚ÉAƒL[‚ª‰Ÿ‚³‚ê‚½‚ç‘I‘ğƒCƒ“ƒfƒbƒNƒX‚ğXV‚µ‚Ü‚·B
-    //    // ¦’·‰Ÿ‚µ‚·‚é‚Æ¨‚¢‚æ‚­“®‚­‚Ì‚Åƒgƒ“ƒgƒ“‚Æ’@‚­‚æ‚¤‚É‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢B
-    //    if (CheckHitKey(KEY_INPUT_RIGHT)) { mSelectCellX = (mSelectCellX + 1) % 5; }
-    //    if (CheckHitKey(KEY_INPUT_LEFT)) { mSelectCellX = (mSelectCellX - 1 + 5) % 5; }
-    //    if (CheckHitKey(KEY_INPUT_DOWN)) { mSelectCellY = (mSelectCellY + 1) % 7; }
-    //    if (CheckHitKey(KEY_INPUT_UP)) { mSelectCellY = (mSelectCellY - 1 + 7) % 7; }
+        // ãƒã‚¦ã‚¹ã®å·¦ã‚¯ãƒªãƒƒã‚¯çŠ¶æ…‹ã‚’å–å¾—
+        int mouseInput = GetMouseInput();
+        bool mouseClickTrg = (mouseInput & MOUSE_INPUT_LEFT) && !mMouseOld;
+        mMouseOld = (mouseInput & MOUSE_INPUT_LEFT); // çŠ¶æ…‹ã‚’ä¿å­˜
 
-    //    // ‘I‘ğ‚³‚ê‚½ƒCƒ“ƒfƒbƒNƒX‚©‚çƒ|ƒCƒ“ƒ^‚ğXV
-    //    mSelectCell = &mCells[mSelectCellY][mSelectCellX];
+        // ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŸ¢å°ã‚­ãƒ¼ã®å˜ç™ºæŠ¼ã—åˆ¤å®š (ãƒ‡ãƒãƒƒã‚°ç”¨)
+        static bool keyUpOld = false, keyDownOld = false, keyLeftOld = false, keyRightOld = false;
+        bool keyUp = CheckHitKey(KEY_INPUT_UP);
+        bool keyDown = CheckHitKey(KEY_INPUT_DOWN);
+        bool keyLeft = CheckHitKey(KEY_INPUT_LEFT);
+        bool keyRight = CheckHitKey(KEY_INPUT_RIGHT);
 
-    //    // •`‰æ—p‚Ì‘I‘ğó‘Ôi—Î˜gj‚ğ“¯Šú
-    //    for (int y = 0; y < 7; y++)
-    //    {
-    //        for (int x = 0; x < 5; x++)
-    //        {
-    //            mCells[y][x].SetSelected(false);
-    //        }
-    //    }
-    //    mSelectCell->SetSelected(true);
-    //}
-    //// 2. ƒ}ƒXƒTƒCƒY‚Ì•ÏXiLƒL[‚ğ‰Ÿ‚µ‚È‚ª‚ç–îˆóƒL[j
-    //else if (CheckHitKey(KEY_INPUT_L))
-    //{
-    //    if (CheckHitKey(KEY_INPUT_RIGHT)) mCellSizeX++;
-    //    if (CheckHitKey(KEY_INPUT_LEFT))  mCellSizeX--;
-    //    if (CheckHitKey(KEY_INPUT_DOWN))  mCellSizeY++;
-    //    if (CheckHitKey(KEY_INPUT_UP))    mCellSizeY--;
-    //}
-    //// 3. Œ»İ‘I‘ğ’†‚Ìƒ}ƒX‚Ì‰æ–ÊÀ•W‚ğ•ÏXi–îˆóƒL[‚Ì‚İj
-    //else if (mSelectCell)
-    //{
-    //    int currentX = mSelectCell->GetScreenX();
-    //    int currentY = mSelectCell->GetScreenY();
+        // -------------------------------------------------------------
+        // 2. æ ï¼ˆã‚«ãƒ¼ã‚½ãƒ«ï¼‰ã®ç§»å‹•å‡¦ç†
+        // -------------------------------------------------------------
+        // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®åå­—ã‚­ãƒ¼/ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã€ã¾ãŸã¯ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŸ¢å°ã‚­ãƒ¼ã§æ ã ã‘ã‚’å‹•ã‹ã™
+        if ((padTrg & PAD_INPUT_UP) || (keyUp && !keyUpOld)) { mPadCursorY = (mPadCursorY > 0) ? mPadCursorY - 1 : 0; }
+        if ((padTrg & PAD_INPUT_DOWN) || (keyDown && !keyDownOld)) { mPadCursorY = (mPadCursorY < 6) ? mPadCursorY + 1 : 6; }
+        if ((padTrg & PAD_INPUT_LEFT) || (keyLeft && !keyLeftOld)) { mPadCursorX = (mPadCursorX > 0) ? mPadCursorX - 1 : 0; }
+        if ((padTrg & PAD_INPUT_RIGHT) || (keyRight && !keyRightOld)) { mPadCursorX = (mPadCursorX < 4) ? mPadCursorX + 1 : 4; }
 
-    //    if (CheckHitKey(KEY_INPUT_RIGHT)) currentX++;
-    //    if (CheckHitKey(KEY_INPUT_LEFT))  currentX--;
-    //    if (CheckHitKey(KEY_INPUT_DOWN))  currentY++;
-    //    if (CheckHitKey(KEY_INPUT_UP))    currentY--;
+        keyUpOld = keyUp; keyDownOld = keyDown; keyLeftOld = keyLeft; keyRightOld = keyRight;
 
-    //    mSelectCell->SetScreenPos(currentX, currentY);
-    //}
-
-    // ==========================================
-    // ’Êí‚Ìƒ}ƒEƒX‘I‘ğˆ—iŠù‘¶‚Ì‚à‚Ìj
-    // ==========================================
-    bool mouseNow = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
-
-    if (mouseNow && !mMouseOld)
-    {
+        // ãƒã‚¦ã‚¹ãŒã©ã“ã‹ã®ãƒã‚¹ã®ä¸Šã«ä¹—ã£ã¦ã„ã‚‹å ´åˆã¯ã€æ ã‚’ãƒã‚¦ã‚¹ä½ç½®ã«åŒæœŸã™ã‚‹
         Cell* hoverCell = GetMouseOverCell();
-
         if (hoverCell)
         {
             for (int y = 0; y < 7; y++)
             {
                 for (int x = 0; x < 5; x++)
                 {
-                    mCells[y][x].SetSelected(false);
-                }
-            }
-
-            PieceBase* piece = hoverCell->GetPiece();
-
-            if (mSelectPiece)
-            {
-                if (hoverCell->IsMovePoint())
-                {
-                    bool result = MovePiece(
-                        mSelectPiece->GetX(),
-                        mSelectPiece->GetY(),
-                        hoverCell->GetX(),
-                        hoverCell->GetY()
-                    );
-
-                    if (result)
+                    if (&mCells[y][x] == hoverCell)
                     {
-                        mPlayerTurn = !mPlayerTurn;
-                    }
-                    mSelectPiece = nullptr;
-                    ShowMovePoint(nullptr);
-                }
-                else if (piece)
-                {
-                    if (piece->IsPlayer() == mPlayerTurn)
-                    {
-                        mSelectPiece = piece;
-                        ShowMovePoint(piece);
+                        mPadCursorX = x;
+                        mPadCursorY = y;
                     }
                 }
             }
-            else if (piece)
+        }
+
+        // -------------------------------------------------------------
+        // 3. æ±ºå®šã‚¢ã‚¯ã‚·ãƒ§ãƒ³ï¼ˆAãƒœã‚¿ãƒ³ ã¾ãŸã¯ ãƒã‚¦ã‚¹å·¦ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸç¬é–“ï¼‰
+        // -------------------------------------------------------------
+        // ğŸ’¡ ã“ã“ãŒãƒã‚¤ãƒ³ãƒˆï¼šæ ãŒã©ã“ã«ã‚ã‚ã†ã¨ã€Aãƒœã‚¿ãƒ³ã‹å·¦ã‚¯ãƒªãƒƒã‚¯ã‚’æŠ¼ã•ãªã„é™ã‚Šä»¥ä¸‹ã®é¸æŠå‡¦ç†ã¯èµ°ã‚‰ãªã„
+        bool isSelectAction = (padTrg & PAD_INPUT_1) || mouseClickTrg;
+
+        if (isSelectAction)
+        {
+            // ç¾åœ¨ã€ç·‘æ ï¼ˆã‚«ãƒ¼ã‚½ãƒ«ï¼‰ãŒåˆã£ã¦ã„ã‚‹ãƒã‚¹ã‚’å¯¾è±¡ã«ã™ã‚‹
+            Cell* targetCell = &mCells[mPadCursorY][mPadCursorX];
+
+            if (mSelectPiece == nullptr)
             {
-                if (piece->IsPlayer() == mPlayerTurn)
+                // ã€ãƒ•ã‚§ãƒ¼ã‚º1: è‡ªåˆ†ã®é§’ã‚’é¸æŠã™ã‚‹ã€‘
+                PieceBase* piece = targetCell->GetPiece();
+                if (piece && piece->IsPlayer() == mPlayerTurn)
                 {
                     mSelectPiece = piece;
-                    ShowMovePoint(piece);
+                    ShowMovePoint(mSelectPiece); // ç§»å‹•å¯èƒ½ãƒã‚¹ã‚’é’ããƒã‚¤ãƒ©ã‚¤ãƒˆ
+                }
+
+            }
+            else
+            {
+                // ã€ãƒ•ã‚§ãƒ¼ã‚º2: ã™ã§ã«é§’ã‚’é¸ã‚“ã§ã„ã‚‹çŠ¶æ…‹ã§ã€ç§»å‹•å…ˆã‚’é¸ã¶ã€‘
+                if (targetCell->IsMovePoint())
+                {
+                    int fromX = mSelectPiece->GetX();
+                    int fromY = mSelectPiece->GetY();
+
+                    // é§’ã‚’ç§»å‹•ã•ã›ã‚‹
+                    if (MovePiece(fromX, fromY, mPadCursorX, mPadCursorY))
+                    {
+                        SoundManager::GetInstance().PlaySE(SoundManager::SE::Shot1);
+                        mSelectPiece = nullptr;
+                        // é’ã„ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’æ¶ˆã™
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                        }
+                        mPlayerTurn = !mPlayerTurn; // ã‚¿ãƒ¼ãƒ³äº¤ä»£
+                    }
+                }
+                else
+                {
+                    // ç§»å‹•å…ˆã§ã¯ãªã„å ´æ‰€ã§ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸå ´åˆ
+                    PieceBase* piece = targetCell->GetPiece();
+                    if (piece && piece->IsPlayer() == mPlayerTurn)
+                    {
+                        // åˆ¥ã®è‡ªåˆ†ã®é§’ã ã£ãŸã‚‰ã€ãã®é§’ã‚’é¸ã³ç›´ã™
+                        mSelectPiece = piece;
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                        }
+                        ShowMovePoint(mSelectPiece);
+                    }
+                    else
+                    {
+                        // ç©ºç™½ãƒã‚¹ãªã©ãªã‚‰é¸æŠã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã™ã‚‹
+                        mSelectPiece = nullptr;
+                        for (int y = 0; y < 7; y++) {
+                            for (int x = 0; x < 5; x++) mCells[y][x].SetMovePoint(false);
+                        }
+                    }
                 }
             }
+        }
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³ä¸­ã¯ã€å¿µã®ãŸã‚CPUã‚¿ã‚¤ãƒãƒ¼ã‚’0ã«ãƒªã‚»ãƒƒãƒˆã—ã¦ãŠã
+        mCpuThinkTimer = 0;
+    }
 
-            hoverCell->SetSelected(true);
-            mSelectCell = hoverCell;
+    else {
+        // --------------------------------------------
+         // CPUã®ã‚¿ãƒ¼ãƒ³ï¼ˆã‚¿ã‚¤ãƒãƒ¼ã«ã‚ˆã‚‹ã‚¦ã‚§ã‚¤ãƒˆå‡¦ç†ï¼‰
+         // --------------------------------------------
+        mCpuThinkTimer++;
 
-            // ƒ}ƒEƒXƒNƒŠƒbƒN‚ÉƒCƒ“ƒfƒbƒNƒX‚ğ“¯Šú
-            mSelectCellX = hoverCell->GetX();
-            mSelectCellY = hoverCell->GetY();
+        // 60ãƒ•ãƒ¬ãƒ¼ãƒ ï¼ˆç´„1ç§’ï¼‰çµŒéã—ãŸã‚‰ã€CPUãŒæ‰‹ã‚’å®Ÿè¡Œã™ã‚‹
+        // â€»ã€Œå°‘ã—æ—©ã‚ãŒã„ã„ã€å ´åˆã¯ 30 ã‚„ 40 ã«èª¿æ•´ã—ã¦ãã ã•ã„
+        if (mCpuThinkTimer >= 60)
+        {
+            if (m_cpuPlayer)
+            {
+                SoundManager::GetInstance().PlaySE(SoundManager::SE::Shot1);
+                MoveCommand cmd = m_cpuPlayer->Think(this);
+                
+                // æœ‰åŠ¹ãªæ‰‹ãŒè¿”ã£ã¦ããŸã‚‰å®Ÿè¡Œ
+                if (cmd.fromX != -1)
+                {
+                    if (MovePiece(cmd.fromX, cmd.fromY, cmd.toX, cmd.toY))
+                    {
+                        mPlayerTurn = true;    // ç§»å‹•æˆåŠŸã—ãŸã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³ã«æˆ»ã™
+                        mCpuThinkTimer = 0;    // ã‚¿ã‚¤ãƒãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆ
+
+                    }
+                }
+            }
         }
     }
 
-    mMouseOld = mouseNow;
+    
 }
+	
 void PlayBpard::Draw()
 {
     if (m_handle != -1)
@@ -372,64 +444,75 @@ void PlayBpard::Draw()
         MV1SetScale(m_handle, VGet(1.0f, 1.0f, 1.0f));
         MV1DrawModel(m_handle);
     }
+    // ç¾åœ¨ã®ã‚¿ãƒ¼ãƒ³ã«å¿œã˜ãŸãƒªã‚½ãƒ¼ã‚¹ã‚’å–å¾—
+    ResourceManager::SRC turnSrc = mPlayerTurn ? ResourceManager::SRC::Myturn : ResourceManager::SRC::Enemyturn;
+    const Resource& turnRes = ResourceManager::GetInstance().Load(turnSrc);
 
-    // ƒOƒŠƒbƒhü‚ÆCell•`‰æƒ‹[ƒv‚ğ c7 x ‰¡5 ‚ÉC³
+    if (turnRes.handleId_ != -1)
+    {
+        // ç”»é¢å·¦ä¸Š (X=20, Y=20) ã«å°‘ã—å°ã•ã‚(0.5å€ãªã©)ã§è¡¨ç¤ºã™ã‚‹å ´åˆ
+        // â€»ç­‰å€ã§è‰¯ã‘ã‚Œã° DrawGraph(20, 20, turnRes.handleId_, TRUE); ã§ã‚‚OKã§ã™
+        DrawRotaGraph(180, 60, 0.25, 0.0, turnRes.handleId_, TRUE);
+    }
+    // å„ãƒã‚¹ã®æç”»å‡¦ç†
+    Cell* hoverCell = GetMouseOverCell();
+
     for (int y = 0; y < 7; y++)
     {
         for (int x = 0; x < 5; x++)
         {
             Cell* cell = &mCells[y][x];
-
             int px = cell->GetScreenX();
             int py = cell->GetScreenY();
 
-            DrawBox(px, py, px + mCellSizeX, py + mCellSizeY, GetColor(255, 0, 0), FALSE);
-
-            if (cell->IsSelected())
+            // -------------------------------------------------------------
+            // 1. ç¾åœ¨ã‚¯ãƒªãƒƒã‚¯ã—ã¦é¸æŠä¸­ã®ãƒã‚¹ãŒã‚ã‚Œã°ã€Œèµ¤è‰²ã€ã§å¤ªãæç”»
+            // -------------------------------------------------------------
+            if (mSelectPiece && mSelectPiece->GetX() == x && mSelectPiece->GetY() == y)
             {
-                DrawBox(px, py, px + mCellSizeX, py + mCellSizeY, GetColor(0, 255, 0), FALSE);
+                // ç·šã®å¤ªã•ã‚’å¤§ããã™ã‚‹ãŸã‚ã€å°‘ã—ãšã‚‰ã—ã¦äºŒé‡ãƒ»ä¸‰é‡æ ã«ã™ã‚‹ã€ã¾ãŸã¯å¤–æ ã‚’åºƒã’ã¦æç”»
+                for (int i = 0; i < 3; i++) // ğŸ’¡3æ®µéšé‡ã­ã¦å¤ªæ ã«ã™ã‚‹
+                {
+                    DrawBox(px + i, py + i, px + mCellSizeX - i, py + mCellSizeY - i, GetColor(255, 0, 0), FALSE);
+                }
+            }
+            // -------------------------------------------------------------
+            // 2. ç§»å‹•å¯èƒ½ãªãƒã‚¹ã¯ã€Œé’è‰²ã€ã®ã¾ã¾ï¼ˆã“ã¡ã‚‰ã‚‚æ ã‚’å¤ªãå¤‰æ›´ï¼‰
+            // -------------------------------------------------------------
+            else if (cell->IsMovePoint())
+            {
+                for (int i = 0; i < 3; i++) // ğŸ’¡3æ®µéšé‡ã­ã¦å¤ªæ ã«ã™ã‚‹
+                {
+                    DrawBox(px + i, py + i, px + mCellSizeX - i, py + mCellSizeY - i, GetColor(0, 0, 255), FALSE);
+                }
             }
 
-            if (cell->IsMovePoint())
-            {
-                DrawBox(px, py, px + mCellSizeX, py + mCellSizeY, GetColor(0, 0, 255), FALSE);
-            }
-
-            DrawCircle(px + mCellSizeX / 2, py + mCellSizeY / 2, 5, GetColor(0, 255, 0), TRUE);
+            // ãƒã‚¹ã®ä¸­å¿ƒã«ã‚ã‚‹ç·‘ã®çƒä½“ã¯ä¸€æ™‚éè¡¨ç¤ºã®ã¾ã¾
+            // DrawCircle(px + mCellSizeX / 2, py + mCellSizeY / 2, 5, GetColor(0, 255, 0), TRUE);
 
             if (cell->GetPiece())
             {
                 cell->GetPiece()->Draw();
             }
-
         }
-        
     }
 
-    Cell* selectCell = &mCells[mSelectCellY][mSelectCellX];
-
-    DrawBox(
-        selectCell->GetScreenX(),
-        selectCell->GetScreenY(),
-        selectCell->GetScreenX() + mCellSizeX,
-        selectCell->GetScreenY() + mCellSizeY,
-        GetColor(0, 255, 0),
-        FALSE
-    );
-
-    Cell* hoverCell = GetMouseOverCell();
-
+    // -------------------------------------------------------------
+    // 3. ãƒã‚¦ã‚¹ãŒä¹—ã£ã¦ã„ã‚‹ï¼ˆãƒ›ãƒãƒ¼ï¼‰ãƒã‚¹ã‚’ã€Œç·‘è‰²ã€ã§å¤ªãæç”»
+    // -------------------------------------------------------------
     if (hoverCell)
     {
-        DrawBox(
-            hoverCell->GetScreenX(),
-            hoverCell->GetScreenY(),
-            hoverCell->GetScreenX() + mCellSizeX,
-            hoverCell->GetScreenY() + mCellSizeY,
-            GetColor(255, 255, 0),
-            FALSE
-        );
+        int hx = hoverCell->GetScreenX();
+        int hy = hoverCell->GetScreenY();
+
+        for (int i = 0; i < 3; i++) // ğŸ’¡3æ®µéšé‡ã­ã¦å¤ªæ ã«ã™ã‚‹
+        {
+            DrawBox(hx + i, hy + i, hx + mCellSizeX - i, hy + mCellSizeY - i, GetColor(0, 255, 0), FALSE);
+        }
     }
+
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆã‚«ãƒƒãƒˆã‚¤ãƒ³ãªã©ï¼‰ã®ä¸€ç•ªæ‰‹å‰æç”»
+    EffectManager::GetInstance().Draw();
 }
 
 bool PlayBpard::MovePiece(int fromX, int fromY, int toX, int toY)
@@ -441,7 +524,7 @@ bool PlayBpard::MovePiece(int fromX, int fromY, int toX, int toY)
     if (!piece) return false;
     if (!piece->CanMove(toX, toY)) return false;
 
-    // š’Ç‰Á: ˆÚ“®Œo˜H‚Ì“r’†‚É‹î‚ª‚ ‚éê‡‚ÍˆÚ“®‚Å‚«‚È‚¢
+    // â˜…è¿½åŠ : ç§»å‹•çµŒè·¯ã®é€”ä¸­ã«é§’ãŒã‚ã‚‹å ´åˆã¯ç§»å‹•ã§ããªã„
         if (!IsPathClear(fromX, fromY, toX, toY)) return false;
 
     PieceBase* target = toCell->GetPiece();
@@ -492,7 +575,7 @@ Cell* PlayBpard::GetMouseOverCell()
     Cell* nearestCell = nullptr;
     float nearestDistance = 999999.0f;
 
-    // ƒ}ƒEƒX”»’èƒ‹[ƒv‚ğ c7 x ‰¡5 ‚ÉC³
+    // ãƒã‚¦ã‚¹åˆ¤å®šãƒ«ãƒ¼ãƒ—ã‚’ ç¸¦7 x æ¨ª5 ã«ä¿®æ­£
     for (int y = 0; y < 7; y++)
     {
         for (int x = 0; x < 5; x++)
@@ -520,7 +603,7 @@ Cell* PlayBpard::GetMouseOverCell()
 
 void PlayBpard::ShowMovePoint(PieceBase* piece)
 {
-    // ˆÚ“®‰Â”\”»’è‚Ì‘S‰ğœƒ‹[ƒv‚ğ c7 x ‰¡5 ‚ÉC³
+    // ç§»å‹•å¯èƒ½åˆ¤å®šã®å…¨è§£é™¤ãƒ«ãƒ¼ãƒ—ã‚’ ç¸¦7 x æ¨ª5 ã«ä¿®æ­£
     for (int y = 0; y < 7; y++)
     {
         for (int x = 0; x < 5; x++)
@@ -534,7 +617,7 @@ void PlayBpard::ShowMovePoint(PieceBase* piece)
         return;
     }
 
-    // ‘Sƒ}ƒX”»’èƒ‹[ƒv‚ğ c7 x ‰¡5 ‚ÉC³
+    // å…¨ãƒã‚¹åˆ¤å®šãƒ«ãƒ¼ãƒ—ã‚’ ç¸¦7 x æ¨ª5 ã«ä¿®æ­£
     for (int y = 0; y < 7; y++)
     {
         for (int x = 0; x < 5; x++)
@@ -548,7 +631,7 @@ void PlayBpard::ShowMovePoint(PieceBase* piece)
             {
                 continue;
             }
-            // š’Ç‰Á: ‹î‚Ì“®‚«‚Æ‚µ‚Ä‚Í“Í‚­‚ªA“r’†‚ÉÕ‚é‹î‚ª‚ ‚éê‡‚ÍƒXƒLƒbƒv
+            // â˜…è¿½åŠ : é§’ã®å‹•ãã¨ã—ã¦ã¯å±ŠããŒã€é€”ä¸­ã«é®ã‚‹é§’ãŒã‚ã‚‹å ´åˆã¯ã‚¹ã‚­ãƒƒãƒ—
             if (!IsPathClear(piece->GetX(), piece->GetY(), x, y))
             {
                 continue;
@@ -573,32 +656,32 @@ bool PlayBpard::IsPathClear(int fromX, int fromY, int toX, int toY)
     int dx = toX - fromX;
     int dy = toY - fromY;
 
-    // 1ƒXƒeƒbƒv‚ ‚½‚è‚Ìi‚Ş•ûŒüi-1, 0, 1 ‚Ì‚¢‚¸‚ê‚©j‚ğŒvZ
+    // 1ã‚¹ãƒ†ãƒƒãƒ—ã‚ãŸã‚Šã®é€²ã‚€æ–¹å‘ï¼ˆ-1, 0, 1 ã®ã„ãšã‚Œã‹ï¼‰ã‚’è¨ˆç®—
     int stepX = (dx > 0) ? 1 : ((dx < 0) ? -1 : 0);
     int stepY = (dy > 0) ? 1 : ((dy < 0) ? -1 : 0);
 
-    // Œ»İ‚Ìƒ`ƒFƒbƒN‘ÎÛÀ•W‚ğˆÚ“®Œ³‚ÉƒZƒbƒg
+    // ç¾åœ¨ã®ãƒã‚§ãƒƒã‚¯å¯¾è±¡åº§æ¨™ã‚’ç§»å‹•å…ƒã«ã‚»ãƒƒãƒˆ
     int checkX = fromX + stepX;
     int checkY = fromY + stepY;
 
-    // ˆÚ“®æ‚Ì’¼‘O‚Ìƒ}ƒX‚Ü‚Åƒ‹[ƒv‚Å‰ñ‚·
+    // ç§»å‹•å…ˆã®ç›´å‰ã®ãƒã‚¹ã¾ã§ãƒ«ãƒ¼ãƒ—ã§å›ã™
     while (checkX != toX || checkY != toY)
     {
-        // ”O‚Ì‚½‚ß‚Ì‹«ŠEƒ`ƒFƒbƒN
+        // å¿µã®ãŸã‚ã®å¢ƒç•Œãƒã‚§ãƒƒã‚¯
         if (checkX < 0 || checkX >= 5 || checkY < 0 || checkY >= 7) {
             break;
         }
 
-        // “r’†‚Ìƒ}ƒX‚É‹î‚ª‘¶İ‚µ‚Ä‚¢‚ê‚ÎAŒo˜H‚ªÇ‚ª‚ê‚Ä‚¢‚é‚Æ”»’f
+        // é€”ä¸­ã®ãƒã‚¹ã«é§’ãŒå­˜åœ¨ã—ã¦ã„ã‚Œã°ã€çµŒè·¯ãŒå¡ãŒã‚Œã¦ã„ã‚‹ã¨åˆ¤æ–­
         if (mCells[checkY][checkX].GetPiece() != nullptr)
         {
-            return false; // ”ò‚Ñ‰z‚µ•s‰Â
+            return false; // é£›ã³è¶Šã—ä¸å¯
         }
 
-        // Ÿ‚Ìƒ}ƒX‚Öi‚ß‚é
+        // æ¬¡ã®ãƒã‚¹ã¸é€²ã‚ã‚‹
         checkX += stepX;
         checkY += stepY;
     }
 
-    return true; // “r’†‚É‹î‚Í–³‚©‚Á‚½
+    return true; // é€”ä¸­ã«é§’ã¯ç„¡ã‹ã£ãŸ
 }

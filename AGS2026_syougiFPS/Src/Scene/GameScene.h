@@ -17,6 +17,7 @@ public:
     void Release(void) override;
 
 private:
+    int PlayTime = 0;
     Grid* grid_;
     PlayBpard* playBoard_; // 盤面オブジェクトを追加
     LightManager* lightManager_; // 追加

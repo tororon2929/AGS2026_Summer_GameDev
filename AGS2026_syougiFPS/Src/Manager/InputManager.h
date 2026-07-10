@@ -164,6 +164,11 @@ private:
 	// マウスボタンの入力状態
 	int mouseInput_;
 
+	// ★ 追加：パッドでのカーソル位置（マス目単位：X=0~4, Y=0~6）
+	int padCursorX_ = 2; // 初期値：真ん中
+	int padCursorY_ = 3; // 初期値：真ん中
+	int padOldInput_ = 0; // 前フレームのボタン状態
+
 	// パッド情報
 	JOYPAD_IN_STATE padInfos_[5];
 

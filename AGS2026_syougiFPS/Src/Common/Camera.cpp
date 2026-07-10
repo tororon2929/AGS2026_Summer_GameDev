@@ -229,7 +229,7 @@ void Camera::SetBeforeDraw(void)
 // „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
 void Camera::DrawDebug(void)
 {
-    int y = 10;
+   /* int y = 10;
     const int         LINE = 20;
     const unsigned int COL = GetColor(0, 255, 0);
 
@@ -255,7 +255,7 @@ void Camera::DrawDebug(void)
     else {
         DrawFormatString(10, y, COL,
             "WASD:ˆÚ“®  Mouse:Ž‹“_‰ñ“]");
-    }
+    }*/
 }
 
 void Camera::Release(void) {}

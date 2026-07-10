@@ -63,11 +63,35 @@ public:
 	// カメラの取得
 	Camera* GetCamera(void) const;
 
+
 	void SetGameClear(bool isClear) { isGameClear_ = isClear; }
 	bool IsGameClear(void) const { return isGameClear_; }
 
+
+	void SetCpuLevel(int level) { mCpuLevel = level; }
+	int GetCpuLevel() const { return mCpuLevel; }
+	
+
 private:
 
+	// ★ デバッグ用：ポーズ画面の位置調整変数
+	int debugOffsetX_ = 0;
+	int debugOffsetY_ = 0;
+	int debugFontSize_ = 24; // 初期値24
+
+	int mCpuLevel = 0;
+	bool isPaused_ = false;       // 今ポーズ中かどうか
+	bool isEscapeKeyOld_ = false;   // 前のフレームでESCキーが押されていたか
+	// ポーズメニューの選択肢
+	enum class PauseMenu
+	{
+		Resume,       // ゲームに戻る
+		GoToTitle,    // タイトルに戻る
+		ExitGame,     // ゲームを終了する
+		Length        // 選択肢の数
+	};
+	int pauseSelectIdx_ = 0;      // 現在選択中のインデックス
+	
 	// 静的インスタンス
 	static SceneManager* instance_;
 

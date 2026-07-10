@@ -20,6 +20,11 @@ public:
 		Kin,
 		Gin,
 		ENEMY_FU,
+		Title,
+		Myturn,
+		Enemyturn,
+		ENEMY,
+
 
 	};
 
