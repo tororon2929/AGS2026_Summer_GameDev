@@ -12,4 +12,12 @@ public:
     void Update() override;
     void Draw() override;
     void Release() override;
+
+private:
+    int WinImage;
+    int LoseImage;
+    int logoX_;
+    int logoY_;
+    double logoScale_;
+
 };

@@ -1,4 +1,4 @@
-#include "FPSBattleScene.h"
+ï»¿#include "FPSBattleScene.h"
 #include <DxLib.h>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
@@ -20,22 +20,22 @@ FPSBattleScene::~FPSBattleScene()
 
 void FPSBattleScene::Init()
 {
-	// ƒJƒƒ‰‚Ì‰Šú‰»
+	// ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
     camera_ = new Camera();
 	camera_->Init();
 
-	//ƒJƒƒ‰‚ð‹­§“I‚ÉFPSƒ‚[ƒh‚ÉØ‚è‘Ö‚¦
+	//ã‚«ãƒ¡ãƒ©ã‚’å¼·åˆ¶çš„ã«FPSãƒ¢ãƒ¼ãƒ‰ã«åˆ‡ã‚Šæ›¿ãˆ
 	camera_->ChangeMode(CameraMode::FPS);
 
-	// ƒXƒe[ƒW‚Ì‰Šú‰»
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆæœŸåŒ–
     stage_ = new Stage();
     stage_->Init();
 
-	// “G‚Ì‰Šú‰»
+	// æ•µã®åˆæœŸåŒ–
     enemy_ = new Enemy();
     enemy_->Init();
 
-	// ƒvƒŒƒCƒ„[‚Ì‰Šú‰»
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–
     player_ = new Player();
     player_->Init();
 
@@ -60,25 +60,25 @@ void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
 void FPSBattleScene::Update()
 {
 
-	// ƒJƒƒ‰‚ÌXV
+	// ã‚«ãƒ¡ãƒ©ã®æ›´æ–°
     if (camera_ != nullptr)
     {
         camera_->Update();
     }
 
-	// ƒGƒlƒ~[‚ÌXV
+	// ã‚¨ãƒãƒŸãƒ¼ã®æ›´æ–°
     if(enemy_ != nullptr && player_ != nullptr)
     {
         enemy_->Update(player_->GetPos());
 	}
 
-	// ƒvƒŒƒCƒ„[‚ÌXV
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°
     if(player_!=nullptr)
     {
         player_->Update(camera_);
 	}
 
-	//ƒvƒŒƒCƒ„[‚Æ“G‚Ì“–‚½‚è”»’è
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã®å½“ãŸã‚Šåˆ¤å®š
     if (enemy_ != nullptr && player_ != nullptr)
     {
         if (!player_->IsInvincible())
@@ -86,7 +86,7 @@ void FPSBattleScene::Update()
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
             if (dist < enemy_->GetRadius()) 
             {
-                player_->Damage(20); // 20ƒ_ƒ[ƒW—^‚¦‚ÄŽ©“®‚Å–³“G‰»
+                player_->Damage(20); // 20ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸Žãˆã¦è‡ªå‹•ã§ç„¡æ•µåŒ–
             }
         }
     }
@@ -102,7 +102,7 @@ void FPSBattleScene::Update()
     {
         if (player_ != nullptr && camera_ != nullptr)
         {
-            // (Šù‘¶‚ÌŽËŒ‚ˆ—‚ð‚»‚Ì‚Ü‚Ü—˜—p)
+            // (æ—¢å­˜ã®å°„æ’ƒå‡¦ç†ã‚’ãã®ã¾ã¾åˆ©ç”¨)
             VECTOR start = camera_->GetPos();
             VECTOR angles = camera_->GetAngles();
             
@@ -115,7 +115,7 @@ void FPSBattleScene::Update()
         }
     }
 
-    //’e‚ÌXVˆ—
+    //å¼¾ã®æ›´æ–°å‡¦ç†
     for (auto it = bullets_.begin(); it != bullets_.end();)
     {
         (*it)->Update();
@@ -123,15 +123,15 @@ void FPSBattleScene::Update()
         bool isHit = false;
         if (enemy_ != nullptr)
         {
-            //’e‚Æ“G‚Ì‹——£‚ÌŒvŽZ
+            //å¼¾ã¨æ•µã®è·é›¢ã®è¨ˆç®—
             float dist = VSize(VSub((*it)->GetPos(), enemy_->GetPos()));
 
-            //ƒqƒbƒg”»’è
+            //ãƒ’ãƒƒãƒˆåˆ¤å®š
             if (dist < enemy_->GetRadius())
             {
                 isHit = true;
 
-                //“G‚Éƒ_ƒ[ƒW
+                //æ•µã«ãƒ€ãƒ¡ãƒ¼ã‚¸
                 enemy_->Damage(5);
 
                 hitCount_++;
@@ -151,24 +151,26 @@ void FPSBattleScene::Update()
         
     }
 
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰ã€Œè² ã‘ã€
     if (player_ != nullptr && player_->GetHP() <= 0)
     {
-        SceneManager::GetInstance().SetGameClear(false);
+        SceneManager::GetInstance().SetGameClear(false); // ðŸ’¡ false ã§ã€Œè² ã‘ã€
 
         SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
     }
 
-    if (enemy_ != nullptr && enemy_->IsDead())
+    // æ•µã®HPãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰ã€Œå‹ã¡ã€
+    if (enemy_ != nullptr && enemy_->hp_ <= 0)
     {
-        SceneManager::GetInstance().SetGameClear(false);
+        SceneManager::GetInstance().SetGameClear(true);  // ðŸ’¡ true ã§ã€Œå‹ã¡ã€ã«å¤‰æ›´ï¼
 
         SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
     }
    
 
-    // ‰¼FEnter‚Å«Šû‚Ö–ß‚é
+    // ä»®ï¼šEnterã§å°†æ£‹ã¸æˆ»ã‚‹
 
     if (CheckHitKey(KEY_INPUT_RETURN))
     {
@@ -182,13 +184,13 @@ void FPSBattleScene::Update()
 
 void FPSBattleScene::Draw()
 {
-	// ƒJƒƒ‰‚Ì•`‰æ‘Oˆ—
+	// ã‚«ãƒ¡ãƒ©ã®æç”»å‰å‡¦ç†
     if(camera_!= nullptr)
     {
         camera_->SetBeforeDraw();
 	}
 
-	// ƒXƒe[ƒW‚Ì‚Ì•`‰æ
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã®æç”»
     if(stage_ != nullptr)
     {
         stage_->Draw();
@@ -210,19 +212,19 @@ void FPSBattleScene::Draw()
 
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	// “G‚Ì•`‰æ
+	// æ•µã®æç”»
     if (enemy_ != nullptr)
     {
         enemy_->Draw();
     }
 
-	// ƒvƒŒƒCƒ„[‚Ì•`‰æ
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»
     if (player_ != nullptr)
     {
         player_->Draw();
     }
 
-    //’e‚Ì•`‰æ
+    //å¼¾ã®æç”»
     for (auto b : bullets_) {
         b->Draw();
     }
@@ -231,7 +233,7 @@ void FPSBattleScene::Draw()
     {
         int hpX = 50;
         int hpY = Application::SCREEN_SIZE_Y - 100;
-        unsigned int color = player_->IsInvincible() ? GetColor(255, 165, 0) : GetColor(0, 255, 0); // –³“G’†‚ÍƒIƒŒƒ“ƒW
+        unsigned int color = player_->IsInvincible() ? GetColor(255, 165, 0) : GetColor(0, 255, 0); // ç„¡æ•µä¸­ã¯ã‚ªãƒ¬ãƒ³ã‚¸
 
         DrawFormatString(hpX, hpY, color, "PLAYER HP: %d / 100 %s",
             player_->GetHP(), player_->IsInvincible() ? "[INVINCIBLE]" : "");
@@ -271,7 +273,7 @@ void FPSBattleScene::Draw()
 
 void FPSBattleScene::Release()
 {
-	// ƒJƒƒ‰‚Ì‰ð•ú
+	// ã‚«ãƒ¡ãƒ©ã®è§£æ”¾
     if (stage_ != nullptr)
     {
         stage_->Release();
@@ -279,21 +281,21 @@ void FPSBattleScene::Release()
         stage_ = nullptr;
     }
 
-	// “G‚Ì‰ð•ú
+	// æ•µã®è§£æ”¾
     if (enemy_ != nullptr)
     {
         delete enemy_;
         enemy_ = nullptr;
     }
 
-	// ƒvƒŒƒCƒ„[‚Ì‰ð•ú
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è§£æ”¾
     if(player_ != nullptr)
     {
         delete player_;
         player_ = nullptr;
 	}
 
-	// ƒJƒƒ‰‚Ì‰ð•ú
+	// ã‚«ãƒ¡ãƒ©ã®è§£æ”¾
     if (camera_ != nullptr) {
 		camera_->Release();
 		delete camera_;

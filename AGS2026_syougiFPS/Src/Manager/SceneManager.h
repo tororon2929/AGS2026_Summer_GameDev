@@ -28,6 +28,9 @@ public:
 		GAME,
 		FPS_BATTLE,
 		RESULT,
+		WIN,
+		LOSE
+
 	};
 	
 	// インスタンスの生成
@@ -63,15 +66,14 @@ public:
 	// カメラの取得
 	Camera* GetCamera(void) const;
 
-<<<<<<< HEAD
+
 	void SetCpuLevel(int level) { mCpuLevel = level; }
 	int GetCpuLevel() const { return mCpuLevel; }
 	
-=======
+
 	void SetGameClear(bool isClear) { isGameClear_ = isClear; }
 	bool IsGameClear(void) const { return isGameClear_; }
 
->>>>>>> origin/螳亥哨
 private:
 
 	// ★ デバッグ用：ポーズ画面の位置調整変数
