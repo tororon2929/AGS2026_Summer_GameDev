@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
+#include "../Manager/InputManager.h"
 #include "../Common/Camera.h"
 #include "../Object/Stage.h"
 #include "../Object/Enemy.h"
@@ -89,15 +90,20 @@ void FPSBattleScene::Update()
             }
         }
     }
-	// 弾の発射処理
-    if (GetMouseInput() & MOUSE_INPUT_LEFT)
+    bool isShoot = false;
+
+    if (GetMouseInput() & MOUSE_INPUT_LEFT) { isShoot = true; }
+
+    if (InputManager::GetInstance().IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::R_TRIGGER)) {
+        isShoot = true;
+    }
+
+    if (isShoot)
     {
         if (player_ != nullptr && camera_ != nullptr)
         {
-            //弾のスタート位置をカメラ位置にする
+            // (既存の射撃処理をそのまま利用)
             VECTOR start = camera_->GetPos();
-
-            //カメラ角度から向いてる方向を取得する
             VECTOR angles = camera_->GetAngles();
             
             lookDir.x = cosf(angles.x) * sinf(angles.y);
@@ -105,7 +111,6 @@ void FPSBattleScene::Update()
             lookDir.z = cosf(angles.x) * cosf(angles.y);
 
             start = VAdd(start, VScale(lookDir, 10.0f));
-
             bullets_.push_back(new Bullet(start, lookDir));
         }
     }

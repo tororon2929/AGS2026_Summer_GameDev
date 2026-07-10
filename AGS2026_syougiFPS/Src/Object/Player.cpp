@@ -1,6 +1,7 @@
 #include "Player.h"
 #include"../Common/Camera.h"
 #include"../Application.h"
+#include"../Manager/InputManager.h"
 #include <cmath>
 
 Player::Player()
@@ -60,22 +61,28 @@ void Player::Update(Camera* camera)
         moveDir.z += sinH;
     }
 
+    auto padState = InputManager::GetInstance().GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+    float padX = padState.AKeyLX / 1000.0f;
+    float padY = -(padState.AKeyLY / 1000.0f);
+
+    if (fabsf(padX) > deadZone || fabsf(padY) > deadZone) {
+        moveDir.x += (padX * cosH + padY * sinH);
+        moveDir.z += (-padX * sinH + padY * cosH);
+    }
     // 移動ベクトルがあれば正規化して座標に加算
     if (VSquareSize(moveDir) > 0.0f)
     {
         moveDir = VNorm(moveDir);
-        //ダッシュの判定
-        float currentSpeed = moveSpeed_;
-        if (CheckHitKey(KEY_INPUT_LSHIFT))
-        {
-            currentSpeed = dashSpeed_;
-        }
 
+        bool isDash = CheckHitKey(KEY_INPUT_LSHIFT) ||
+            InputManager::GetInstance().IsPadBtnNew(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::L_TRIGGER);
+        float currentSpeed = isDash ? dashSpeed_ : moveSpeed_;
         pos_ = VAdd(pos_, VScale(moveDir, currentSpeed));
     }
 
-    static bool preSpacePressed = false;
-    bool currentSpacePressed = CheckHitKey(KEY_INPUT_SPACE);
+    static bool preBtnPressed = false;
+    bool currentBtnPressed = CheckHitKey(KEY_INPUT_SPACE) ||
+        InputManager::GetInstance().IsPadBtnNew(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN);
 
     // 重力を適用
     velocityY_ += gravity_;
@@ -84,40 +91,29 @@ void Player::Update(Camera* camera)
     pos_.y += velocityY_;
 
 	//プレイヤーが将棋盤の上にいるかどうかの判定
-    if (pos_.x >= -limitX && pos_.x <= limitX && pos_.z >= -limitZ && pos_.z <= limitZ)
-    {
-
-        if (pos_.y < floorHeight)
-        {
+    if (pos_.x >= -limitX && pos_.x <= limitX && pos_.z >= -limitZ && pos_.z <= limitZ) {
+        if (pos_.y < floorHeight) {
             pos_.y = floorHeight;
-            velocityY_ = 0.0f; // 床に着地したら垂直速度をリセット
-
+            velocityY_ = 0.0f;
             jumpCount_ = 0;
-        } 
-    }
-    else
-    {
-        float fallLimitHeight = floorHeight - 50.0f;
-        if (pos_.y < fallLimitHeight)
-        {
-            hp_ = 0;
         }
     }
+    else if (pos_.y < (floorHeight - 50.0f)) {
+        hp_ = 0;
+    }
 
-    if (currentSpacePressed && !preSpacePressed)
-    {
-        if (pos_.y <= floorHeight)
-        {
+    // ジャンプ開始
+    if (currentBtnPressed && !preBtnPressed) {
+        if (pos_.y <= floorHeight) {
             velocityY_ = 1.2f;
             jumpCount_ = 1;
         }
     }
-    else if (jumpCount_ == 1)
-    {
+    else if (jumpCount_ == 1 && currentBtnPressed) { // 2段ジャンプ的な挙動
         velocityY_ = 1.0f;
         jumpCount_ = 2;
     }
-    preSpacePressed = currentSpacePressed;
+    preBtnPressed = currentBtnPressed;
 
 
     VECTOR cameraPos = pos_;

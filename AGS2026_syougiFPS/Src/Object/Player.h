@@ -40,6 +40,7 @@ private:
 	const float moveSpeed_ = 0.05f;// ˆÚ“®‘¬“x
     const float dashSpeed_ = 0.15f;
 	const float gravity_ = -0.05f; // d—Í‰Á‘¬“x
+    const float deadZone = 0.2f;
     const int maxHp_ = 100;
 
     int hp_ = 100;

@@ -1,5 +1,6 @@
 #include "../Common/Camera.h"
 #include "../Utility/AsoUtility.h"
+#include "../Manager/InputManager.h"
 #include <DxLib.h>
 
 Camera::Camera(void)
@@ -115,6 +116,23 @@ void Camera::UpdateFPS(void)
 
     float deltaX = static_cast<float>(mx - 320) * FPS_ROT_SPEED;
     float deltaY = static_cast<float>(my - 240) * FPS_ROT_SPEED;
+
+    
+    auto padState = InputManager::GetInstance().GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+
+    float padRX = padState.AKeyRX / 1000.0f;
+    float padRY = padState.AKeyRY / 1000.0f;
+   
+
+    const float deadZone = 0.2f;      
+    const float padTurnSpeed = 0.05f; 
+
+    if (fabsf(padRX) > deadZone) {
+        deltaX += padRX * padTurnSpeed;
+    }
+    if (fabsf(padRY) > deadZone) {
+        deltaY += padRY * padTurnSpeed;
+    }
 
     angles_.y += deltaX;
     angles_.x += deltaY;
