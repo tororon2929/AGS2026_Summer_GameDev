@@ -67,6 +67,12 @@ public:
 	int GetCpuLevel() const { return mCpuLevel; }
 	
 private:
+
+	// ★ デバッグ用：ポーズ画面の位置調整変数
+	int debugOffsetX_ = 0;
+	int debugOffsetY_ = 0;
+	int debugFontSize_ = 24; // 初期値24
+
 	int mCpuLevel = 0;
 	bool isPaused_ = false;       // 今ポーズ中かどうか
 	bool isEscapeKeyOld_ = false;   // 前のフレームでESCキーが押されていたか

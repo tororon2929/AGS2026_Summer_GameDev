@@ -132,40 +132,51 @@ void TitleScene::Update(void)
 	isSKeyOld = isSKeyNow;
 	isSpaceKeyOld = isSpaceKeyNow;
 
-	// ========================================================
-	// ★重要: switch-case、または互いに干渉しない if-else に修正
-	// ========================================================
+	// ----------------------------------------------------
+	// パッド入力状態の取得 (InputManager経由)
+	// ----------------------------------------------------
+	// ※InputManagerにパッド状態を毎フレーム更新するUpdateがあれば事前に呼ぶ必要があります
+	// ここではDXライブラリの標準関数、またはInputManagerが保持する情報と組み合わせて判定します
+	
+
 	if (mState == State::Title)
 	{
-		// タイトル画面でスペースが押されたら難易度選択へ
-		if (isSpaceKeyTrg)
+		// SPACEキー または パッドの「決定ボタン相当（PAD_INPUT_AやPAD_INPUT_1など）」で難易度選択へ
+		if (CheckHitKey(KEY_INPUT_SPACE) == 1 || (padInput & PAD_INPUT_A) != 0)
 		{
 			mState = State::SelectLevel;
-			SoundManager::GetInstance().PlaySE(SoundManager::SE::Select);
+			mSelectLevelIdx = 1; // デフォルトは NORMAL
+			WaitTimer(200);      // 連続入力を防ぐウェイト
 		}
 	}
-	else if (mState == State::SelectLevel) // ★『else if』にすることで、上の処理で状態が変わってもこのフレーム内では絶対に実行されなくなります
+	else if (mState == State::SelectLevel)
 	{
-		// Wキーで上
-		if (isWKeyTrg)
+		// 【上移動】Wキー または 十字キー上 / 左スティック上
+		if (CheckHitKey(KEY_INPUT_W) == 1 || (padInput & PAD_INPUT_UP) != 0)
 		{
-			if (mSelectLevelIdx > 0) mSelectLevelIdx--;
-			SoundManager::GetInstance().PlaySE(SoundManager::SE::Select);
-		}
-		// Sキーで下
-		if (isSKeyTrg)
-		{
-			if (mSelectLevelIdx < 2) mSelectLevelIdx++;
-			SoundManager::GetInstance().PlaySE(SoundManager::SE::Select);
+			mSelectLevelIdx = (mSelectLevelIdx - 1 + 3) % 3;
+			WaitTimer(150);
 		}
 
-		// 難易度選択画面でスペースが押されたらゲーム開始
-		if (isSpaceKeyTrg)
+		// 【下移動】Sキー または 十字キー下 / 左スティック下
+		if (CheckHitKey(KEY_INPUT_S) == 1 || (padInput & PAD_INPUT_DOWN) != 0)
 		{
+			mSelectLevelIdx = (mSelectLevelIdx + 1) % 3;
+			WaitTimer(150);
+		}
+
+		// 【決定】SPACEキー または パッドの決定ボタン
+		if (CheckHitKey(KEY_INPUT_SPACE) == 1 || (padInput & PAD_INPUT_A) != 0)
+		{
+			// 難易度を確定してゲームシーンへ
 			SceneManager::GetInstance().SetCpuLevel(mSelectLevelIdx);
 			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
+			WaitTimer(200);
 		}
 	}
+
+	// 盤面の回転など背景の更新処理（省略しない）
+	boardRotY_ += boardRotSpeed_;
 	
 }
 
@@ -213,23 +224,23 @@ void TitleScene::Draw(void)
 	if (mState == State::Title)
 	{
 		// 最初は元の文字をそのまま点滅なしで表示
-		DrawFormatString(830, 650, white, "PRESS SPACE KEY TO START");
+		DrawFormatString(830, 650, white, "スペースかAボタン押してごらん");
 	}
 	else if (mState == State::SelectLevel)
 	{
 		// 難易度選択のUIテキスト（相方のPCの解像度に合わせて座標を微調整してください）
-		DrawFormatString(860, 500, white, "SELECT CPU LEVEL");
+		DrawFormatString(860, 500, white, " CPUの難易度選んでごらん");
 
 		// 現在カーソルが合っている難易度だけ黄色(yellow)にする
 		unsigned int easyColor = (mSelectLevelIdx == 0) ? yellow : white;
 		unsigned int normalColor = (mSelectLevelIdx == 1) ? yellow : white;
 		unsigned int hardColor = (mSelectLevelIdx == 2) ? yellow : white;
 
-		DrawFormatString(890, 580, easyColor, "%s EASY", (mSelectLevelIdx == 0) ? "-> " : "   ");
-		DrawFormatString(890, 630, normalColor, "%s NORMAL", (mSelectLevelIdx == 1) ? "-> " : "   ");
-		DrawFormatString(890, 680, hardColor, "%s HARD", (mSelectLevelIdx == 2) ? "-> " : "   ");
+		DrawFormatString(890, 580, easyColor, "%s 簡単", (mSelectLevelIdx == 0) ? "-> " : "   ");
+		DrawFormatString(890, 630, normalColor, "%s 普通", (mSelectLevelIdx == 1) ? "-> " : "   ");
+		DrawFormatString(890, 680, hardColor, "%s 難しい", (mSelectLevelIdx == 2) ? "-> " : "   ");
 
-		DrawFormatString(810, 780, white, "[W/S]: Select    [SPACE]: Confirm");
+		DrawFormatString(810, 780, white, "PC[W/S]CL[上/下/十字]: 移動    PC[SPACE]CL[A]: 決定");
 	}
 	//// 全デバッグ情報の表示
 	//unsigned int white = GetColor(255, 255, 255);
