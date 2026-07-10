@@ -30,16 +30,27 @@ private:
     float angleH_;      // 水平方向の回転角度
     float angleV_;      // 垂直方向の回転角度
     float velocityY_;
-    float floorHeight = 30.0f;
+    float floorHeight = 26.4f;
     float limitX = 25.0f;
     float limitZ = 25.0f;
+
+    float fallLimitHeight = floorHeight - 50.0f;
     
     const float turnSpeed_ = 0.005f; // マウス感度
-	const float moveSpeed_ = 0.2f;// 移動速度
+	const float moveSpeed_ = 0.05f;// 移動速度
+    const float dashSpeed_ = 0.15f;
 	const float gravity_ = -0.05f; // 重力加速度
+    const float deadZone = 0.2f;
+    const int maxHp_ = 100;
 
     int hp_ = 100;
     int invincibleTimer_ = 0;
-    
+    int jumpCount_ = 0;
+    int hHpBar_ = -1;
+    int barWidth_ = 0;
+    int barHeight_ = 0;
+    int displayMaxWidth = 767;
+    int drawX = 20;
+    int drawY = 20;
 };
 

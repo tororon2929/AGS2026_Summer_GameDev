@@ -2,10 +2,12 @@
 #include <DxLib.h>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
+#include "../Manager/InputManager.h"
 #include "../Common/Camera.h"
 #include "../Object/Stage.h"
 #include "../Object/Enemy.h"
 #include "../Object/Player.h"
+#include"../Application.h"
 
 
 FPSBattleScene::FPSBattleScene()
@@ -37,7 +39,17 @@ void FPSBattleScene::Init()
     player_ = new Player();
     player_->Init();
 
+    lightManager_.setAmbient(0.8f);
+    lightManager_.setBrightness(1.5f);
+    lightManager_.applyLighting();
+
+    SetGlobalAmbientLight(GetColorF(0.5f, 0.5f, 0.5f, 1.0f));
+
+    SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
+
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
+
+
 }
 
 void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
@@ -66,27 +78,32 @@ void FPSBattleScene::Update()
         player_->Update(camera_);
 	}
 
+	//プレイヤーと敵の当たり判定
     if (enemy_ != nullptr && player_ != nullptr)
     {
         if (!player_->IsInvincible())
         {
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
-            if (dist < 6.0f) 
+            if (dist < enemy_->GetRadius()) 
             {
                 player_->Damage(20); // 20ダメージ与えて自動で無敵化
-
-                
             }
         }
     }
-    if (GetMouseInput() & MOUSE_INPUT_LEFT)
+    bool isShoot = false;
+
+    if (GetMouseInput() & MOUSE_INPUT_LEFT) { isShoot = true; }
+
+    if (InputManager::GetInstance().IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::R_TRIGGER)) {
+        isShoot = true;
+    }
+
+    if (isShoot)
     {
         if (player_ != nullptr && camera_ != nullptr)
         {
-            //弾のスタート位置をカメラ位置にする
+            // (既存の射撃処理をそのまま利用)
             VECTOR start = camera_->GetPos();
-
-            //カメラ角度から向いてる方向を取得する
             VECTOR angles = camera_->GetAngles();
             
             lookDir.x = cosf(angles.x) * sinf(angles.y);
@@ -94,7 +111,6 @@ void FPSBattleScene::Update()
             lookDir.z = cosf(angles.x) * cosf(angles.y);
 
             start = VAdd(start, VScale(lookDir, 10.0f));
-
             bullets_.push_back(new Bullet(start, lookDir));
         }
     }
@@ -111,20 +127,19 @@ void FPSBattleScene::Update()
             float dist = VSize(VSub((*it)->GetPos(), enemy_->GetPos()));
 
             //ヒット判定
-            if (dist < 7.0f)
+            if (dist < enemy_->GetRadius())
             {
                 isHit = true;
+
+                //敵にダメージ
+                enemy_->Damage(5);
+
+                hitCount_++;
             }
         }
 
-        if (isHit)
-        {
-            hitCount++;
-
-            delete* it;
-            it = bullets_.erase(it);
-        }
-        else if ((*it)->IsDead())
+       
+        if (isHit||(*it)->IsDead())
         {
             delete* it;
             it = bullets_.erase(it);
@@ -135,6 +150,23 @@ void FPSBattleScene::Update()
 
         
     }
+
+    if (player_ != nullptr && player_->GetHP() <= 0)
+    {
+        SceneManager::GetInstance().SetGameClear(false);
+
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+        return;
+    }
+
+    if (enemy_ != nullptr && enemy_->IsDead())
+    {
+        SceneManager::GetInstance().SetGameClear(false);
+
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+        return;
+    }
+   
 
     // 仮：Enterで将棋へ戻る
 
@@ -161,6 +193,22 @@ void FPSBattleScene::Draw()
     {
         stage_->Draw();
 	}
+
+    for (int i = 0; i < 40; i++)
+    {
+        int alpha = 255 - (i * 6);
+        if (alpha < 0)alpha = 0;
+
+        SetDrawBlendMode(DX_BLENDMODE_ADD,alpha);
+        float currentY = y + (i * 0.15f) + sinf(time + i * 0.1f) * 1.5f;
+
+        DrawLine3D(VGet(-limitx, currentY, -limitz), VGet(limitx, currentY, -limitz), auraColor);
+        DrawLine3D(VGet(limitx, currentY, -limitz), VGet(limitx, currentY, limitz), auraColor);
+        DrawLine3D(VGet(limitx, currentY, limitz), VGet(-limitx, currentY, limitz), auraColor);
+        DrawLine3D(VGet(-limitx, currentY, limitz), VGet(-limitx, currentY, -limitz), auraColor);
+    }
+
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// 敵の描画
     if (enemy_ != nullptr)
@@ -195,10 +243,15 @@ void FPSBattleScene::Draw()
     }
 
     DrawFormatString(0, 0, GetColor(255, 255, 255), "Bullet Count: %d", bullets_.size());
+    DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount_);
 
-    DrawFormatString(0, 50, GetColor(0, 255, 0), "Hit Count: %d", hitCount);
+    if (enemy_ != nullptr)
+    {
+        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 100", enemy_->hp_);
+    }
 
 
+    
 }
 
     //DrawFormatString(

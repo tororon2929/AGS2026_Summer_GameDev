@@ -28,6 +28,7 @@ void ResourceManager::Init(void)
 	static std::string PATH_IMG = Application::PATH_IMAGE;
 	static std::string PATH_MDL = Application::PATH_MODEL;
 	static std::string PATH_EFF = Application::PATH_EFFECT;
+	static std::string PATH_ENM = Application::PATH_ENEMY;
 
 	Resource* res;
 
@@ -56,6 +57,7 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Gin.mv1");
 	resourcesMap_.emplace(SRC::Gin, res);
 
+<<<<<<< HEAD
 	res = new RES(RES_T::IMG, PATH_IMG + "Title.png");
 	resourcesMap_.emplace(SRC::Title, res);
 
@@ -65,6 +67,10 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::IMG, PATH_IMG + "Enemyturn.png");
 	resourcesMap_.emplace(SRC::Enemyturn, res);
 
+=======
+	res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
+	resourcesMap_.emplace(SRC::ENEMY_FU, res);
+>>>>>>> origin/守口
 
 }
 

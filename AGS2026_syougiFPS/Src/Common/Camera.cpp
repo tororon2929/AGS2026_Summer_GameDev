@@ -1,5 +1,6 @@
 #include "../Common/Camera.h"
 #include "../Utility/AsoUtility.h"
+#include "../Manager/InputManager.h"
 #include <DxLib.h>
 
 Camera::Camera(void)
@@ -116,6 +117,23 @@ void Camera::UpdateFPS(void)
     float deltaX = static_cast<float>(mx - 320) * FPS_ROT_SPEED;
     float deltaY = static_cast<float>(my - 240) * FPS_ROT_SPEED;
 
+    
+    auto padState = InputManager::GetInstance().GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+
+    float padRX = padState.AKeyRX / 1000.0f;
+    float padRY = padState.AKeyRY / 1000.0f;
+   
+
+    const float deadZone = 0.2f;      
+    const float padTurnSpeed = 0.05f; 
+
+    if (fabsf(padRX) > deadZone) {
+        deltaX += padRX * padTurnSpeed;
+    }
+    if (fabsf(padRY) > deadZone) {
+        deltaY += padRY * padTurnSpeed;
+    }
+
     angles_.y += deltaX;
     angles_.x += deltaY;
 
@@ -143,15 +161,15 @@ void Camera::UpdateFPS(void)
     forward = AsoUtility::VNormalize(forward);
     right = AsoUtility::VNormalize(right);
 
-    if (CheckHitKey(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, FPS_MOVE_SPEED));
-    if (CheckHitKey(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -FPS_MOVE_SPEED));
-    if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
-    if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, FPS_MOVE_SPEED));
+    //if (CheckHitKey(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -FPS_MOVE_SPEED));
 
 
-    
-    // ‚‚³ŒÅ’è
-    pos_.y = FPS_EYE_HEIGHT;
+    //
+    //// ‚‚³ŒÅ’è
+    //pos_.y = FPS_EYE_HEIGHT;
 }
 
 // „Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
@@ -251,7 +269,7 @@ void Camera::ChangeMode(CameraMode newMode)
     mode_ = newMode;
     if (mode_ == CameraMode::FPS)
     {
-        pos_.y = FPS_EYE_HEIGHT;
+        //pos_.y = FPS_EYE_HEIGHT;
         angles_ = VGet(0.0f, angles_.y, 0.0f);
         rot_ = Quaternion::Euler(angles_);
 

@@ -63,9 +63,15 @@ public:
 	// カメラの取得
 	Camera* GetCamera(void) const;
 
+<<<<<<< HEAD
 	void SetCpuLevel(int level) { mCpuLevel = level; }
 	int GetCpuLevel() const { return mCpuLevel; }
 	
+=======
+	void SetGameClear(bool isClear) { isGameClear_ = isClear; }
+	bool IsGameClear(void) const { return isGameClear_; }
+
+>>>>>>> origin/螳亥哨
 private:
 
 	// ★ デバッグ用：ポーズ画面の位置調整変数
@@ -111,6 +117,8 @@ private:
 	std::chrono::system_clock::time_point preTime_;
 	float deltaTime_;
 	
+	bool isGameClear_ = false;
+
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする
 	SceneManager(void);
@@ -129,5 +137,6 @@ private:
 
 	// フェード
 	void Fade(void);
+
 
 };

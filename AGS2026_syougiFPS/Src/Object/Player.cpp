@@ -1,5 +1,7 @@
 #include "Player.h"
 #include"../Common/Camera.h"
+#include"../Application.h"
+#include"../Manager/InputManager.h"
 #include <cmath>
 
 Player::Player()
@@ -14,7 +16,12 @@ Player::~Player()
 
 void Player::Init()
 {
-   
+   hHpBar_ = LoadGraph("Data/UI/HPbar.png");
+
+   if (hHpBar_ != -1)
+   {
+       GetGraphSize(hHpBar_, &barWidth_, &barHeight_);
+   }
 }
 
 void Player::Update(Camera* camera)
@@ -43,24 +50,39 @@ void Player::Update(Camera* camera)
         moveDir.x -= sinH;
         moveDir.z -= cosH;
     }
-    if (CheckHitKey(KEY_INPUT_D)) // 右ストレイフ
+    if (CheckHitKey(KEY_INPUT_D)) // 右移動
     {
         moveDir.x += cosH;
         moveDir.z -= sinH;
     }
-    if (CheckHitKey(KEY_INPUT_A)) // 左ストレイフ
+    if (CheckHitKey(KEY_INPUT_A)) // 左移動
     {
         moveDir.x -= cosH;
         moveDir.z += sinH;
     }
 
+    auto padState = InputManager::GetInstance().GetJPadInputState(InputManager::JOYPAD_NO::PAD1);
+    float padX = padState.AKeyLX / 1000.0f;
+    float padY = -(padState.AKeyLY / 1000.0f);
+
+    if (fabsf(padX) > deadZone || fabsf(padY) > deadZone) {
+        moveDir.x += (padX * cosH + padY * sinH);
+        moveDir.z += (-padX * sinH + padY * cosH);
+    }
     // 移動ベクトルがあれば正規化して座標に加算
     if (VSquareSize(moveDir) > 0.0f)
     {
         moveDir = VNorm(moveDir);
-        pos_ = VAdd(pos_, VScale(moveDir, moveSpeed_));
+
+        bool isDash = CheckHitKey(KEY_INPUT_LSHIFT) ||
+            InputManager::GetInstance().IsPadBtnNew(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::L_TRIGGER);
+        float currentSpeed = isDash ? dashSpeed_ : moveSpeed_;
+        pos_ = VAdd(pos_, VScale(moveDir, currentSpeed));
     }
 
+    static bool preBtnPressed = false;
+    bool currentBtnPressed = CheckHitKey(KEY_INPUT_SPACE) ||
+        InputManager::GetInstance().IsPadBtnNew(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN);
 
     // 重力を適用
     velocityY_ += gravity_;
@@ -69,34 +91,38 @@ void Player::Update(Camera* camera)
     pos_.y += velocityY_;
 
 	//プレイヤーが将棋盤の上にいるかどうかの判定
-    if (pos_.x >= -limitX && pos_.x <= limitX && pos_.z >= -limitZ && pos_.z <= limitZ)
-    {
-
-        if (pos_.y < floorHeight)
-        {
+    if (pos_.x >= -limitX && pos_.x <= limitX && pos_.z >= -limitZ && pos_.z <= limitZ) {
+        if (pos_.y < floorHeight) {
             pos_.y = floorHeight;
-            velocityY_ = 0.0f; // 床に着地したら垂直速度をリセット
-        }
-
-        if (pos_.y <= floorHeight)
-        {
-            if (CheckHitKey(KEY_INPUT_SPACE))
-            {
-                velocityY_ = 1.2f; // 上向きの初速を与える
-            }
+            velocityY_ = 0.0f;
+            jumpCount_ = 0;
         }
     }
-    else
-    {
-
+    else if (pos_.y < (floorHeight - 50.0f)) {
+        hp_ = 0;
     }
+
+    // ジャンプ開始
+    if (currentBtnPressed && !preBtnPressed) {
+        if (pos_.y <= floorHeight) {
+            velocityY_ = 1.2f;
+            jumpCount_ = 1;
+        }
+    }
+    else if (jumpCount_ == 1 && currentBtnPressed) { // 2段ジャンプ的な挙動
+        velocityY_ = 1.0f;
+        jumpCount_ = 2;
+    }
+    preBtnPressed = currentBtnPressed;
+
 
     VECTOR cameraPos = pos_;
-	cameraPos.y += Camera::FPS_EYE_HEIGHT;
+    cameraPos.y += 0.3f;
 
 	//カメラの位置をプレイヤーの位置に合わせる
     camera->Setpos(cameraPos);
 
+    
     
 }
 
@@ -108,14 +134,41 @@ void Player::Damage(int value)
     if (hp_ < 0) hp_ = 0;
 
     invincibleTimer_ = 60;
+
+    
 }
 
 void Player::Draw()
 {
+	// HPバーの描画
+    if (hHpBar_ != -1)
+    {
+        int displayHeight = (int)((float)displayMaxWidth * barHeight_ / barWidth_);
+
+        float hpRatio = (float)hp_ / maxHp_;
+        if (hpRatio < 0.0f) hpRatio = 0.0f;
+
+        int srcWidth = (int)(barWidth_ * hpRatio);
+        int drawWidth = (int)(displayMaxWidth * hpRatio);
+
+        if (srcWidth > 0 && drawWidth > 0)
+        {
+            DrawRectExtendGraph(
+                drawX, drawY, drawX + drawWidth, drawY + displayHeight,
+                0, 0, srcWidth, barHeight_,
+                hHpBar_, TRUE);
+        }
+    }
 }
    
 void Player::Release()
 {
+    if (hHpBar_ != -1)
+    {
+        DeleteGraph(hHpBar_);
+        hHpBar_ = -1;
+    }
+
 }
 
 VECTOR Player::GetLookDir() const

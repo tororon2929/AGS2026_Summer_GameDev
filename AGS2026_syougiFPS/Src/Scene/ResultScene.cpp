@@ -28,19 +28,17 @@ void ResultScene::Update()
 
 void ResultScene::Draw()
 {
-    DrawFormatString(
-        700,
-        400,
-        GetColor(255, 255, 255),
-        "GAME END"
-    );
+    bool isClear = SceneManager::GetInstance().IsGameClear();
 
-    DrawFormatString(
-        620,
-        500,
-        GetColor(255, 255, 0),
-        "PRESS ENTER TO TITLE"
-    );
+    if (isClear)
+    {
+        DrawString(100, 100, "GAME CLEAR", GetColor(255, 255, 0));
+
+    }
+    else
+    {
+        DrawString(100, 100, "GAME OVER", GetColor(255, 0, 0));
+    }
 }
 
 void ResultScene::Release()

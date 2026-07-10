@@ -24,7 +24,7 @@ public:
     void Setpos(const VECTOR& newPos) { pos_ = newPos; }
     void ChangeMode(CameraMode newMode);
 
-    static constexpr float FPS_EYE_HEIGHT = 1.0f;
+    static constexpr float FPS_EYE_HEIGHT = 1.0;
 
 private:
     // 宣言順とコンストラクタ初期化リストを必ず合わせる
