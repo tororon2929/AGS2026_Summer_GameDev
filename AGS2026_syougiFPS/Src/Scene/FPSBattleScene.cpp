@@ -38,7 +38,17 @@ void FPSBattleScene::Init()
     player_ = new Player();
     player_->Init();
 
+    lightManager_.setAmbient(0.8f);
+    lightManager_.setBrightness(1.5f);
+    lightManager_.applyLighting();
+
+    SetGlobalAmbientLight(GetColorF(0.5f, 0.5f, 0.5f, 1.0f));
+
+    SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
+
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
+
+
 }
 
 void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)

@@ -5,6 +5,7 @@
 #include "../Object/Enemy.h"
 #include"../Object/Bullet.h"
 #include"../Application.h"
+#include"../Manager/LightManager.h"
 
 class Enemy;
 class Player;
@@ -33,6 +34,7 @@ private:
     Player* player_ = nullptr;
     Camera* camera_ = nullptr;
     Stage* stage_ = nullptr;
+    LightManager lightManager_;
 
     VECTOR lookDir;
     std::vector<Bullet*> bullets_;

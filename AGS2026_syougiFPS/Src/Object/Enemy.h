@@ -22,13 +22,14 @@ public:
 
     
 private:
+    int modelHandle;
 
     Transform transform_;
     bool isDummy_ = false; // ‰¼ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
     float moveTimer_ = 0.0f;
     float moveSpeed = 0.02f;
 	//’nã‚Ì‚‚³
-    float floorHeight = 25.0f;
+    float floorHeight = 26.0f;
 	//“G‚Ì“–‚½‚è”»’è‚Ì”¼Œa
     float radius_ = 2.0f;
     float velocityY_ = 0.0f;
