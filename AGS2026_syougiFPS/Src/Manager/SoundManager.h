@@ -10,6 +10,7 @@ public:
 	{
 		Title,
 		 Game, // ç°å„í«â¡â¬î\
+		 fps,
 		 sisi
 	};
 
@@ -17,7 +18,10 @@ public:
 	{
 		Select,
 		Confirm,
-		Shot1
+		Shot1,
+		Attack,
+		Jamp,
+		Damage,
 	
 		// Click, // ç°å„í«â¡â¬î\
 	};

@@ -67,9 +67,16 @@ public:
 	Camera* GetCamera(void) const;
 
 
+
+	void SetGameClear(bool isClear) { isGameClear_ = isClear; }
+	bool IsGameClear(void) const { return isGameClear_; }
+
+
+
 	void SetCpuLevel(int level) { mCpuLevel = level; }
 	int GetCpuLevel() const { return mCpuLevel; }
 	
+
 
 	void SetGameClear(bool isClear) { isGameClear_ = isClear; }
 	bool IsGameClear(void) const { return isGameClear_; }

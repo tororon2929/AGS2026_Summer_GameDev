@@ -19,13 +19,18 @@ public:
 		Hisha,
 		Kin,
 		Gin,
+
+		ENEMY_FU,
+
 		Title,
 		Myturn,
 		Enemyturn,
 		ENEMY,
+
 		ENEMY_FU,
 		Win,
 		Lose,
+
 
 
 	};

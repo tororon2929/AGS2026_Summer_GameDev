@@ -3,6 +3,7 @@
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
+#include "../Manager/SoundManager.h"
 #include "../Common/Camera.h"
 #include "../Object/Stage.h"
 #include "../Object/Enemy.h"
@@ -49,6 +50,8 @@ void FPSBattleScene::Init()
 
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
+    SoundManager::GetInstance().Init();
+    SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
 
 }
 
@@ -78,9 +81,12 @@ void FPSBattleScene::Update()
         player_->Update(camera_);
 	}
 
+
 	//プレイヤーと敵の当たり判定
+
     if (enemy_ != nullptr && player_ != nullptr)
     {
+        SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
         if (!player_->IsInvincible())
         {
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
@@ -90,19 +96,34 @@ void FPSBattleScene::Update()
             }
         }
     }
+
+    //�e�̃^�C�}�[����炷
+    if (shotTimer_ > 0)
+    {
+        shotTimer_--;
+    }
+    //�ˌ�����
     bool isShoot = false;
+    if (shotTimer_ <= 0)
+    {
+        if (GetMouseInput() & MOUSE_INPUT_LEFT) { isShoot = true; }
 
-    if (GetMouseInput() & MOUSE_INPUT_LEFT) { isShoot = true; }
-
-    if (InputManager::GetInstance().IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::R_TRIGGER)) {
-        isShoot = true;
+        if (InputManager::GetInstance().IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::R_TRIGGER)) {
+            isShoot = true;
+        }
     }
 
     if (isShoot)
     {
+        SoundManager::GetInstance().PlaySE(SoundManager::SE::Attack);
         if (player_ != nullptr && camera_ != nullptr)
         {
+
             // (既存の射撃処理をそのまま利用)
+
+			shotTimer_ = SHOT_INTERVAL;
+
+            // (�����̎ˌ���������̂܂ܗ��p)
             VECTOR start = camera_->GetPos();
             VECTOR angles = camera_->GetAngles();
             
@@ -129,15 +150,19 @@ void FPSBattleScene::Update()
             //ヒット判定
             if (dist < enemy_->GetRadius())
             {
+                SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
                 isHit = true;
+
 
                 //敵にダメージ
                 enemy_->Damage(5);
 
+                //�G�Ƀ_���[�W
+                enemy_->Damage(2);
+
                 hitCount_++;
             }
         }
-
        
         if (isHit||(*it)->IsDead())
         {
@@ -151,7 +176,11 @@ void FPSBattleScene::Update()
         
     }
 
+
     // プレイヤーのHPが0以下になったら「負け」
+
+	//�Q�[���I�[�o�[����
+
     if (player_ != nullptr && player_->GetHP() <= 0)
     {
         SceneManager::GetInstance().SetGameClear(false); // 💡 false で「負け」
@@ -160,8 +189,13 @@ void FPSBattleScene::Update()
         return;
     }
 
+
     // 敵のHPが0以下になったら「勝ち」
     if (enemy_ != nullptr && enemy_->hp_ <= 0)
+
+    //�Q�[���N���A����
+    if (enemy_ != nullptr && enemy_->IsDead())
+
     {
         SceneManager::GetInstance().SetGameClear(true);  // 💡 true で「勝ち」に変更！
 
@@ -249,7 +283,7 @@ void FPSBattleScene::Draw()
 
     if (enemy_ != nullptr)
     {
-        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 100", enemy_->hp_);
+        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 500", enemy_->hp_);
     }
 
 
@@ -307,6 +341,8 @@ void FPSBattleScene::Release()
         DeleteGraph(crosshairImg_);
         crosshairImg_ = -1;
     }
+
+    SoundManager::GetInstance().Release();
 
 }
 

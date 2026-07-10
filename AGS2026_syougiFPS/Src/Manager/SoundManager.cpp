@@ -12,10 +12,15 @@ void SoundManager::Init()
 	bgmHandles_[BGM::Title] = LoadSoundMem("Data/Effect/BGM/Title.mp3");
 	bgmHandles_[BGM::Game] = LoadSoundMem("Data/Effect/BGM/wate.mp3");
 	bgmHandles_[BGM::sisi] = LoadSoundMem("Data/Effect/BGM/sisiodosi.mp3");
+	bgmHandles_[BGM::fps] = LoadSoundMem("Data/Effect/BGM/BatteleBGM.mp3");
 
 	// SEÇÃì«Ç›çûÇ›ó·
 	 seHandles_[SE::Select] = LoadSoundMem("Data/Effect/SE/Select.mp3");
 	 seHandles_[SE::Shot1] = LoadSoundMem("Data/Effect/SE/Shot1.mp3");
+	 seHandles_[SE::Attack] = LoadSoundMem("Data/Effect/SE/Attack.mp3");
+	 seHandles_[SE::Jamp] = LoadSoundMem("Data/Effect/SE/Jamp.mp3");
+	 seHandles_[SE::Damage] = LoadSoundMem("Data/Effect/SE/Damage.mp3");
+
 	// seHandles_[SE::Confirm] = LoadSoundMem("Resource/Sound/confirm.wav");
 }
 
