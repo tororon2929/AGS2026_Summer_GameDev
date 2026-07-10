@@ -5,7 +5,7 @@
 class Enemy
 {
 public:
-    int hp_ = 100;
+    int hp_ = 500;
 
     Enemy();
     ~Enemy();
@@ -27,7 +27,7 @@ private:
     Transform transform_;
     bool isDummy_ = false; // ‰¼ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
     float moveTimer_ = 0.0f;
-    float moveSpeed = 0.02f;
+    float moveSpeed = 0.05f;
 	//’nã‚Ì‚‚³
     float floorHeight = 26.0f;
 	//“G‚Ì“–‚½‚è”»’è‚Ì”¼Œa

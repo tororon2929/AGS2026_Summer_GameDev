@@ -44,6 +44,9 @@
     <ClCompile Include="Src\Effect\CutInEffect.cpp" />
     <ClCompile Include="Src\Effect\EffectBase.cpp" />
     <ClCompile Include="Src\Effect\EffectManager.cpp" />
+    <ClCompile Include="Src\Common\MoveCommand.cpp" />
+    <ClCompile Include="Src\Manager\SoundManager.cpp" />
+    <ClCompile Include="Src\Object\CpuPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -89,5 +92,8 @@
     <ClInclude Include="Src\Effect\CutInEffect.h" />
     <ClInclude Include="Src\Effect\EffectBase.h" />
     <ClInclude Include="Src\Effect\EffectManager.h" />
+    <ClInclude Include="Src\Common\MoveCommand.h" />
+    <ClInclude Include="Src\Manager\SoundManager.h" />
+    <ClInclude Include="Src\Object\CpuPlayer.h" />
   </ItemGroup>
 </Project>

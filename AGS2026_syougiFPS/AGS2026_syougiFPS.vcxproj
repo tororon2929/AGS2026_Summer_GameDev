@@ -129,10 +129,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\MoveCommand.cpp" />
     <ClCompile Include="Src\Effect\CutInEffect.cpp" />
     <ClCompile Include="Src\Effect\EffectBase.cpp" />
     <ClCompile Include="Src\Effect\EffectManager.cpp" />
+    <ClCompile Include="Src\Manager\SoundManager.cpp" />
     <ClCompile Include="Src\Object\Bullet.cpp" />
+    <ClCompile Include="Src\Object\CpuPlayer.cpp" />
     <ClCompile Include="Src\Object\Fu.cpp" />
     <ClCompile Include="Src\Object\Gin.cpp" />
     <ClCompile Include="Src\Object\Hisha.cpp" />
@@ -174,10 +177,13 @@
     <ClCompile Include="Src\Object\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\MoveCommand.h" />
     <ClInclude Include="Src\Effect\CutInEffect.h" />
     <ClInclude Include="Src\Effect\EffectBase.h" />
     <ClInclude Include="Src\Effect\EffectManager.h" />
+    <ClInclude Include="Src\Manager\SoundManager.h" />
     <ClInclude Include="Src\Object\Bullet.h" />
+    <ClInclude Include="Src\Object\CpuPlayer.h" />
     <ClInclude Include="Src\Object\Fu.h" />
     <ClInclude Include="Src\Object\Gin.h" />
     <ClInclude Include="Src\Object\Hisha.h" />

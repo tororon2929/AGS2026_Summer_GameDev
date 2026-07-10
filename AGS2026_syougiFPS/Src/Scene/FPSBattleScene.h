@@ -47,6 +47,8 @@ private:
     int crosshairImg_ = -1;
     int centerX = Application::SCREEN_SIZE_X / 2;
     int centerY = Application::SCREEN_SIZE_Y / 2;
+    int shotTimer_ = 0;
+	const int SHOT_INTERVAL = 15; // 15ÉtÉåÅ[ÉÄ
     unsigned int auraColor = GetColor(255, 0, 0);
    
 };

@@ -62,7 +62,7 @@ void Enemy::Draw()
     //•`‰æ
     MV1DrawModel(transform_.modelId);
 
-    DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+    //DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }
 
 void Enemy::Release()

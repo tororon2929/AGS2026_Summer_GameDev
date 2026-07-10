@@ -2,6 +2,7 @@
 #include"../Common/Camera.h"
 #include"../Application.h"
 #include"../Manager/InputManager.h"
+#include"../Manager/SoundManager.h"
 #include <cmath>
 
 Player::Player()
@@ -104,6 +105,7 @@ void Player::Update(Camera* camera)
 
     // ジャンプ開始
     if (currentBtnPressed && !preBtnPressed) {
+        SoundManager::GetInstance().PlaySE(SoundManager::SE::Jamp);
         if (pos_.y <= floorHeight) {
             velocityY_ = 1.2f;
             jumpCount_ = 1;
@@ -133,7 +135,7 @@ void Player::Damage(int value)
     hp_ -= value;
     if (hp_ < 0) hp_ = 0;
 
-    invincibleTimer_ = 60;
+    invincibleTimer_ = 120;
 
     
 }
