@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include <DxLib.h>
+#include <cmath>
 Enemy::Enemy()
 {
 }
@@ -11,7 +12,12 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
     modelHandle = MV1LoadModel("Data/Enemy/Fu_Enemy.mv1");
-        transform_.SetModel(modelHandle);
+    if (modelHandle == -1)
+    {
+        return;
+    }
+
+       transform_.SetModel(modelHandle);
 
     transform_.pos = {0.0f, 50.0f, 15.0f };
 
@@ -21,12 +27,11 @@ void Enemy::Init()
     MV1SetMaterialDifColor(transform_.modelId, 0, GetColorF(0.8f, 0.6f, 0.4f, 1.0f));
 
     transform_.pos = { 0.0f, floorHeight, 15.0f };
-    MV1SetPosition(transform_.modelId, transform_.pos);
-
+    
     transform_.quaRot = Quaternion::Euler(VGet(0.0f, -DX_PI_F / 2.0f, DX_PI_F / 2.0f));
 
     transform_.Update();
-
+    MV1SetPosition(transform_.modelId, transform_.pos);
     
 }
 

@@ -66,8 +66,7 @@
               "RelativeToolTip": "Src\\Application.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAewBcAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-10T06:06:49.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T06:06:49.74Z"
             },
             {
               "$type": "Document",
@@ -89,7 +88,7 @@
               "RelativeDocumentMoniker": "Src\\Object\\Enemy.cpp",
               "ToolTip": "C:\\Users\\2416041\\Documents\\AGS2026_Summer_GameDev\\AGS2026_syougiFPS\\Src\\Object\\Enemy.cpp",
               "RelativeToolTip": "Src\\Object\\Enemy.cpp",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAEAAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB0AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-22T05:23:55.972Z",
               "EditorCaption": ""
@@ -104,8 +103,7 @@
               "RelativeToolTip": "Src\\Scene\\FPSBattleScene.cpp",
               "ViewState": "AgIAAO0AAAAAAAAAAAAAAAgBAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-06-05T08:19:40.251Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-05T08:19:40.251Z"
             },
             {
               "$type": "Document",
@@ -117,8 +115,7 @@
               "RelativeToolTip": "Src\\Manager\\SoundManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-07-10T05:08:56.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T05:08:56.196Z"
             },
             {
               "$type": "Document",
@@ -130,8 +127,7 @@
               "RelativeToolTip": "Src\\Object\\Enemy.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-22T05:39:48.339Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-22T05:39:48.339Z"
             },
             {
               "$type": "Document",
@@ -143,8 +139,7 @@
               "RelativeToolTip": "Src\\Scene\\FPSBattleScene.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-05T05:13:53.421Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-05T05:13:53.421Z"
             },
             {
               "$type": "Document",
@@ -156,8 +151,7 @@
               "RelativeToolTip": "Src\\Object\\Player.cpp",
               "ViewState": "AgIAADwAAAAAAAAAAAAAAIkAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-10T00:56:09.671Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T00:56:09.671Z"
             },
             {
               "$type": "Document",
@@ -169,8 +163,7 @@
               "RelativeToolTip": "Src\\Scene\\TitleScene.cpp",
               "ViewState": "AgIAAO0AAAAAAAAAAAAAAAUBAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-10T05:16:37.81Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T05:16:37.81Z"
             },
             {
               "$type": "Document",
@@ -182,8 +175,7 @@
               "RelativeToolTip": "Src\\Manager\\SoundManager.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-10T05:08:42.674Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T05:08:42.674Z"
             },
             {
               "$type": "Document",
@@ -195,8 +187,7 @@
               "RelativeToolTip": "Src\\Common\\Camera.cpp",
               "ViewState": "AgIAAHIAAAAAAAAAAADwv38AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-10T03:53:24.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T03:53:24.49Z"
             }
           ]
         }
