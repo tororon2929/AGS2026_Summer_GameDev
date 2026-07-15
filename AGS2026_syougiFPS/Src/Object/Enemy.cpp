@@ -26,6 +26,10 @@ void Enemy::Init()
 
     MV1SetMaterialDifColor(transform_.modelId, 0, GetColorF(0.8f, 0.6f, 0.4f, 1.0f));
 
+    //MV1SetMaterialAmbColor(transform_.modelId, 0, GetColorF(0.2f, 0.6f, 0.4f, 1.0f));
+
+    //MV1SetMaterialSpcColor(transform_.modelId, 0, GetColorF(0.0f, 0.0f, 0.0f, 0.0f));
+
     transform_.pos = { 0.0f, floorHeight, 15.0f };
     
     transform_.quaRot = Quaternion::Euler(VGet(0.0f, -DX_PI_F / 2.0f, DX_PI_F / 2.0f));
@@ -38,16 +42,21 @@ void Enemy::Init()
 
 void Enemy::Update(VECTOR playerPos)
 {
+    //プレイヤーへの方向ベクトルを計算
     VECTOR dir = VSub(playerPos, transform_.pos);
-
     dir.y = 0.0f;
 
-    if (VSquareSize(dir) > 0.0f)
+   /* if (VSquareSize(dir) > 0.0f)
     {
         dir = VNorm(dir);
+        //移動
         transform_.pos = VAdd(transform_.pos, VScale(dir, moveSpeed));
-    }
 
+        float angleY = atan2f(dir.x, dir.z);
+        transform_.quaRot = Quaternion::Euler(VGet(0.0f, angleY + (DX_PI_F / 2.0f), DX_PI_F / 2.0f));
+    }*/
+
+    //重力処理
     velocityY_ += -0.05f;
     transform_.pos.y += velocityY_;
 
@@ -58,7 +67,7 @@ void Enemy::Update(VECTOR playerPos)
     }
 
     transform_.Update();
-
+    MV1SetPosition(transform_.modelId, transform_.pos);
     
 }
 
