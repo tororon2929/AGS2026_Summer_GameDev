@@ -43,12 +43,15 @@ private:
     float limitz = 25.0f;
     float y = 25.0f;
     float time = GetNowCount() / 300.0f;
+	//弾が発射される位置
+    float startpoint = 1.0f;
     
     int crosshairImg_ = -1;
     int centerX = Application::SCREEN_SIZE_X / 2;
     int centerY = Application::SCREEN_SIZE_Y / 2;
     int shotTimer_ = 0;
-	const int SHOT_INTERVAL = 15; // 15フレーム
+	// 弾の発射間隔（フレーム数）
+	const int SHOT_INTERVAL = 30; // 15フレーム
     unsigned int auraColor = GetColor(255, 0, 0);
    
 };

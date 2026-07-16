@@ -26,12 +26,9 @@ void Enemy::Init()
 
     MV1SetMaterialDifColor(transform_.modelId, 0, GetColorF(0.8f, 0.6f, 0.4f, 1.0f));
 
-    //MV1SetMaterialAmbColor(transform_.modelId, 0, GetColorF(0.2f, 0.6f, 0.4f, 1.0f));
-
-    //MV1SetMaterialSpcColor(transform_.modelId, 0, GetColorF(0.0f, 0.0f, 0.0f, 0.0f));
+    MV1SetMaterialAmbColor(transform_.modelId,0,GetColorF(0.8,0.6f,0.4f,1.0f));
 
     transform_.pos = { 0.0f, floorHeight, 15.0f };
-    
     transform_.quaRot = Quaternion::Euler(VGet(0.0f, -DX_PI_F / 2.0f, DX_PI_F / 2.0f));
 
     transform_.Update();
@@ -46,7 +43,7 @@ void Enemy::Update(VECTOR playerPos)
     VECTOR dir = VSub(playerPos, transform_.pos);
     dir.y = 0.0f;
 
-   /* if (VSquareSize(dir) > 0.0f)
+    if (VSquareSize(dir) > 0.0f)
     {
         dir = VNorm(dir);
         //à⁄ìÆ
@@ -54,7 +51,7 @@ void Enemy::Update(VECTOR playerPos)
 
         float angleY = atan2f(dir.x, dir.z);
         transform_.quaRot = Quaternion::Euler(VGet(0.0f, angleY + (DX_PI_F / 2.0f), DX_PI_F / 2.0f));
-    }*/
+    }
 
     //èdóÕèàóù
     velocityY_ += -0.05f;
@@ -76,7 +73,7 @@ void Enemy::Draw()
     //ï`âÊ
     MV1DrawModel(transform_.modelId);
 
-    //DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+    DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }
 
 void Enemy::Release()

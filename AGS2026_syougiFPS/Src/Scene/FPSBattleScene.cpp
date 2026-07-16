@@ -40,13 +40,10 @@ void FPSBattleScene::Init()
     player_ = new Player();
     player_->Init();
 
-    lightManager_.setAmbient(0.8f);
     lightManager_.setBrightness(1.5f);
+    lightManager_.setAmbient(0.8f);
+    lightManager_.setDirection(0.0f, -1.0f, 1.0f);
     lightManager_.applyLighting();
-
-    SetGlobalAmbientLight(GetColorF(0.5f, 0.5f, 0.5f, 1.0f));
-
-    SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
 
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
@@ -127,7 +124,7 @@ void FPSBattleScene::Update()
             lookDir.y = -sinf(angles.x);
             lookDir.z = cosf(angles.x) * cosf(angles.y);
 
-            start = VAdd(start, VScale(lookDir, 10.0f));
+            start = VAdd(start, VScale(lookDir, startpoint));
             bullets_.push_back(new Bullet(start, lookDir));
         }
     }

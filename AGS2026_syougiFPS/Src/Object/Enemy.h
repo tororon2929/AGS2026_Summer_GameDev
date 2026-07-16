@@ -5,7 +5,7 @@
 class Enemy
 {
 public:
-    int hp_ = 500;
+    int hp_ = 250;
 
     Enemy();
     ~Enemy();
@@ -23,6 +23,7 @@ public:
     
 private:
     int modelHandle;
+    int materialNum = MV1GetMaterialNum(transform_.modelId);
 
     Transform transform_;
     bool isDummy_ = false; // ‰¼ƒ‚ƒfƒ‹‚©‚Ç‚¤‚©
