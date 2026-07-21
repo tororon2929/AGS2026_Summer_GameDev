@@ -1,6 +1,13 @@
 #pragma once
-
 #include "../Common/Transform.h"
+#include <map>
+
+enum class EnemyTextureState
+{
+    Normal,
+    KIN,
+};
+
 
 class Enemy
 {
@@ -20,13 +27,14 @@ public:
     void Damage(int value);
     bool IsDead() const { return hp_ <= 0; }
 
+    // 外部からテクスチャ状態を切り替えるための関数
+    //void SetTextureState(EnemyTextureState state);
     
 private:
-    int modelHandle;
-    int materialNum = MV1GetMaterialNum(transform_.modelId);
-
+    std::map<EnemyTextureState, int>textureHandles_;
+    int currentTextureHandle_;
+    
     Transform transform_;
-    bool isDummy_ = false; // 仮モデルかどうか
     float moveTimer_ = 0.0f;
     float moveSpeed = 0.05f;
 	//地上の高さ
@@ -34,6 +42,8 @@ private:
 	//敵の当たり判定の半径
     float radius_ = 2.0f;
     float velocityY_ = 0.0f;
+
+    void ApplyCurrentTexture();
 
 };
 

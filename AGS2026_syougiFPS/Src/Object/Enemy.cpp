@@ -11,7 +11,7 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-    modelHandle = MV1LoadModel("Data/Enemy/Fu_Enemy.mv1");
+    modelHandle = MV1LoadModel("Data/Enemy/koma.mv1");
     if (modelHandle == -1)
     {
         return;
@@ -24,9 +24,8 @@ void Enemy::Init()
     transform_.scl = { 0.05f, 0.05f, 0.05f };
     MV1SetScale(transform_.modelId, transform_.scl);
 
-    MV1SetMaterialDifColor(transform_.modelId, 0, GetColorF(0.8f, 0.6f, 0.4f, 1.0f));
-
-    MV1SetMaterialAmbColor(transform_.modelId,0,GetColorF(0.8,0.6f,0.4f,1.0f));
+    MV1SetMaterialDifColor(transform_.modelId, 0, GetColorF(1.0f, 1.0f, 1.0f, 1.0f));
+    MV1SetMaterialAmbColor(transform_.modelId, 0, GetColorF(1.0f, 1.0f, 1.0f, 1.0f));
 
     transform_.pos = { 0.0f, floorHeight, 15.0f };
     transform_.quaRot = Quaternion::Euler(VGet(0.0f, -DX_PI_F / 2.0f, DX_PI_F / 2.0f));
@@ -70,8 +69,13 @@ void Enemy::Update(VECTOR playerPos)
 
 void Enemy::Draw()
 {
-    //•`‰æ
-    MV1DrawModel(transform_.modelId);
+
+    if (transform_.modelId != -1)
+    {
+        //•`‰æ
+        MV1DrawModel(transform_.modelId);
+    }
+    
 
     DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }
