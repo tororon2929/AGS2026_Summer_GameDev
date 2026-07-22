@@ -1,6 +1,7 @@
 ﻿#include "FPSBattleScene.h"
 #include <DxLib.h>
 #include <memory>
+#include<string>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
@@ -59,7 +60,7 @@ void FPSBattleScene::Init()
     // カットイン演出初期値
     state_ = State::CutIn;
     cutInTimer_ = 0.0f;
-    isDebugStop_ = true; // 最初は一時停止状態で起動
+    isDebugStop_ = false; // 最初は一時停止状態で起動
 
     // 初期表示位置 (画面解像度 1280x720 想定)
     leftImgX_ = 300.0f;
@@ -86,10 +87,12 @@ void FPSBattleScene::Init()
     // 敵の初期化
     enemy_ = new Enemy();
     enemy_->Init();
+    enemy_->SetPos(VGet(0.0f, 26.4f, 15.0f));
 
     // プレイヤーの初期化
     player_ = new Player();
     player_->Init();
+    player_->SetPos(VGet(0.0f, 26.4f, -15.0f));
 
     // 遭遇した駒に応じた EnemyState (見た目・ステータス) の適用
     PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
@@ -117,7 +120,7 @@ void FPSBattleScene::Init()
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
     SoundManager::GetInstance().Init();
-    SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
+    //SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
 
     // =================================================================
     // 2D画像リソースの読み込み
@@ -187,17 +190,26 @@ void FPSBattleScene::Update()
 
         if (cutInTimer_ >= 3.0f)
         {
-            state_ = State::Playing; // 3秒経過でバトルスタート
+            state_ = State::Loading; // 3秒経過でバトルスタート
+            loadingTimer_ = 0.0f;
             return;
         }
 
+        if (state_ == State::Loading)
+        {
+            float deltaTime = 1.0f / 60.0f;
+            loadingTimer_ += deltaTime;
+
+            if (loadingTimer_ >= 3.0f)
+            {
+                state_ = State::Playing;
+                SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
+            }
+        }
         return;
     }
 
-    // =================================================================
-    // ⚔️ 通常のFPS戦闘の更新処理
-    // =================================================================
-
+    // 通常のFPS戦闘の更新処理
     // カメラの更新
     if (camera_ != nullptr)
     {
@@ -323,9 +335,7 @@ void FPSBattleScene::Update()
 
 void FPSBattleScene::Draw()
 {
-    // =================================================================
-    // 🛠️ VSカットイン演出中の描画 & デバッグUI
-    // =================================================================
+    // VSカットイン演出中の描画 & デバッグUI
     if (state_ == State::CutIn)
     {
         ClearDrawScreen();
@@ -376,10 +386,29 @@ void FPSBattleScene::Draw()
         return;
     }
 
-    // =================================================================
-    // ⚔️ 通常のFPS戦闘の描画処理
-    // =================================================================
+    //暗転ローディング描画
+    if (state_ == State::Loading)
+    {
+        // 画面全体を黒で塗る
+        DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(0, 0, 0), TRUE);
 
+        // 文字サイズを大きくしてローディング表示
+        SetFontSize(32);
+
+        int dotCount = (int)(loadingTimer_ * 3.0f) % 4; 
+        std::string loadingText = "NOW LOADING";
+        for (int i = 0; i < dotCount; ++i)
+        {
+            loadingText += ".";
+        }
+
+        DrawString(480, 340, loadingText.c_str(), GetColor(255, 255, 255));
+
+        SetFontSize(16); // フォントサイズを標準に戻しておく
+        return;
+    }
+
+    // 通常のFPS戦闘の描画処理
     if (camera_ != nullptr)
     {
         camera_->SetBeforeDraw();

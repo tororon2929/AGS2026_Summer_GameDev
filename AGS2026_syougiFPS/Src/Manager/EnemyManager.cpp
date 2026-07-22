@@ -7,7 +7,7 @@ void EnemyStateKin::Enter(Enemy* enemy)
 {
 	//金のステータス
 	enemy->SetMaxHp(250);
-	enemy->SetMoveSpeed(0.05f);
+	enemy->SetMoveSpeed(0.02f);
 	enemy->SetRadius(2.0f);
 
 	//金テクスチャー適用
@@ -51,7 +51,7 @@ void EnemyStateFu::Enter(Enemy* enemy)
 {
 	// 歩兵のステータス設定
 	enemy->SetMaxHp(100);
-	enemy->SetMoveSpeed(0.12f);
+	enemy->SetMoveSpeed(0.03f);
 	enemy->SetRadius(1.5f);
 
 	// 歩兵テクスチャロード
@@ -95,7 +95,7 @@ void EnemyStateGin::Enter(Enemy* enemy)
 {
 	//銀のステータス
 	enemy->SetMaxHp(150);
-	enemy->SetMoveSpeed(0.05f);
+	enemy->SetMoveSpeed(0.03f);
 	enemy->SetRadius(2.0f);
 
 	//銀テクスチャー適用
@@ -182,8 +182,8 @@ void EnemyStateKousya::Exit(Enemy* enemy)
 void EnemyStateOu::Enter(Enemy* enemy)
 {
 	//王のステータス
-	enemy->SetMaxHp(250);
-	enemy->SetMoveSpeed(0.20f);
+	enemy->SetMaxHp(300);
+	enemy->SetMoveSpeed(0.08f);
 	enemy->SetRadius(2.0f);
 
 	//王テクスチャー適用
@@ -227,7 +227,7 @@ void EnemyStateKaku::Enter(Enemy* enemy)
 {
 	//角のステータス
 	enemy->SetMaxHp(150);
-	enemy->SetMoveSpeed(0.05f);
+	enemy->SetMoveSpeed(0.04f);
 	enemy->SetRadius(4.0f);
 
 	//角テクスチャー適用
@@ -358,7 +358,7 @@ void EnemyStateGyoku::Exit(Enemy* enemy)
 void EnemyStateHisya::Enter(Enemy* enemy)
 {
 	//飛車のステータス
-	enemy->SetMaxHp(150);
+	enemy->SetMaxHp(100);
 	enemy->SetMoveSpeed(0.08f);
 	enemy->SetRadius(2.0f);
 
