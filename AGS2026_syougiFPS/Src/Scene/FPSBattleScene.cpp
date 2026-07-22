@@ -263,7 +263,7 @@ void FPSBattleScene::Draw()
 
     if (enemy_ != nullptr)
     {
-        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 500", enemy_->hp_);
+        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 500", enemy_->GetHp());
     }
 
 

@@ -2,48 +2,53 @@
 #include "../Common/Transform.h"
 #include <map>
 
-enum class EnemyTextureState
-{
-    Normal,
-    KIN,
-};
-
+class EnemyState;
 
 class Enemy
 {
 public:
-    int hp_ = 250;
-
     Enemy();
     ~Enemy();
 
     void Init();
     void Update(VECTOR playerPos);
     void Draw();
-	void Release();
+    void Release();
 
+    // ステート切り替え関数
+    void ChangeState(std::unique_ptr<EnemyState> newState);
+
+    // テクスチャ適用処理
+    void ApplyTexture(int texHandle);
+
+    // --- ステート側から操作するためのゲッター / セッター ---
     VECTOR GetPos() const { return transform_.pos; }
+    void SetPos(const VECTOR& pos) { transform_.pos = pos; }
+
+    void SetRotation(const Quaternion& rot) { transform_.quaRot = rot; }
+
+    float GetMoveSpeed() const { return moveSpeed_; }
+    void SetMoveSpeed(float speed) { moveSpeed_ = speed; }
+
+    void SetMaxHp(int maxHp) { maxHp_ = maxHp; hp_ = maxHp; }
+    int GetHp() const { return hp_; }
+
     float GetRadius() const { return radius_; }
+    void SetRadius(float r) { radius_ = r; }
+
     void Damage(int value);
     bool IsDead() const { return hp_ <= 0; }
-
-    // 外部からテクスチャ状態を切り替えるための関数
-    //void SetTextureState(EnemyTextureState state);
     
 private:
-    std::map<EnemyTextureState, int>textureHandles_;
-    int currentTextureHandle_;
-    
+    std::unique_ptr<EnemyState> currentState_ = nullptr;
+
     Transform transform_;
-    float moveTimer_ = 0.0f;
-    float moveSpeed = 0.05f;
-	//地上の高さ
-    float floorHeight = 26.0f;
-	//敵の当たり判定の半径
+    int hp_ = 250;
+    int maxHp_ = 250;
+    float moveSpeed_ = 0.05f;
+    float floorHeight_ = 26.0f;
     float radius_ = 2.0f;
     float velocityY_ = 0.0f;
-
-    void ApplyCurrentTexture();
 
 };
 
