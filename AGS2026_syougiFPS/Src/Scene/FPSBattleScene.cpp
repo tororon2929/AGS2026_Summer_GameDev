@@ -1,15 +1,33 @@
-#include "FPSBattleScene.h"
+ï»¿#include "FPSBattleScene.h"
 #include <DxLib.h>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/SoundManager.h"
 #include "../Common/Camera.h"
+#include "../Utility/AsoUtility.h"
 #include "../Object/Stage.h"
 #include "../Object/Enemy.h"
 #include "../Object/Player.h"
-#include"../Application.h"
+#include "../Application.h"
 
+// =================================================================
+// â˜… PieceType ã‹ã‚‰ ResourceManager::SRC (2Dç”»åƒ) ã«å¤‰æ›ã™ã‚‹é–¢æ•°
+// =================================================================
+ResourceManager::SRC ConvertPieceTypeToImageSrc(PieceType type)
+{
+    switch (type)
+    {
+    case PieceType::PIECE_OU:     return ResourceManager::SRC::OuImage;
+    case PieceType::PIECE_GYOKU:  return ResourceManager::SRC::GyokuImage;
+    case PieceType::PIECE_FU:     return ResourceManager::SRC::FuImage;
+    case PieceType::PIECE_HISHA:  return ResourceManager::SRC::HishaImage;
+    case PieceType::PIECE_KAKU:   return ResourceManager::SRC::KakuImage;
+    case PieceType::PIECE_KIN:    return ResourceManager::SRC::KinImage;
+    case PieceType::PIECE_GIN:    return ResourceManager::SRC::GinImage;
+    default:                      return ResourceManager::SRC::FuImage;
+    }
+}
 
 FPSBattleScene::FPSBattleScene()
 {
@@ -21,22 +39,38 @@ FPSBattleScene::~FPSBattleScene()
 
 void FPSBattleScene::Init()
 {
-	// ƒJƒƒ‰‚Ì‰Šú‰»
+    // ã‚«ãƒƒãƒˆã‚¤ãƒ³æ¼”å‡ºåˆæœŸå€¤
+    state_ = State::CutIn;
+    cutInTimer_ = 0.0f;
+    isDebugStop_ = true; // æœ€åˆã¯ä¸€æ™‚åœæ­¢çŠ¶æ…‹ã§èµ·å‹•
+
+    // åˆæœŸè¡¨ç¤ºä½ç½® (ç”»é¢è§£åƒåº¦ 1280x720 æƒ³å®š)
+    leftImgX_ = 300.0f;
+    leftImgY_ = 360.0f;
+    leftImgScale_ = 0.7f;
+
+    rightImgX_ = 980.0f;
+    rightImgY_ = 360.0f;
+    rightImgScale_ = 0.7f;
+
+    vsImgX_ = (float)centerX;
+    vsImgY_ = (float)centerY;
+    vsImgScale_ = 1.04f;
+
+    // ã‚«ãƒ¡ãƒ©ã®åˆæœŸåŒ–
     camera_ = new Camera();
-	camera_->Init();
+    camera_->Init();
+    camera_->ChangeMode(CameraMode::FPS);
 
-	//ƒJƒƒ‰‚ğ‹­§“I‚ÉFPSƒ‚[ƒh‚ÉØ‚è‘Ö‚¦
-	camera_->ChangeMode(CameraMode::FPS);
-
-	// ƒXƒe[ƒW‚Ì‰Šú‰»
+    // ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆæœŸåŒ–
     stage_ = new Stage();
     stage_->Init();
 
-	// “G‚Ì‰Šú‰»
+    // æ•µã®åˆæœŸåŒ–
     enemy_ = new Enemy();
     enemy_->Init();
 
-	// ƒvƒŒƒCƒ„[‚Ì‰Šú‰»
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–
     player_ = new Player();
     player_->Init();
 
@@ -45,11 +79,29 @@ void FPSBattleScene::Init()
     lightManager_.setDirection(0.0f, -1.0f, 1.0f);
     lightManager_.applyLighting();
 
+
+
+    SetGlobalAmbientLight(GetColorF(0.5f, 0.5f, 0.5f, 1.0f));
+    SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
+
+
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
     SoundManager::GetInstance().Init();
     SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
 
+    // =================================================================
+    // ğŸ–¼ï¸ 2Dç”»åƒãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
+    // =================================================================
+    PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
+    PieceType defender = SceneManager::GetInstance().GetDefenderPiece();
+
+    ResourceManager::SRC attackerSrc = ConvertPieceTypeToImageSrc(attacker);
+    ResourceManager::SRC defenderSrc = ConvertPieceTypeToImageSrc(defender);
+
+    leftImgHandle_ = ResourceManager::GetInstance().Load(attackerSrc).handleId_;
+    rightImgHandle_ = ResourceManager::GetInstance().Load(defenderSrc).handleId_;
+    vsImgHandle_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::VS).handleId_;
 }
 
 void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
@@ -59,46 +111,106 @@ void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
 
 void FPSBattleScene::Update()
 {
+    // =================================================================
+    // ğŸ› ï¸ VSã‚«ãƒƒãƒˆã‚¤ãƒ³æ¼”å‡ºä¸­ã®æ›´æ–°ï¼ˆãƒ‡ãƒãƒƒã‚°æ“ä½œå¯¾å¿œï¼‰
+    // =================================================================
+    if (state_ == State::CutIn)
+    {
+        // SPACEã‚­ãƒ¼ï¼šæ¼”å‡ºã®ã€Œå†ç”Ÿ / ä¸€æ™‚åœæ­¢ã€åˆ‡ã‚Šæ›¿ãˆ
+        if (InputManager::GetInstance().IsTrgDown(KEY_INPUT_SPACE))
+        {
+            isDebugStop_ = !isDebugStop_;
+        }
 
-	// ƒJƒƒ‰‚ÌXV
+        // --- ãƒ‡ãƒãƒƒã‚°èª¿æ•´ãƒ¢ãƒ¼ãƒ‰ ---
+        if (isDebugStop_)
+        {
+            float moveSpeed = 2.0f;
+            if (CheckHitKey(KEY_INPUT_LSHIFT)) moveSpeed = 8.0f; // Shiftã‚­ãƒ¼ã§ç§»å‹•é«˜é€ŸåŒ–
+
+            // 1. å·¦ã®é§’ã®ç§»å‹• (çŸ¢å°ã‚­ãƒ¼) & æ‹¡å¤§ç¸®å° (Z / X)
+            if (CheckHitKey(KEY_INPUT_LEFT))  leftImgX_ -= moveSpeed;
+            if (CheckHitKey(KEY_INPUT_RIGHT)) leftImgX_ += moveSpeed;
+            if (CheckHitKey(KEY_INPUT_UP))    leftImgY_ -= moveSpeed;
+            if (CheckHitKey(KEY_INPUT_DOWN))  leftImgY_ += moveSpeed;
+            if (CheckHitKey(KEY_INPUT_Z))     leftImgScale_ = max(0.1f, leftImgScale_ - 0.01f);
+            if (CheckHitKey(KEY_INPUT_X))     leftImgScale_ += 0.01f;
+
+            // 2. å³ã®é§’ã®ç§»å‹• (W / A / S / D) & æ‹¡å¤§ç¸®å° (C / V)
+            if (CheckHitKey(KEY_INPUT_A))     rightImgX_ -= moveSpeed;
+            if (CheckHitKey(KEY_INPUT_D))     rightImgX_ += moveSpeed;
+            if (CheckHitKey(KEY_INPUT_W))     rightImgY_ -= moveSpeed;
+            if (CheckHitKey(KEY_INPUT_S))     rightImgY_ += moveSpeed;
+            if (CheckHitKey(KEY_INPUT_C))     rightImgScale_ = max(0.1f, rightImgScale_ - 0.01f);
+            if (CheckHitKey(KEY_INPUT_V))     rightImgScale_ += 0.01f;
+
+            // 3. VSãƒ­ã‚´ã®ç§»å‹• (I / J / K / L) & æ‹¡å¤§ç¸®å° (B / N)
+            if (CheckHitKey(KEY_INPUT_J))     vsImgX_ -= moveSpeed;
+            if (CheckHitKey(KEY_INPUT_L))     vsImgX_ += moveSpeed;
+            if (CheckHitKey(KEY_INPUT_I))     vsImgY_ -= moveSpeed;
+            if (CheckHitKey(KEY_INPUT_K))     vsImgY_ += moveSpeed;
+            if (CheckHitKey(KEY_INPUT_B))     vsImgScale_ = max(0.1f, vsImgScale_ - 0.01f);
+            if (CheckHitKey(KEY_INPUT_N))     vsImgScale_ += 0.01f;
+
+            return; // èª¿æ•´ä¸­ ã‚¿ã‚¤ãƒãƒ¼åœæ­¢
+        }
+
+        // --- é€šå¸¸å†ç”Ÿä¸­ ---
+        float deltaTime = 1.0f / 60.0f;
+        cutInTimer_ += deltaTime;
+
+        if (cutInTimer_ >= 3.0f)
+        {
+            state_ = State::Playing; // 3ç§’çµŒéã§ãƒãƒˆãƒ«ã‚¹ã‚¿ãƒ¼ãƒˆ
+            return;
+        }
+
+        return;
+    }
+
+    // =================================================================
+    // âš”ï¸ é€šå¸¸ã®FPSæˆ¦é—˜ã®æ›´æ–°å‡¦ç†
+    // =================================================================
+
+    // ã‚«ãƒ¡ãƒ©ã®æ›´æ–°
     if (camera_ != nullptr)
     {
         camera_->Update();
     }
 
-	// ƒGƒlƒ~[‚ÌXV
-    if(enemy_ != nullptr && player_ != nullptr)
+    // ã‚¨ãƒãƒŸãƒ¼ã®æ›´æ–°
+    if (enemy_ != nullptr && player_ != nullptr)
     {
         enemy_->Update(player_->GetPos());
-	}
+    }
 
-	// ƒvƒŒƒCƒ„[‚ÌXV
-    if(player_!=nullptr)
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°
+    if (player_ != nullptr)
     {
         player_->Update(camera_);
-	}
+    }
 
-
-	//ƒvƒŒƒCƒ„[‚Æ“G‚Ì“–‚½‚è”»’è
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã®å½“ãŸã‚Šåˆ¤å®š
     if (enemy_ != nullptr && player_ != nullptr)
     {
         SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
         if (!player_->IsInvincible())
         {
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
-            if (dist < enemy_->GetRadius()) 
+            if (dist < enemy_->GetRadius())
             {
-                player_->Damage(20); // 20ƒ_ƒ[ƒW—^‚¦‚Ä©“®‚Å–³“G‰»
+                player_->Damage(20);
             }
         }
     }
 
-    //’e‚Ìƒ^ƒCƒ}[‚ğŒ¸‚ç‚·
+    // å¼¾ã®ã‚¿ã‚¤ãƒãƒ¼ã‚’æ¸›ã‚‰ã™
     if (shotTimer_ > 0)
     {
         shotTimer_--;
     }
-    //ËŒ‚ˆ—
+
+    // å°„æ’ƒåˆ¤å®š
     bool isShoot = false;
     if (shotTimer_ <= 0)
     {
@@ -114,12 +226,11 @@ void FPSBattleScene::Update()
         SoundManager::GetInstance().PlaySE(SoundManager::SE::Attack);
         if (player_ != nullptr && camera_ != nullptr)
         {
-			shotTimer_ = SHOT_INTERVAL;
+            shotTimer_ = SHOT_INTERVAL;
 
-            // (Šù‘¶‚ÌËŒ‚ˆ—‚ğ‚»‚Ì‚Ü‚Ü—˜—p)
             VECTOR start = camera_->GetPos();
             VECTOR angles = camera_->GetAngles();
-            
+
             lookDir.x = cosf(angles.x) * sinf(angles.y);
             lookDir.y = -sinf(angles.x);
             lookDir.z = cosf(angles.x) * cosf(angles.y);
@@ -129,7 +240,7 @@ void FPSBattleScene::Update()
         }
     }
 
-    //’e‚ÌXVˆ—
+    // å¼¾ã®æ›´æ–°å‡¦ç†
     for (auto it = bullets_.begin(); it != bullets_.end();)
     {
         (*it)->Update();
@@ -137,23 +248,19 @@ void FPSBattleScene::Update()
         bool isHit = false;
         if (enemy_ != nullptr)
         {
-            //’e‚Æ“G‚Ì‹——£‚ÌŒvZ
             float dist = VSize(VSub((*it)->GetPos(), enemy_->GetPos()));
 
-            //ƒqƒbƒg”»’è
             if (dist < enemy_->GetRadius())
             {
                 SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
                 isHit = true;
-
-                //“G‚Éƒ_ƒ[ƒW
+                enemy_->Damage(5);
                 enemy_->Damage(2);
-
                 hitCount_++;
             }
         }
-       
-        if (isHit||(*it)->IsDead())
+
+        if (isHit || (*it)->IsDead())
         {
             delete* it;
             it = bullets_.erase(it);
@@ -161,61 +268,108 @@ void FPSBattleScene::Update()
         else {
             ++it;
         }
-
-        
     }
 
-	//ƒQ[ƒ€ƒI[ƒo[”»’è
+    // æ•—åŒ—åˆ¤å®š
     if (player_ != nullptr && player_->GetHP() <= 0)
     {
         SceneManager::GetInstance().SetGameClear(false);
-
         SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
     }
 
-    //ƒQ[ƒ€ƒNƒŠƒA”»’è
-    if (enemy_ != nullptr && enemy_->IsDead())
+    // å‹åˆ©åˆ¤å®š
+    if (enemy_ != nullptr && enemy_->hp_ <= 0)
     {
-        SceneManager::GetInstance().SetGameClear(false);
-
+        SceneManager::GetInstance().SetGameClear(true);
         SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
     }
-   
 
-    // ‰¼FEnter‚Å«Šû‚Ö–ß‚é
-
+    // Enterã§å°†æ£‹ç”»é¢ã¸æˆ»ã‚‹ï¼ˆãƒ†ã‚¹ãƒˆç”¨ï¼‰
     if (CheckHitKey(KEY_INPUT_RETURN))
     {
         SceneManager::GetInstance().ChangeScene(
             SceneManager::SCENE_ID::GAME
         );
     }
-
-	
 }
 
 void FPSBattleScene::Draw()
 {
-	// ƒJƒƒ‰‚Ì•`‰æ‘Oˆ—
-    if(camera_!= nullptr)
+    // =================================================================
+    // ğŸ› ï¸ VSã‚«ãƒƒãƒˆã‚¤ãƒ³æ¼”å‡ºä¸­ã®æç”» & ãƒ‡ãƒãƒƒã‚°UI
+    // =================================================================
+    if (state_ == State::CutIn)
+    {
+        ClearDrawScreen();
+
+        // 1. VSãƒ­ã‚´ã®æç”»
+        if (vsImgHandle_ != -1)
+        {
+            DrawRotaGraph((int)vsImgX_, (int)vsImgY_, vsImgScale_, 0.0, vsImgHandle_, TRUE);
+        }
+
+        // 2. å·¦å´ã®é§’ç”»åƒã®æç”»
+        if (leftImgHandle_ != -1)
+        {
+            DrawRotaGraph((int)leftImgX_, (int)leftImgY_, leftImgScale_, 0.0, leftImgHandle_, TRUE);
+        }
+
+        // 3. å³å´ã®é§’ç”»åƒã®æç”»
+        if (rightImgHandle_ != -1)
+        {
+            DrawRotaGraph((int)rightImgX_, (int)rightImgY_, rightImgScale_, 0.0, rightImgHandle_, TRUE);
+        }
+
+        // 4. ãƒ‡ãƒãƒƒã‚°UIæƒ…å ±
+        SetFontSize(18);
+        unsigned int yellow = GetColor(255, 255, 0);
+        unsigned int green = GetColor(0, 255, 0);
+        unsigned int white = GetColor(255, 255, 255);
+
+        DrawString(20, 20, "=== CUT-IN REALTIME DEBUGGER ===", yellow);
+        DrawString(20, 42, "Press [SPACE] to Play / Pause", white);
+
+        if (isDebugStop_)
+        {
+            DrawString(20, 75, "[LEFT PIECE]  Move: Arrow Keys | Scale: [Z] Down / [X] Up", white);
+            DrawString(20, 95, "[RIGHT PIECE] Move: [W/A/S/D]  | Scale: [C] Down / [V] Up", white);
+            DrawString(20, 115, "[VS LOGO]     Move: [I/J/K/L]  | Scale: [B] Down / [N] Up", white);
+
+            DrawString(20, 150, "--- CURRENT PARAMETERS ---", yellow);
+            DrawFormatString(20, 172, green, "Left Piece  : X = %.1f, Y = %.1f, Scale = %.2f", leftImgX_, leftImgY_, leftImgScale_);
+            DrawFormatString(20, 194, green, "Right Piece : X = %.1f, Y = %.1f, Scale = %.2f", rightImgX_, rightImgY_, rightImgScale_);
+            DrawFormatString(20, 216, green, "VS Logo     : X = %.1f, Y = %.1f, Scale = %.2f", vsImgX_, vsImgY_, vsImgScale_);
+        }
+        else
+        {
+            DrawFormatString(20, 75, green, "Playing... Timer: %.2f / 3.00", cutInTimer_);
+        }
+
+        return;
+    }
+
+    // =================================================================
+    // âš”ï¸ é€šå¸¸ã®FPSæˆ¦é—˜ã®æç”»å‡¦ç†
+    // =================================================================
+
+    if (camera_ != nullptr)
     {
         camera_->SetBeforeDraw();
-	}
+    }
 
-	// ƒXƒe[ƒW‚Ì‚Ì•`‰æ
-    if(stage_ != nullptr)
+    if (stage_ != nullptr)
     {
         stage_->Draw();
-	}
+    }
 
     for (int i = 0; i < 40; i++)
     {
         int alpha = 255 - (i * 6);
-        if (alpha < 0)alpha = 0;
+        if (alpha < 0) alpha = 0;
 
-        SetDrawBlendMode(DX_BLENDMODE_ADD,alpha);
+        SetDrawBlendMode(DX_BLENDMODE_ADD, alpha);
         float currentY = y + (i * 0.15f) + sinf(time + i * 0.1f) * 1.5f;
 
         DrawLine3D(VGet(-limitx, currentY, -limitz), VGet(limitx, currentY, -limitz), auraColor);
@@ -226,19 +380,16 @@ void FPSBattleScene::Draw()
 
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-	// “G‚Ì•`‰æ
     if (enemy_ != nullptr)
     {
         enemy_->Draw();
     }
 
-	// ƒvƒŒƒCƒ„[‚Ì•`‰æ
     if (player_ != nullptr)
     {
         player_->Draw();
     }
 
-    //’e‚Ì•`‰æ
     for (auto b : bullets_) {
         b->Draw();
     }
@@ -247,7 +398,7 @@ void FPSBattleScene::Draw()
     {
         int hpX = 50;
         int hpY = Application::SCREEN_SIZE_Y - 100;
-        unsigned int color = player_->IsInvincible() ? GetColor(255, 165, 0) : GetColor(0, 255, 0); // –³“G’†‚ÍƒIƒŒƒ“ƒW
+        unsigned int color = player_->IsInvincible() ? GetColor(255, 165, 0) : GetColor(0, 255, 0);
 
         DrawFormatString(hpX, hpY, color, "PLAYER HP: %d / 100 %s",
             player_->GetHP(), player_->IsInvincible() ? "[INVINCIBLE]" : "");
@@ -263,31 +414,16 @@ void FPSBattleScene::Draw()
 
     if (enemy_ != nullptr)
     {
+
         DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 500", enemy_->GetHp());
+
+        DrawFormatString(0, 75, GetColor(255, 0, 0), "ENEMY HP: %d / 500", enemy_->hp_);
+
     }
-
-
-    
 }
-
-    //DrawFormatString(
-    //    700,
-    //    400,
-    //    GetColor(255, 255, 255),
-    //    "FPS BATTLE"
-    //);
-
-    //DrawFormatString(
-    //    600,
-    //    500,
-    //    GetColor(255, 255, 0),
-    //    "PRESS ENTER TO RETURN"
-    //);
-
 
 void FPSBattleScene::Release()
 {
-	// ƒJƒƒ‰‚Ì‰ğ•ú
     if (stage_ != nullptr)
     {
         stage_->Release();
@@ -295,25 +431,22 @@ void FPSBattleScene::Release()
         stage_ = nullptr;
     }
 
-	// “G‚Ì‰ğ•ú
     if (enemy_ != nullptr)
     {
         delete enemy_;
         enemy_ = nullptr;
     }
 
-	// ƒvƒŒƒCƒ„[‚Ì‰ğ•ú
-    if(player_ != nullptr)
+    if (player_ != nullptr)
     {
         delete player_;
         player_ = nullptr;
-	}
+    }
 
-	// ƒJƒƒ‰‚Ì‰ğ•ú
     if (camera_ != nullptr) {
-		camera_->Release();
-		delete camera_;
-		camera_ = nullptr;
+        camera_->Release();
+        delete camera_;
+        camera_ = nullptr;
     }
 
     if (crosshairImg_ != -1)
@@ -323,7 +456,4 @@ void FPSBattleScene::Release()
     }
 
     SoundManager::GetInstance().Release();
-
 }
-
-

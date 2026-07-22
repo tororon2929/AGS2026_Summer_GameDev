@@ -62,7 +62,7 @@ void GameScene::Draw(void)
         lightManager_->applyLighting();
     }
 
-    if (grid_) grid_->Draw();
+   /* if (grid_) grid_->Draw();*/
 
     if (playBoard_) {
         playBoard_->Draw();

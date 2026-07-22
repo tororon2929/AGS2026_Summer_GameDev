@@ -24,6 +24,28 @@ public:
 		Myturn,
 		Enemyturn,
 		ENEMY,
+		Win,
+		Lose,
+		VS,
+		OuImage,
+		GyokuImage,
+		FuImage,
+		KakuImage,
+		HishaImage,
+		KinImage,
+		GinImage,
+		Select,
+		Control,
+		Cursor,
+		Easy,
+
+
+
+
+
+
+		
+
 
 
 	};

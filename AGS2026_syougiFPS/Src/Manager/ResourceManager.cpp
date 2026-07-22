@@ -58,8 +58,10 @@ void ResourceManager::Init(void)
 	resourcesMap_.emplace(SRC::Gin, res);
 
 
+
 	res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
 	resourcesMap_.emplace(SRC::ENEMY_FU, res);
+
 
 	res = new RES(RES_T::IMG, PATH_IMG + "Title.png");
 	resourcesMap_.emplace(SRC::Title, res);
@@ -69,6 +71,40 @@ void ResourceManager::Init(void)
 
 	res = new RES(RES_T::IMG, PATH_IMG + "Enemyturn.png");
 	resourcesMap_.emplace(SRC::Enemyturn, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "Win.png");
+	resourcesMap_.emplace(SRC::Win, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "Lose.png");
+	resourcesMap_.emplace(SRC::Lose, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "VS.png");
+	resourcesMap_.emplace(SRC::VS, res);
+
+
+	res = new RES(RES_T::IMG, PATH_IMG + "王.png");
+	resourcesMap_.emplace(SRC::OuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "王.png");
+	resourcesMap_.emplace(SRC::GyokuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "金.png");
+	resourcesMap_.emplace(SRC::KinImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "歩兵.png");
+	resourcesMap_.emplace(SRC::FuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "角.png");
+	resourcesMap_.emplace(SRC::KakuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "飛車.png");
+	resourcesMap_.emplace(SRC::HishaImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "銀.png");
+	resourcesMap_.emplace(SRC::GinImage, res);
+
+	//res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
+	//resourcesMap_.emplace(SRC::ENEMY_FU, res);
 
 
 
@@ -127,27 +163,27 @@ ResourceManager::ResourceManager(void)
 Resource& ResourceManager::_Load(SRC src)
 {
 
-	// ロード済みチェック
-	const auto& lPair = loadedMap_.find(src);
-	if (lPair != loadedMap_.end())
-	{
-		return *resourcesMap_.find(src)->second;
-	}
-
-	// リソース登録チェック
+	// 1. まずリソースがそもそも登録されているかチェック
 	const auto& rPair = resourcesMap_.find(src);
 	if (rPair == resourcesMap_.end())
 	{
-		// 登録されていない
+		// 登録されていない場合はダミーを返す
 		return dummy_;
 	}
 
-	// ロード処理
+	// 2. すでにロード済みかチェック（loadedMap_ から探す）
+	const auto& lPair = loadedMap_.find(src);
+	if (lPair != loadedMap_.end())
+	{
+		// すでにロードされていれば、登録されているリソースをそのまま返す
+		return *rPair->second;
+	}
+
+	// 3. まだロードされていなければ、ここで実際に LoadGraph 等を呼ぶ
 	rPair->second->Load();
 
-	// 念のためコピーコンストラクタ
+	// 4. ロード済みマップに登録する
 	loadedMap_.emplace(src, *rPair->second);
 
 	return *rPair->second;
-
 }
