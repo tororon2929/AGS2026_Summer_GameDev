@@ -2,7 +2,7 @@
 #include "../Common/Transform.h"
 #include <map>
 
-class EnemyState;
+class EnemyManager;
 
 class Enemy
 {
@@ -16,7 +16,7 @@ public:
     void Release();
 
     // ステート切り替え関数
-    void ChangeState(std::unique_ptr<EnemyState> newState);
+    void ChangeState(std::unique_ptr<EnemyManager> newState);
 
     // テクスチャ適用処理
     void ApplyTexture(int texHandle);
@@ -32,6 +32,7 @@ public:
 
     void SetMaxHp(int maxHp) { maxHp_ = maxHp; hp_ = maxHp; }
     int GetHp() const { return hp_; }
+    int GetMaxHp() const { return maxHp_; }
 
     float GetRadius() const { return radius_; }
     void SetRadius(float r) { radius_ = r; }
@@ -40,7 +41,7 @@ public:
     bool IsDead() const { return hp_ <= 0; }
     
 private:
-    std::unique_ptr<EnemyState> currentState_ = nullptr;
+    std::unique_ptr<EnemyManager> currentState_ = nullptr;
 
     Transform transform_;
     int hp_ = 250;

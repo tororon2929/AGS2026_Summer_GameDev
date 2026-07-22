@@ -1,9 +1,11 @@
 ﻿#include "FPSBattleScene.h"
 #include <DxLib.h>
+#include <memory>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/SoundManager.h"
+#include"../Manager/EnemyManager.h"
 #include "../Common/Camera.h"
 #include "../Utility/AsoUtility.h"
 #include "../Object/Stage.h"
@@ -26,6 +28,21 @@ ResourceManager::SRC ConvertPieceTypeToImageSrc(PieceType type)
     case PieceType::PIECE_KIN:    return ResourceManager::SRC::KinImage;
     case PieceType::PIECE_GIN:    return ResourceManager::SRC::GinImage;
     default:                      return ResourceManager::SRC::FuImage;
+    }
+}
+
+std::unique_ptr<EnemyManager> CreateEnemyStateFromPieceType(PieceType type)
+{
+    switch (type)
+    {
+    case PieceType::PIECE_OU:     return std::make_unique<EnemyStateOu>();
+    case PieceType::PIECE_GYOKU:  return std::make_unique<EnemyStateGyoku>();
+    case PieceType::PIECE_FU:     return std::make_unique<EnemyStateFu>();
+    case PieceType::PIECE_HISHA:  return std::make_unique<EnemyStateHisya>();
+    case PieceType::PIECE_KAKU:   return std::make_unique<EnemyStateKaku>();
+    case PieceType::PIECE_KIN:    return std::make_unique<EnemyStateKin>();
+    case PieceType::PIECE_GIN:    return std::make_unique<EnemyStateGin>();
+    default:                      return std::make_unique<EnemyStateFu>();
     }
 }
 
@@ -74,6 +91,18 @@ void FPSBattleScene::Init()
     player_ = new Player();
     player_->Init();
 
+    // 遭遇した駒に応じた EnemyState (見た目・ステータス) の適用
+    PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
+    PieceType defender = SceneManager::GetInstance().GetDefenderPiece();
+
+    // プレイヤーが攻撃した場合はdefensorが敵,敵が攻撃してきた場合は attackerが敵
+    bool isPlayerAttack = SceneManager::GetInstance().IsPlayerAttacking();
+    PieceType enemyPieceType = isPlayerAttack ? defender : attacker;
+
+    // 該当する駒のステートを生成して敵にセット
+    auto newState = CreateEnemyStateFromPieceType(enemyPieceType);
+    enemy_->ChangeState(std::move(newState));
+
     lightManager_.setBrightness(1.5f);
     lightManager_.setAmbient(0.8f);
     lightManager_.setDirection(0.0f, -1.0f, 1.0f);
@@ -91,11 +120,8 @@ void FPSBattleScene::Init()
     SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
 
     // =================================================================
-    // 🖼️ 2D画像リソースの読み込み
+    // 2D画像リソースの読み込み
     // =================================================================
-    PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
-    PieceType defender = SceneManager::GetInstance().GetDefenderPiece();
-
     ResourceManager::SRC attackerSrc = ConvertPieceTypeToImageSrc(attacker);
     ResourceManager::SRC defenderSrc = ConvertPieceTypeToImageSrc(defender);
 
@@ -279,7 +305,7 @@ void FPSBattleScene::Update()
     }
 
     // 勝利判定
-    if (enemy_ != nullptr && enemy_->hp_ <= 0)
+    if (enemy_ != nullptr && enemy_->GetHp() <= 0)
     {
         SceneManager::GetInstance().SetGameClear(true);
         SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
@@ -417,7 +443,7 @@ void FPSBattleScene::Draw()
 
         DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 500", enemy_->GetHp());
 
-        DrawFormatString(0, 75, GetColor(255, 0, 0), "ENEMY HP: %d / 500", enemy_->hp_);
+        DrawFormatString(0, 75, GetColor(255, 0, 0), "ENEMY HP: %d / %d", enemy_->GetHp(), enemy_->GetMaxHp());
 
     }
 }

@@ -6,6 +6,7 @@
 #include "../Object/Bullet.h"
 #include "../Application.h"
 #include "../Manager/LightManager.h"
+#include"../Manager/EnemyManager.h"
 #include "../Object/PieceBase.h" 
 
 class Enemy;
@@ -13,6 +14,7 @@ class Player;
 class Camera;
 class Stage;
 class Bullet;
+class EnemyManager;
 
 class FPSBattleScene : public SceneBase
 {
@@ -56,8 +58,8 @@ private:
     int centerY = Application::SCREEN_SIZE_Y / 2;
     int shotTimer_ = 0;
 
-	// �e�̔��ˊԊu�i�t���[�����j
-	const int SHOT_INTERVAL = 30; // 15�t���[��
+	
+	//const int SHOT_INTERVAL = 30; 
 
     const int SHOT_INTERVAL = 15; // 15フレーム
 

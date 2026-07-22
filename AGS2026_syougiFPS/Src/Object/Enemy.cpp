@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "../Manager/EnemyState.h"
+#include "../Manager/EnemyManager.h"
 #include <DxLib.h>
 
 Enemy::Enemy()
@@ -37,7 +37,7 @@ void Enemy::Init()
     MV1SetPosition(transform_.modelId, transform_.pos);
 }
 
-void Enemy::ChangeState(std::unique_ptr<EnemyState> newState)
+void Enemy::ChangeState(std::unique_ptr<EnemyManager> newState)
 {
     if (!newState) return;
 

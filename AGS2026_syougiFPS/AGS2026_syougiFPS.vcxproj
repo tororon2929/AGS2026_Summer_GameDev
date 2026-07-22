@@ -133,7 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Manager\EnemyState.cpp" />
+    <ClCompile Include="Src\Manager\EnemyManager.cpp" />
     <ClCompile Include="Src\Common\MoveCommand.cpp" />
     <ClCompile Include="Src\Effect\CutInEffect.cpp" />
     <ClCompile Include="Src\Effect\EffectBase.cpp" />
@@ -182,7 +182,7 @@
     <ClCompile Include="Src\Object\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Manager\EnemyState.h" />
+    <ClInclude Include="Src\Manager\EnemyManager.h" />
     <ClInclude Include="Src\Common\MoveCommand.h" />
     <ClInclude Include="Src\Effect\CutInEffect.h" />
     <ClInclude Include="Src\Effect\EffectBase.h" />
