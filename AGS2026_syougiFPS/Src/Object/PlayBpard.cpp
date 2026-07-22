@@ -517,47 +517,52 @@ void PlayBpard::Draw()
 
 bool PlayBpard::MovePiece(int fromX, int fromY, int toX, int toY)
 {
-    Cell* fromCell = &mCells[fromY][fromX];
-    Cell* toCell = &mCells[toY][toX];
-    PieceBase* piece = fromCell->GetPiece();
+    Cell* fromCell = &mCells[fromY][fromX]; 
+        Cell* toCell = &mCells[toY][toX];
+        PieceBase* piece = fromCell->GetPiece(); 
 
-    if (!piece) return false;
-    if (!piece->CanMove(toX, toY)) return false;
+        if (!piece) return false; 
+            if (!piece->CanMove(toX, toY)) return false; 
 
-    // ★追加: 移動経路の途中に駒がある場合は移動できない
-        if (!IsPathClear(fromX, fromY, toX, toY)) return false;
+                // 移動経路の途中に駒がある場合は移動できない[cite: 23]
+                if (!IsPathClear(fromX, fromY, toX, toY)) return false; 
 
-    PieceBase* target = toCell->GetPiece();
+                    PieceBase* target = toCell->GetPiece(); 
 
-    if (target)
-    {
-        if (target->IsPlayer() == piece->IsPlayer())
-        {
-            return false;
-        }
+                    if (target)
+                    {
+                        // 1. 味方の駒なら移動不可[cite: 23]
+                        if (target->IsPlayer() == piece->IsPlayer())
+                        {
+                            return false; 
+                        }
 
-        if (target->GetType() == PIECE_OU || target->GetType() == PIECE_GYOKU)
-        {
-            mGameEnd = true;
-            delete target;
-            toCell->SetPiece(nullptr);
+                        // 2. 将棋盤の更新を一時ストップ（バトルに行くため）[cite: 23]
+                        mGameEnd = true; 
 
-            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
-        }
-        else
-        {
-            delete target;
-            toCell->SetPiece(nullptr);
-        }
-    }
+                            // 3. 【追加】どの駒同士が戦うかをSceneManagerに保存！
+                            SceneManager::GetInstance().SetBattleInfo(
+                                piece->GetType(),       // 動かした駒（攻撃側）
+                                target->GetType(),      // そこにいた駒（守備側）
+                                piece->IsPlayer()       // プレイヤーが仕掛けたバトルなら true
+                            );
 
-    toCell->SetPiece(piece);
-    fromCell->SetPiece(nullptr);
+                        // 4. 移動先の駒をメモリから消去[cite: 23]
+                        delete target;
+                            toCell->SetPiece(nullptr); 
 
-    piece->SetPos(toX, toY);
-    piece->SetWorldPos(toCell->GetWorldPos());
+                            // 5. FPSバトルシーンへ遷移[cite: 23]
+                            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
+                    }
 
-    return true;
+    // ※ここは相手の駒が「いなかった」場合の通常の移動処理です
+    toCell->SetPiece(piece); 
+        fromCell->SetPiece(nullptr); 
+
+        piece->SetPos(toX, toY);
+        piece->SetWorldPos(toCell->GetWorldPos());
+
+        return true;
 }
 
 Cell* PlayBpard::GetCell(int x, int y)

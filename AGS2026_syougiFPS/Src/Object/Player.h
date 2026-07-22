@@ -24,7 +24,7 @@ public:
     void Damage(int value);
    
 private:
-    
+   
 
     VECTOR pos_;        // プレイヤーの現在座標
     float angleH_;      // 水平方向の回転角度

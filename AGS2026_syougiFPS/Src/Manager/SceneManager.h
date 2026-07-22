@@ -1,10 +1,12 @@
 #pragma once
 #include <chrono>
 #include <DxLib.h> // ← これを追加
+#include "../Object/PieceBase.h" 
 class SceneBase;
 class Fader;
 class Camera;
 //class MiniCamera;
+
 
 class SceneManager
 {
@@ -75,13 +77,23 @@ public:
 
 	void SetCpuLevel(int level) { mCpuLevel = level; }
 	int GetCpuLevel() const { return mCpuLevel; }
+
+	// 戦闘情報をリセット・セットする関数
+	void SetBattleInfo(PieceType attacker, PieceType defender, bool isPlayerAttacking) {
+		mAttackerPiece = attacker;
+		mDefenderPiece = defender;
+		mIsPlayerAttacking = isPlayerAttacking;
+	}
+
+	// 各情報を取得するゲッター関数
+	PieceType GetAttackerPiece() const { return mAttackerPiece; }
+	PieceType GetDefenderPiece() const { return mDefenderPiece; }
+	bool IsPlayerAttacking() const { return mIsPlayerAttacking; }
 	
-
-
-	void SetGameClear(bool isClear) { isGameClear_ = isClear; }
-	bool IsGameClear(void) const { return isGameClear_; }
-
 private:
+	PieceType mAttackerPiece = PIECE_NONE;
+	PieceType mDefenderPiece = PIECE_NONE;
+	bool mIsPlayerAttacking = false; // プレイヤーが攻め側（仕掛けた側）なら true
 
 	// ★ デバッグ用：ポーズ画面の位置調整変数
 	int debugOffsetX_ = 0;

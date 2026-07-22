@@ -72,15 +72,39 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::IMG, PATH_IMG + "Enemyturn.png");
 	resourcesMap_.emplace(SRC::Enemyturn, res);
 
-
 	res = new RES(RES_T::IMG, PATH_IMG + "Win.png");
 	resourcesMap_.emplace(SRC::Win, res);
 
 	res = new RES(RES_T::IMG, PATH_IMG + "Lose.png");
 	resourcesMap_.emplace(SRC::Lose, res);
 
-	res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
-	resourcesMap_.emplace(SRC::ENEMY_FU, res);
+	res = new RES(RES_T::IMG, PATH_IMG + "VS.png");
+	resourcesMap_.emplace(SRC::VS, res);
+
+
+	res = new RES(RES_T::IMG, PATH_IMG + "‰¤.png");
+	resourcesMap_.emplace(SRC::OuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "‰¤.png");
+	resourcesMap_.emplace(SRC::GyokuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "‹à.png");
+	resourcesMap_.emplace(SRC::KinImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "•à•º.png");
+	resourcesMap_.emplace(SRC::FuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "Šp.png");
+	resourcesMap_.emplace(SRC::KakuImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "”òŽÔ.png");
+	resourcesMap_.emplace(SRC::HishaImage, res);
+
+	res = new RES(RES_T::IMG, PATH_IMG + "‹â.png");
+	resourcesMap_.emplace(SRC::GinImage, res);
+
+	//res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
+	//resourcesMap_.emplace(SRC::ENEMY_FU, res);
 
 
 

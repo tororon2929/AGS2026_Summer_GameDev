@@ -19,17 +19,32 @@ public:
 		Hisha,
 		Kin,
 		Gin,
-
 		ENEMY_FU,
-
 		Title,
 		Myturn,
 		Enemyturn,
 		ENEMY,
-
-		ENEMY_FU,
 		Win,
 		Lose,
+		VS,
+		OuImage,
+		GyokuImage,
+		FuImage,
+		KakuImage,
+		HishaImage,
+		KinImage,
+		GinImage,
+		Select,
+		Control,
+		Cursor,
+		Easy,
+
+
+
+
+
+
+		
 
 
 
