@@ -153,37 +153,37 @@ void FPSBattleScene::Update()
         }
 
         // --- デバッグ調整モード ---
-        if (isDebugStop_)
-        {
-            float moveSpeed = 2.0f;
-            if (CheckHitKey(KEY_INPUT_LSHIFT)) moveSpeed = 8.0f; // Shiftキーで移動高速化
+        //if (isDebugStop_)
+        //{
+        //    float moveSpeed = 2.0f;
+        //    if (CheckHitKey(KEY_INPUT_LSHIFT)) moveSpeed = 8.0f; // Shiftキーで移動高速化
 
-            // 1. 左の駒の移動 (矢印キー) & 拡大縮小 (Z / X)
-            if (CheckHitKey(KEY_INPUT_LEFT))  leftImgX_ -= moveSpeed;
-            if (CheckHitKey(KEY_INPUT_RIGHT)) leftImgX_ += moveSpeed;
-            if (CheckHitKey(KEY_INPUT_UP))    leftImgY_ -= moveSpeed;
-            if (CheckHitKey(KEY_INPUT_DOWN))  leftImgY_ += moveSpeed;
-            if (CheckHitKey(KEY_INPUT_Z))     leftImgScale_ = max(0.1f, leftImgScale_ - 0.01f);
-            if (CheckHitKey(KEY_INPUT_X))     leftImgScale_ += 0.01f;
+        //     1. 左の駒の移動 (矢印キー) & 拡大縮小 (Z / X)
+        //    if (CheckHitKey(KEY_INPUT_LEFT))  leftImgX_ -= moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_RIGHT)) leftImgX_ += moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_UP))    leftImgY_ -= moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_DOWN))  leftImgY_ += moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_Z))     leftImgScale_ = max(0.1f, leftImgScale_ - 0.01f);
+        //    if (CheckHitKey(KEY_INPUT_X))     leftImgScale_ += 0.01f;
 
-            // 2. 右の駒の移動 (W / A / S / D) & 拡大縮小 (C / V)
-            if (CheckHitKey(KEY_INPUT_A))     rightImgX_ -= moveSpeed;
-            if (CheckHitKey(KEY_INPUT_D))     rightImgX_ += moveSpeed;
-            if (CheckHitKey(KEY_INPUT_W))     rightImgY_ -= moveSpeed;
-            if (CheckHitKey(KEY_INPUT_S))     rightImgY_ += moveSpeed;
-            if (CheckHitKey(KEY_INPUT_C))     rightImgScale_ = max(0.1f, rightImgScale_ - 0.01f);
-            if (CheckHitKey(KEY_INPUT_V))     rightImgScale_ += 0.01f;
+        //     2. 右の駒の移動 (W / A / S / D) & 拡大縮小 (C / V)
+        //    if (CheckHitKey(KEY_INPUT_A))     rightImgX_ -= moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_D))     rightImgX_ += moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_W))     rightImgY_ -= moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_S))     rightImgY_ += moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_C))     rightImgScale_ = max(0.1f, rightImgScale_ - 0.01f);
+        //    if (CheckHitKey(KEY_INPUT_V))     rightImgScale_ += 0.01f;
 
-            // 3. VSロゴの移動 (I / J / K / L) & 拡大縮小 (B / N)
-            if (CheckHitKey(KEY_INPUT_J))     vsImgX_ -= moveSpeed;
-            if (CheckHitKey(KEY_INPUT_L))     vsImgX_ += moveSpeed;
-            if (CheckHitKey(KEY_INPUT_I))     vsImgY_ -= moveSpeed;
-            if (CheckHitKey(KEY_INPUT_K))     vsImgY_ += moveSpeed;
-            if (CheckHitKey(KEY_INPUT_B))     vsImgScale_ = max(0.1f, vsImgScale_ - 0.01f);
-            if (CheckHitKey(KEY_INPUT_N))     vsImgScale_ += 0.01f;
+        //     3. VSロゴの移動 (I / J / K / L) & 拡大縮小 (B / N)
+        //    if (CheckHitKey(KEY_INPUT_J))     vsImgX_ -= moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_L))     vsImgX_ += moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_I))     vsImgY_ -= moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_K))     vsImgY_ += moveSpeed;
+        //    if (CheckHitKey(KEY_INPUT_B))     vsImgScale_ = max(0.1f, vsImgScale_ - 0.01f);
+        //    if (CheckHitKey(KEY_INPUT_N))     vsImgScale_ += 0.01f;
 
-            return; // 調整中 タイマー停止
-        }
+        //    return; // 調整中 タイマー停止
+        //}
 
         // --- 通常再生中 ---
         float deltaTime = 1.0f / 60.0f;
@@ -387,30 +387,30 @@ void FPSBattleScene::Draw()
             DrawRotaGraph((int)rightImgX_, (int)rightImgY_, rightImgScale_, 0.0, rightImgHandle_, TRUE);
         }
 
-        // 4. デバッグUI情報
-        SetFontSize(18);
-        unsigned int yellow = GetColor(255, 255, 0);
-        unsigned int green = GetColor(0, 255, 0);
-        unsigned int white = GetColor(255, 255, 255);
+        //// 4. デバッグUI情報
+        //SetFontSize(18);
+        //unsigned int yellow = GetColor(255, 255, 0);
+        //unsigned int green = GetColor(0, 255, 0);
+        //unsigned int white = GetColor(255, 255, 255);
 
-        DrawString(20, 20, "=== CUT-IN REALTIME DEBUGGER ===", yellow);
-        DrawString(20, 42, "Press [SPACE] to Play / Pause", white);
+        //DrawString(20, 20, "=== CUT-IN REALTIME DEBUGGER ===", yellow);
+        //DrawString(20, 42, "Press [SPACE] to Play / Pause", white);
 
-        if (isDebugStop_)
-        {
-            DrawString(20, 75, "[LEFT PIECE]  Move: Arrow Keys | Scale: [Z] Down / [X] Up", white);
-            DrawString(20, 95, "[RIGHT PIECE] Move: [W/A/S/D]  | Scale: [C] Down / [V] Up", white);
-            DrawString(20, 115, "[VS LOGO]     Move: [I/J/K/L]  | Scale: [B] Down / [N] Up", white);
+        //if (isDebugStop_)
+        //{
+        //    DrawString(20, 75, "[LEFT PIECE]  Move: Arrow Keys | Scale: [Z] Down / [X] Up", white);
+        //    DrawString(20, 95, "[RIGHT PIECE] Move: [W/A/S/D]  | Scale: [C] Down / [V] Up", white);
+        //    DrawString(20, 115, "[VS LOGO]     Move: [I/J/K/L]  | Scale: [B] Down / [N] Up", white);
 
-            DrawString(20, 150, "--- CURRENT PARAMETERS ---", yellow);
-            DrawFormatString(20, 172, green, "Left Piece  : X = %.1f, Y = %.1f, Scale = %.2f", leftImgX_, leftImgY_, leftImgScale_);
-            DrawFormatString(20, 194, green, "Right Piece : X = %.1f, Y = %.1f, Scale = %.2f", rightImgX_, rightImgY_, rightImgScale_);
-            DrawFormatString(20, 216, green, "VS Logo     : X = %.1f, Y = %.1f, Scale = %.2f", vsImgX_, vsImgY_, vsImgScale_);
-        }
-        else
-        {
-            DrawFormatString(20, 75, green, "Playing... Timer: %.2f / 3.00", cutInTimer_);
-        }
+        //    DrawString(20, 150, "--- CURRENT PARAMETERS ---", yellow);
+        //    DrawFormatString(20, 172, green, "Left Piece  : X = %.1f, Y = %.1f, Scale = %.2f", leftImgX_, leftImgY_, leftImgScale_);
+        //    DrawFormatString(20, 194, green, "Right Piece : X = %.1f, Y = %.1f, Scale = %.2f", rightImgX_, rightImgY_, rightImgScale_);
+        //    DrawFormatString(20, 216, green, "VS Logo     : X = %.1f, Y = %.1f, Scale = %.2f", vsImgX_, vsImgY_, vsImgScale_);
+        //}
+        //else
+        //{
+        //    DrawFormatString(20, 75, green, "Playing... Timer: %.2f / 3.00", cutInTimer_);
+        //}
 
         return;
     }
