@@ -1,9 +1,12 @@
 ﻿#include "FPSBattleScene.h"
 #include <DxLib.h>
+#include <memory>
+#include<string>
 #include "../Manager/SceneManager.h"
 #include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/SoundManager.h"
+#include"../Manager/EnemyManager.h"
 #include "../Common/Camera.h"
 #include "../Utility/AsoUtility.h"
 #include "../Object/Stage.h"
@@ -29,6 +32,21 @@ ResourceManager::SRC ConvertPieceTypeToImageSrc(PieceType type)
     }
 }
 
+std::unique_ptr<EnemyManager> CreateEnemyStateFromPieceType(PieceType type)
+{
+    switch (type)
+    {
+    case PieceType::PIECE_OU:     return std::make_unique<EnemyStateOu>();
+    case PieceType::PIECE_GYOKU:  return std::make_unique<EnemyStateGyoku>();
+    case PieceType::PIECE_FU:     return std::make_unique<EnemyStateFu>();
+    case PieceType::PIECE_HISHA:  return std::make_unique<EnemyStateHisya>();
+    case PieceType::PIECE_KAKU:   return std::make_unique<EnemyStateKaku>();
+    case PieceType::PIECE_KIN:    return std::make_unique<EnemyStateKin>();
+    case PieceType::PIECE_GIN:    return std::make_unique<EnemyStateGin>();
+    default:                      return std::make_unique<EnemyStateFu>();
+    }
+}
+
 FPSBattleScene::FPSBattleScene()
 {
 }
@@ -42,7 +60,7 @@ void FPSBattleScene::Init()
     // カットイン演出初期値
     state_ = State::CutIn;
     cutInTimer_ = 0.0f;
-    isDebugStop_ = true; // 最初は一時停止状態で起動
+    isDebugStop_ = false; // 最初は一時停止状態で起動
 
     // 初期表示位置 (画面解像度 1280x720 想定)
     leftImgX_ = 300.0f;
@@ -69,29 +87,45 @@ void FPSBattleScene::Init()
     // 敵の初期化
     enemy_ = new Enemy();
     enemy_->Init();
+    enemy_->SetPos(VGet(0.0f, 26.4f, 15.0f));
 
     // プレイヤーの初期化
     player_ = new Player();
     player_->Init();
+    player_->SetPos(VGet(0.0f, 26.4f, -15.0f));
 
-    lightManager_.setAmbient(0.8f);
+    // 遭遇した駒に応じた EnemyState (見た目・ステータス) の適用
+    PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
+    PieceType defender = SceneManager::GetInstance().GetDefenderPiece();
+
+    // プレイヤーが攻撃した場合はdefensorが敵,敵が攻撃してきた場合は attackerが敵
+    bool isPlayerAttack = SceneManager::GetInstance().IsPlayerAttacking();
+    PieceType enemyPieceType = isPlayerAttack ? defender : attacker;
+
+    // 該当する駒のステートを生成して敵にセット
+    auto newState = CreateEnemyStateFromPieceType(enemyPieceType);
+    enemy_->ChangeState(std::move(newState));
+
     lightManager_.setBrightness(1.5f);
+    lightManager_.setAmbient(0.8f);
+    lightManager_.setDirection(0.0f, -1.0f, 1.0f);
     lightManager_.applyLighting();
+
+
 
     SetGlobalAmbientLight(GetColorF(0.5f, 0.5f, 0.5f, 1.0f));
     SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
 
+
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
     SoundManager::GetInstance().Init();
-    SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
+    SoundManager::GetInstance().PlaySE(SoundManager::SE::VS);
+    //SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
 
     // =================================================================
-    // 🖼️ 2D画像リソースの読み込み
+    // 2D画像リソースの読み込み
     // =================================================================
-    PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
-    PieceType defender = SceneManager::GetInstance().GetDefenderPiece();
-
     ResourceManager::SRC attackerSrc = ConvertPieceTypeToImageSrc(attacker);
     ResourceManager::SRC defenderSrc = ConvertPieceTypeToImageSrc(defender);
 
@@ -157,17 +191,29 @@ void FPSBattleScene::Update()
 
         if (cutInTimer_ >= 3.0f)
         {
-            state_ = State::Playing; // 3秒経過でバトルスタート
+            state_ = State::Loading; // 3秒経過でバトルスタート
+            loadingTimer_ = 0.0f;
             return;
         }
-
         return;
     }
 
-    // =================================================================
-    // ⚔️ 通常のFPS戦闘の更新処理
-    // =================================================================
+    if (state_ == State::Loading)
+    {
+       float deltaTime = 1.0f / 60.0f;
+       loadingTimer_ += deltaTime;
 
+       if (loadingTimer_ >= 3.0f)
+       {
+         state_ = State::Playing;//バトル開始へ遷移
+         SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
+       }
+       return;
+    }
+        
+    
+
+    // 通常のFPS戦闘の更新処理
     // カメラの更新
     if (camera_ != nullptr)
     {
@@ -189,12 +235,12 @@ void FPSBattleScene::Update()
     // プレイヤーと敵の当たり判定
     if (enemy_ != nullptr && player_ != nullptr)
     {
-        SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
         if (!player_->IsInvincible())
         {
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
             if (dist < enemy_->GetRadius())
             {
+                SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
                 player_->Damage(20);
             }
         }
@@ -231,7 +277,7 @@ void FPSBattleScene::Update()
             lookDir.y = -sinf(angles.x);
             lookDir.z = cosf(angles.x) * cosf(angles.y);
 
-            start = VAdd(start, VScale(lookDir, 10.0f));
+            start = VAdd(start, VScale(lookDir, startpoint));
             bullets_.push_back(new Bullet(start, lookDir));
         }
     }
@@ -250,8 +296,7 @@ void FPSBattleScene::Update()
             {
                 SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
                 isHit = true;
-                enemy_->Damage(5);
-                enemy_->Damage(2);
+                enemy_->Damage(3);
                 hitCount_++;
             }
         }
@@ -291,10 +336,15 @@ void FPSBattleScene::Update()
         return;
     }
 
+
     // -------------------------------------------------------------
     // 勝利判定（敵のHPが0）
     // -------------------------------------------------------------
     if (enemy_ != nullptr && enemy_->hp_ <= 0)
+
+    // 勝利判定
+    if (enemy_ != nullptr && enemy_->GetHp() <= 0)
+
     {
         if (isKingBattle)
         {
@@ -314,9 +364,7 @@ void FPSBattleScene::Update()
 
 void FPSBattleScene::Draw()
 {
-    // =================================================================
-    // 🛠️ VSカットイン演出中の描画 & デバッグUI
-    // =================================================================
+    // VSカットイン演出中の描画 & デバッグUI
     if (state_ == State::CutIn)
     {
         ClearDrawScreen();
@@ -367,10 +415,29 @@ void FPSBattleScene::Draw()
         return;
     }
 
-    // =================================================================
-    // ⚔️ 通常のFPS戦闘の描画処理
-    // =================================================================
+    //暗転ローディング描画
+    if (state_ == State::Loading)
+    {
+        // 画面全体を黒で塗る
+        DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(0, 0, 0), TRUE);
 
+        // 文字サイズを大きくしてローディング表示
+        SetFontSize(32);
+
+        int dotCount = (int)(loadingTimer_ * 3.0f) % 4; 
+        std::string loadingText = "NOW LOADING";
+        for (int i = 0; i < dotCount; ++i)
+        {
+            loadingText += ".";
+        }
+
+        DrawString(480, 340, loadingText.c_str(), GetColor(255, 255, 255));
+
+        SetFontSize(16); // フォントサイズを標準に戻しておく
+        return;
+    }
+
+    // 通常のFPS戦闘の描画処理
     if (camera_ != nullptr)
     {
         camera_->SetBeforeDraw();
@@ -431,7 +498,7 @@ void FPSBattleScene::Draw()
 
     if (enemy_ != nullptr)
     {
-        DrawFormatString(0, 75, GetColor(255, 0, 0), "ENEMY HP: %d / 500", enemy_->hp_);
+        DrawFormatString(0, 75, GetColor(255, 0, 0), "ENEMY HP: %d / %d", enemy_->GetHp(), enemy_->GetMaxHp());
     }
 }
 

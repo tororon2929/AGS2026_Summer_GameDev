@@ -9,8 +9,11 @@ private:
     float diffuseIntensity;
     Vector3 direction;
 
+    int fillLightHandle;
+
 public:
     LightManager();
+    ~LightManager();
     void setBrightness(float b);
     void setAmbient(float a);
     void setDirection(float x, float y, float z);

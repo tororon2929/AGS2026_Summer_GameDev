@@ -14,6 +14,8 @@ public:
 	void Draw();
 	void Release();
 
+    void SetPos(const VECTOR& pos) { pos_ = pos; }
+
     //外部からプレイヤーの座標などを取得
     VECTOR GetPos() const { return pos_; }
     VECTOR GetLookDir()const;

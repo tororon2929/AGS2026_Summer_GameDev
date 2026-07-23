@@ -1,37 +1,57 @@
 #pragma once
-
 #include "../Common/Transform.h"
+#include <map>
+
+class EnemyManager;
 
 class Enemy
 {
 public:
-    int hp_ = 500;
-
     Enemy();
     ~Enemy();
 
     void Init();
     void Update(VECTOR playerPos);
     void Draw();
-	void Release();
+    void Release();
 
+    // ステート切り替え関数
+    void ChangeState(std::unique_ptr<EnemyManager> newState);
+
+    // テクスチャ適用処理
+    void ApplyTexture(int texHandle);
+
+    // --- ステート側から操作するためのゲッター / セッター ---
     VECTOR GetPos() const { return transform_.pos; }
+    void SetPos(const VECTOR& pos) { transform_.pos = pos; }
+
+    void SetRotation(const Quaternion& rot) { transform_.quaRot = rot; }
+
+    float GetMoveSpeed() const { return moveSpeed_; }
+    void SetMoveSpeed(float speed) { moveSpeed_ = speed; }
+
+    void SetMaxHp(int maxHp) { maxHp_ = maxHp; hp_ = maxHp; }
+    int GetHp() const { return hp_; }
+    int GetMaxHp() const { return maxHp_; }
+
     float GetRadius() const { return radius_; }
+    void SetRadius(float r) { radius_ = r; }
+
     void Damage(int value);
     bool IsDead() const { return hp_ <= 0; }
-
     
 private:
-    int modelHandle;
+    std::unique_ptr<EnemyManager> currentState_ = nullptr;
 
     Transform transform_;
-    bool isDummy_ = false; // 仮モデルかどうか
-    float moveTimer_ = 0.0f;
-    float moveSpeed = 0.05f;
-	//地上の高さ
-    float floorHeight = 26.0f;
-	//敵の当たり判定の半径
-    float radius_ = 2.0f;
+
+    int hp_;
+    int maxHp_;
+    int damageBlinkTimer_ = 0;
+
+    float moveSpeed_;
+    float floorHeight_ = 26.0f;
+    float radius_ = 3.0f;
     float velocityY_ = 0.0f;
 
 };

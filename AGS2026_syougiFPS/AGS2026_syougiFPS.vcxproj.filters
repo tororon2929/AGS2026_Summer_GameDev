@@ -47,6 +47,7 @@
     <ClCompile Include="Src\Common\MoveCommand.cpp" />
     <ClCompile Include="Src\Manager\SoundManager.cpp" />
     <ClCompile Include="Src\Object\CpuPlayer.cpp" />
+    <ClCompile Include="Src\Manager\EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Collider.h" />
@@ -95,5 +96,6 @@
     <ClInclude Include="Src\Common\MoveCommand.h" />
     <ClInclude Include="Src\Manager\SoundManager.h" />
     <ClInclude Include="Src\Object\CpuPlayer.h" />
+    <ClInclude Include="Src\Manager\EnemyManager.h" />
   </ItemGroup>
 </Project>

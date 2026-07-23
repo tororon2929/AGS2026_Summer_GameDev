@@ -6,6 +6,7 @@
 #include "../Object/Bullet.h"
 #include "../Application.h"
 #include "../Manager/LightManager.h"
+#include"../Manager/EnemyManager.h"
 #include "../Object/PieceBase.h" 
 
 class Enemy;
@@ -13,6 +14,7 @@ class Player;
 class Camera;
 class Stage;
 class Bullet;
+class EnemyManager;
 
 class FPSBattleScene : public SceneBase
 {
@@ -45,11 +47,19 @@ private:
     float y = 25.0f;
     float time = GetNowCount() / 300.0f;
 
+	//�e�����˂����ʒu
+    float startpoint = 1.0f;
+    
     int crosshairImg_ = -1;
     int centerX = Application::SCREEN_SIZE_X / 2;
     int centerY = Application::SCREEN_SIZE_Y / 2;
     int shotTimer_ = 0;
+
+	
+	//const int SHOT_INTERVAL = 30; 
+
     const int SHOT_INTERVAL = 15; // 15フレーム
+
     unsigned int auraColor = GetColor(255, 0, 0);
   
     // =================================================================
@@ -58,11 +68,13 @@ private:
     enum class State
     {
         CutIn,      // VSカットイン演出中
+        Loading,    //ローディング
         Playing,    // 通常のFPSバトル中
     };
     State state_ = State::CutIn;
 
     float cutInTimer_ = 0.0f;
+    float loadingTimer_ = 0.0f;
 
     // 2D画像用ハンドル
     int leftImgHandle_ = -1;   // 攻撃側の駒画像

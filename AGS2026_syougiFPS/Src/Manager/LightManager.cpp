@@ -8,6 +8,15 @@ LightManager::LightManager() {
 
     // 真上から少し手前に向けて照らす（盤面が綺麗に見えます）
     direction = Vector3(0.0f, -5.5f, 0.5f).normalize();
+
+    fillLightHandle = CreateDirLightHandle(VGet(0.0f, 1.0f, 0.0f));
+}
+
+LightManager::~LightManager()
+{
+    if (fillLightHandle != -1) {
+        DeleteLightHandle(fillLightHandle);
+    }
 }
 
 void LightManager::setBrightness(float b) { brightness = b; }
@@ -25,5 +34,11 @@ void LightManager::applyLighting() {
     SetLightDifColor(GetColorF(fDif, fDif, fDif, 1.0f));
     // 光の向き
     SetLightDirection(VGet(direction.x, direction.y, direction.z));
+
+    float fillDif = fDif * 0.4f;
+
+    SetLightDifColorHandle(fillLightHandle, GetColorF(fillDif * 0.8f, fillDif * 0.9f, fillDif, 1.0f));
+
+    SetLightDirectionHandle(fillLightHandle, VGet(-direction.x, -direction.y, -direction.z));
 
 }
