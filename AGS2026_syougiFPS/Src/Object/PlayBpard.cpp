@@ -58,17 +58,44 @@ PlayBpard::PlayBpard()
 PlayBpard::~PlayBpard()
 {
     delete m_cpuPlayer;
-}
 
+    // ★追加: 盤面に残っている駒のメモリをすべて解放する
+    for (int y = 0; y < 7; y++)
+    {
+        for (int x = 0; x < 5; x++)
+        {
+            if (mCells[y][x].GetPiece() != nullptr)
+            {
+                delete mCells[y][x].GetPiece();
+                mCells[y][x].SetPiece(nullptr);
+            }
+        }
+    }
+}
 void PlayBpard::Initialize()
 {
     const Resource& res =
         ResourceManager::GetInstance().Load(ResourceManager::SRC::PlayBpard);
 
     m_handle = res.handleId_;
+
     // ========================================================
-     // ★難易度の分岐処理（必ず関数の内側に記述します）
-     // ========================================================
+    // 1. フラグや変数を初期状態に完全リセットする
+    // ========================================================
+    mGameEnd = false;                   // 2戦目の操作不能を防ぐ
+    mPlayerTurn = true;                 // プレイヤーのターンから開始
+    mSelectPiece = nullptr;             // 選択中の駒をクリア
+    mBattleTransitionTimer = 0;
+    mBattleFromX = -1; mBattleFromY = -1;
+    mBattleToX = -1;   mBattleToY = -1;
+
+    // カーソル位置の初期化
+    mPadCursorX = 2;
+    mPadCursorY = 3;
+
+    // ========================================================
+    // 2. 難易度の分岐処理 & CPUプレイヤーの再生成
+    // ========================================================
     int selectedLevel = SceneManager::GetInstance().GetCpuLevel();
     CpuPlayer::Level cpuLevel = CpuPlayer::Level::Easy;
 
@@ -81,25 +108,32 @@ void PlayBpard::Initialize()
         cpuLevel = CpuPlayer::Level::Hard;
     }
 
-    // 選択された難易度でAIを生成
+    if (m_cpuPlayer) {
+        delete m_cpuPlayer;
+        m_cpuPlayer = nullptr;
+    }
     m_cpuPlayer = new CpuPlayer(cpuLevel);
     mCpuThinkTimer = 0;
 
-    // =========================
-    // Cell初期化 (縦7 x 横5)
-    // =========================
+    // ========================================================
+    // 3. 古い駒のメモリ解放 ＆ Cellの初期化（※ここを1回だけに整理）
+    // ========================================================
     for (int y = 0; y < 7; y++)
     {
         for (int x = 0; x < 5; x++)
         {
+            if (mCells[y][x].GetPiece() != nullptr)
+            {
+                delete mCells[y][x].GetPiece();
+                mCells[y][x].SetPiece(nullptr);
+            }
             mCells[y][x].Init(x, y);
         }
     }
 
     // =========================
-    // Cell画面座標 (変更なし)
+    // Cell画面座標
     // =========================
-    
     // 1行目
     mCells[0][0].SetScreenPos(SetScreenPosX, SetScreenPosY);
     mCells[0][1].SetScreenPos(SetScreenPosX2, SetScreenPosY);
@@ -145,14 +179,13 @@ void PlayBpard::Initialize()
     // 7行目
     mCells[6][0].SetScreenPos(SetScreenPosX, SetScreenPosY7);
     mCells[6][1].SetScreenPos(SetScreenPosX2, SetScreenPosY7);
-    mCells[6][2].SetScreenPos(SetScreenPosX3, SetScreenPosY7);
     mCells[6][3].SetScreenPos(SetScreenPosX4, SetScreenPosY7);
+    mCells[6][2].SetScreenPos(SetScreenPosX3, SetScreenPosY7);
     mCells[6][4].SetScreenPos(SetScreenPosX5, SetScreenPosY7);
 
     // =========================
-    // Cellの3D座標 (★ご要望通り変更なし)
+    // Cellの3D座標
     // =========================
-
     // 1行目
     mCells[0][0].SetWorldPos(VGet(-9.0f, SetWorldPosY, SetScreenPosZ));
     mCells[0][1].SetWorldPos(VGet(-4.5f, SetWorldPosY, SetScreenPosZ));
@@ -202,7 +235,10 @@ void PlayBpard::Initialize()
     mCells[6][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ7));
     mCells[6][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ7));
 
-  
+    // ========================================================
+    // 4. 最後に駒を初期配置する
+    // ========================================================
+    SetupBoard();
 
     const Resource& startRes = ResourceManager::GetInstance().Load(ResourceManager::SRC::Myturn);
     EffectManager::GetInstance().AddEffect(
@@ -210,8 +246,6 @@ void PlayBpard::Initialize()
     );
 
     SoundManager::GetInstance().Init();
-    
-
 }
 
 void PlayBpard::Update()
@@ -647,6 +681,7 @@ bool PlayBpard::IsPathClear(int fromX, int fromY, int toX, int toY)
 }
 
 // ★追加：FPS戦闘終了後の駒の消去・移動処理
+// ★戦闘終了後の駒の消去・移動処理（王・玉の敗北判定を追加）
 void PlayBpard::ResolveBattle(bool isPlayerWin)
 {
     // 範囲外チェック（不正値でのクラッシュ防止）
@@ -667,6 +702,9 @@ void PlayBpard::ResolveBattle(bool isPlayerWin)
     // 攻撃を仕掛けたのがプレイヤーかどうかを確認
     bool isPlayerAttacker = (attacker && attacker->IsPlayer());
 
+    // 撃破された駒を一時保存するためのポインタ
+    PieceBase* deadPiece = nullptr;
+
     if (isPlayerWin)
     {
         // ==========================================
@@ -674,8 +712,8 @@ void PlayBpard::ResolveBattle(bool isPlayerWin)
         // ==========================================
         if (isPlayerAttacker)
         {
-            // 1. プレイヤーから攻撃して勝った場合（attackerがプレイヤー）
-            if (defender) delete defender; // 相手（守備側）を消去
+            // 1. プレイヤーから攻撃して勝った場合（defenderが消滅）
+            deadPiece = defender;
 
             toCell->SetPiece(attacker);    // 移動先にプレイヤーをセット
             fromCell->SetPiece(nullptr);
@@ -685,8 +723,8 @@ void PlayBpard::ResolveBattle(bool isPlayerWin)
         }
         else
         {
-            // 2. 相手から攻撃されて勝った場合（defenderがプレイヤー）
-            if (attacker) delete attacker; // 相手（攻撃側）を消去
+            // 2. 相手から攻撃されて勝った場合（attackerが消滅）
+            deadPiece = attacker;
             fromCell->SetPiece(nullptr);
 
             // プレイヤー（守備側）はそのままの位置にとどまる
@@ -702,8 +740,8 @@ void PlayBpard::ResolveBattle(bool isPlayerWin)
         // ==========================================
         if (isPlayerAttacker)
         {
-            // 1. プレイヤーから攻撃して負けた場合（attackerがプレイヤー）
-            if (attacker) delete attacker; // プレイヤー（攻撃側）を消去
+            // 1. プレイヤーから攻撃して負けた場合（attackerが消滅）
+            deadPiece = attacker;
             fromCell->SetPiece(nullptr);
 
             // 相手（守備側）はそのままの位置にとどまる
@@ -713,8 +751,8 @@ void PlayBpard::ResolveBattle(bool isPlayerWin)
         }
         else
         {
-            // 2. 相手から攻撃されて負けた場合（defenderがプレイヤー）
-            if (defender) delete defender; // プレイヤー（守備側）を消去
+            // 2. 相手から攻撃されて負けた場合（defenderが消滅）
+            deadPiece = defender;
 
             toCell->SetPiece(attacker);    // 移動先に相手をセット
             fromCell->SetPiece(nullptr);
@@ -724,13 +762,51 @@ void PlayBpard::ResolveBattle(bool isPlayerWin)
         }
     }
 
+    // ==========================================
+    // ★追加: 敗北した駒が「王」または「玉」かのチェック
+    // ==========================================
+    bool isKingDead = false;
+    bool isPlayerKingDead = false; // プレイヤーの王が倒されたか
+
+    if (deadPiece != nullptr)
+    {
+        PieceType type = deadPiece->GetType();
+        if (type == PieceType::PIECE_OU || type == PieceType::PIECE_GYOKU)
+        {
+            isKingDead = true;
+            isPlayerKingDead = deadPiece->IsPlayer(); // 倒れたのがプレイヤー側か
+        }
+
+        // メモリ解放
+        delete deadPiece;
+        deadPiece = nullptr;
+    }
+
     // 選択状態と戦闘座標のリセット
     ResetSelection();
-
     mBattleFromX = -1; mBattleFromY = -1;
-    mBattleToX = -1; mBattleToY = -1;
+    mBattleToX = -1;   mBattleToY = -1;
 
-    // ゲーム再開
+    // ==========================================
+    // ★追加: 王/玉が倒された場合はシーン遷移
+    // ==========================================
+    if (isKingDead)
+    {
+        if (isPlayerKingDead)
+        {
+            // プレイヤーの王が倒された -> ゲームオーバー（敗北）シーンへ
+            // ※お使いのSceneManagerの定数名に合わせて変更してください（例: GAME_OVER / RESULT など）
+            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::LOSE);
+        }
+        else
+        {
+            // 敵の玉が倒された -> ゲームクリア（勝利）シーンへ
+            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::WIN);
+        }
+        return; // 将棋の続行処理を行わずに抜ける
+    }
+
+    // 王が倒れていない場合のみゲーム再開
     mGameEnd = false;
 }
 void PlayBpard::ResetSelection()

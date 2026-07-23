@@ -20,26 +20,39 @@ void GameScene::Init(void)
     grid_ = new Grid();
     grid_->Init();
 
+    // 戦闘結果フラグ（FPS戦闘から戻ってきたかどうか）を持っているか確認
+    bool isReturnFromBattle = SceneManager::GetInstance().HasBattleResult();
+
     // ★ SceneManager から既存の盤面を取得
     playBoard_ = SceneManager::GetInstance().GetPlayBoard();
 
-    if (!playBoard_)
+    if (!isReturnFromBattle)
     {
-        // 【1. ゲーム開始時（初回）】
-        // 盤面を新規作成し、初期配置を行う
+        // ========================================================
+        // 【1. タイトルから入ってきた時（初回＆2試合目リトライ時）】
+        // 古い盤面があれば完全に消去して、一から新規生成・初期化する！
+        // ========================================================
+        if (playBoard_ != nullptr)
+        {
+            delete playBoard_;
+            playBoard_ = nullptr;
+        }
+
         playBoard_ = new PlayBpard();
         playBoard_->Initialize();
-        playBoard_->SetupBoard(); // 駒を並べる
+        playBoard_->SetupBoard(); // 駒を新品状態で並べる
 
-        // SceneManager に保持させる
+        // SceneManager に新しい盤面をセット
         SceneManager::GetInstance().SetPlayBoard(playBoard_);
     }
     else
     {
+        // ========================================================
         // 【2. FPSバトルシーンから戻ってきた時】
-        // Initialize() や SetupBoard() は呼ばず、盤面を維持！
-        // 戦闘結果の反映（勝敗による駒の削除・移動）のみを行う
-        if (SceneManager::GetInstance().HasBattleResult()) {
+        // 盤面を維持し、戦闘結果のみを反映する
+        // ========================================================
+        if (playBoard_ != nullptr)
+        {
             bool isPlayerWin = SceneManager::GetInstance().GetBattleResult();
             playBoard_->ResolveBattle(isPlayerWin);
             SceneManager::GetInstance().ClearBattleResult(); // フラグリセット

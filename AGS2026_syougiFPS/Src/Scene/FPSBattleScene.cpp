@@ -63,17 +63,17 @@ void FPSBattleScene::Init()
     isDebugStop_ = false; // 最初は一時停止状態で起動
 
     // 初期表示位置 (画面解像度 1280x720 想定)
-    leftImgX_ = 300.0f;
-    leftImgY_ = 360.0f;
+    leftImgX_ = 334.0f;
+    leftImgY_ = 568.0f;
     leftImgScale_ = 0.7f;
 
-    rightImgX_ = 980.0f;
-    rightImgY_ = 360.0f;
+    rightImgX_ = 1512.0f;
+    rightImgY_ = 580.0f;
     rightImgScale_ = 0.7f;
 
-    vsImgX_ = (float)centerX;
-    vsImgY_ = (float)centerY;
-    vsImgScale_ = 1.04f;
+    vsImgX_ = 930.f;
+    vsImgY_ = 614.0f;
+    vsImgScale_ = 1.31f;
 
     // カメラの初期化
     camera_ = new Camera();
@@ -94,44 +94,44 @@ void FPSBattleScene::Init()
     player_->Init();
     player_->SetPos(VGet(0.0f, 26.4f, -15.0f));
 
-    // 遭遇した駒に応じた EnemyState (見た目・ステータス) の適用
+    // 遭遇した駒情報の取得
     PieceType attacker = SceneManager::GetInstance().GetAttackerPiece();
     PieceType defender = SceneManager::GetInstance().GetDefenderPiece();
 
-    // プレイヤーが攻撃した場合はdefensorが敵,敵が攻撃してきた場合は attackerが敵
+    // プレイヤーが攻撃したかどうか
     bool isPlayerAttack = SceneManager::GetInstance().IsPlayerAttacking();
-    PieceType enemyPieceType = isPlayerAttack ? defender : attacker;
+
+    // ★ 自分（プレイヤー）の駒 と 相手（敵）の駒 を正しく振り分け
+    PieceType playerPieceType = isPlayerAttack ? attacker : defender; // 自分
+    PieceType enemyPieceType = isPlayerAttack ? defender : attacker; // 相手
 
     // 該当する駒のステートを生成して敵にセット
     auto newState = CreateEnemyStateFromPieceType(enemyPieceType);
     enemy_->ChangeState(std::move(newState));
 
+    // =================================================================
+    // 2D画像リソースの読み込み（左＝自分、右＝相手）
+    // =================================================================
+    ResourceManager::SRC playerSrc = ConvertPieceTypeToImageSrc(playerPieceType);
+    ResourceManager::SRC enemySrc = ConvertPieceTypeToImageSrc(enemyPieceType);
+
+    leftImgHandle_ = ResourceManager::GetInstance().Load(playerSrc).handleId_; // 左：自分
+    rightImgHandle_ = ResourceManager::GetInstance().Load(enemySrc).handleId_;  // 右：相手
+    vsImgHandle_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::VS).handleId_;
+
+    // ライティング設定
     lightManager_.setBrightness(1.5f);
     lightManager_.setAmbient(0.8f);
     lightManager_.setDirection(0.0f, -1.0f, 1.0f);
     lightManager_.applyLighting();
 
-
-
     SetGlobalAmbientLight(GetColorF(0.5f, 0.5f, 0.5f, 1.0f));
     SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
-
 
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
     SoundManager::GetInstance().Init();
     SoundManager::GetInstance().PlaySE(SoundManager::SE::VS);
-    //SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
-
-    // =================================================================
-    // 2D画像リソースの読み込み
-    // =================================================================
-    ResourceManager::SRC attackerSrc = ConvertPieceTypeToImageSrc(attacker);
-    ResourceManager::SRC defenderSrc = ConvertPieceTypeToImageSrc(defender);
-
-    leftImgHandle_ = ResourceManager::GetInstance().Load(attackerSrc).handleId_;
-    rightImgHandle_ = ResourceManager::GetInstance().Load(defenderSrc).handleId_;
-    vsImgHandle_ = ResourceManager::GetInstance().Load(ResourceManager::SRC::VS).handleId_;
 }
 
 void FPSBattleScene::AddBullet(VECTOR pos, VECTOR dir)
@@ -200,18 +200,18 @@ void FPSBattleScene::Update()
 
     if (state_ == State::Loading)
     {
-       float deltaTime = 1.0f / 60.0f;
-       loadingTimer_ += deltaTime;
+        float deltaTime = 1.0f / 60.0f;
+        loadingTimer_ += deltaTime;
 
-       if (loadingTimer_ >= 3.0f)
-       {
-         state_ = State::Playing;//バトル開始へ遷移
-         SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
-       }
-       return;
+        if (loadingTimer_ >= 3.0f)
+        {
+            state_ = State::Playing;//バトル開始へ遷移
+            SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
+        }
+        return;
     }
-        
-    
+
+
 
     // 通常のFPS戦闘の更新処理
     // カメラの更新
@@ -340,7 +340,7 @@ void FPSBattleScene::Update()
     // -------------------------------------------------------------
     // 勝利判定（敵のHPが0）
     // -------------------------------------------------------------
-    if (enemy_ != nullptr && enemy_->hp_ <= 0)
+
 
     // 勝利判定
     if (enemy_ != nullptr && enemy_->GetHp() <= 0)
@@ -424,7 +424,7 @@ void FPSBattleScene::Draw()
         // 文字サイズを大きくしてローディング表示
         SetFontSize(32);
 
-        int dotCount = (int)(loadingTimer_ * 3.0f) % 4; 
+        int dotCount = (int)(loadingTimer_ * 3.0f) % 4;
         std::string loadingText = "NOW LOADING";
         for (int i = 0; i < dotCount; ++i)
         {

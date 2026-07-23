@@ -12,9 +12,9 @@ ResultScene::ResultScene()
     LoseImage = -1;
 
     // 画面の完全に真ん中の座標を初期値にする
-    logoX_ = 760;
-    logoY_ = 520;
-    logoScale_ = 1.03;
+    logoX_ = 940;
+    logoY_ = 626;
+    logoScale_ = 1.3;
 }
 
 ResultScene::~ResultScene()
@@ -32,21 +32,21 @@ void ResultScene::Init()
 
 void ResultScene::Update()
 {
-    //// ----------------------------------------------------
-    //// デバッグ用：位置とサイズ（スケール）の調整操作
-    //// ----------------------------------------------------
-    //// 矢印キーで位置移動
-    //if (CheckHitKey(KEY_INPUT_LEFT))  logoX_ -= 2;
-    //if (CheckHitKey(KEY_INPUT_RIGHT)) logoX_ += 2;
-    //if (CheckHitKey(KEY_INPUT_UP))    logoY_ -= 2;
-    //if (CheckHitKey(KEY_INPUT_DOWN))  logoY_ += 2;
+    /* ----------------------------------------------------
+     デバッグ用：位置とサイズ（スケール）の調整操作
+     ----------------------------------------------------
+     矢印キーで位置移動
+    if (CheckHitKey(KEY_INPUT_LEFT))  logoX_ -= 2;
+    if (CheckHitKey(KEY_INPUT_RIGHT)) logoX_ += 2;
+    if (CheckHitKey(KEY_INPUT_UP))    logoY_ -= 2;
+    if (CheckHitKey(KEY_INPUT_DOWN))  logoY_ += 2;
 
-    //// Z / X キーで拡大・縮小
-    //if (CheckHitKey(KEY_INPUT_Z)) logoScale_ += 0.01;
-    //if (CheckHitKey(KEY_INPUT_X)) logoScale_ -= 0.01;
+     Z / X キーで拡大・縮小
+    if (CheckHitKey(KEY_INPUT_Z)) logoScale_ += 0.01;
+    if (CheckHitKey(KEY_INPUT_X)) logoScale_ -= 0.01;
 
-    //// スケールが小さくなりすぎないようにガード
-    //if (logoScale_ < 0.05) logoScale_ = 0.05;
+     スケールが小さくなりすぎないようにガード
+    if (logoScale_ < 0.05) logoScale_ = 0.05;*/
 
 
     // ----------------------------------------------------

@@ -319,6 +319,7 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	switch (sceneId_)
 	{
 	case SCENE_ID::TITLE:
+		ClearPlayBoard(); // ★ 追加: タイトルに戻る時に盤面メモリを綺麗に片付ける！
 		scene_ = new TitleScene();
 		break;
 	case SCENE_ID::GAME:
