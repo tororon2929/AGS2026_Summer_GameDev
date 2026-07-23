@@ -84,6 +84,8 @@ public:
 	// 判定を行うキーをクリア
 	void Clear(void);
 
+	void SetPadMouseConvertEnabled(bool enable) { isPadMouseConvertEnabled_ = enable; }
+
 	// キーの押下判定
 	bool IsNew(int key) const;
 
@@ -118,6 +120,8 @@ public:
 	bool IsPadBtnNew(JOYPAD_NO no, JOYPAD_BTN btn) const;
 	bool IsPadBtnTrgDown(JOYPAD_NO no, JOYPAD_BTN btn) const;
 	bool IsPadBtnTrgUp(JOYPAD_NO no, JOYPAD_BTN btn) const;
+
+	
 
 private:
 
@@ -199,5 +203,7 @@ private:
 
 	// コントローラの入力情報を更新する
 	void SetJPadInState(JOYPAD_NO jpNo);
+
+	bool isPadMouseConvertEnabled_ = false; // デフォルトは無効
 
 };

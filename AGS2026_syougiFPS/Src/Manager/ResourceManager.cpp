@@ -103,29 +103,10 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::IMG, PATH_IMG + "ã‚.png");
 	resourcesMap_.emplace(SRC::GinImage, res);
 
-	res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
-	resourcesMap_.emplace(SRC::ENEMY_FU, res);
+	//res = new RES(RES_T::MODEL, PATH_ENM + "Fu_Enemy.mv1");
+	//resourcesMap_.emplace(SRC::ENEMY_FU, res);
 
-	res = new RES(RES_T::IMG, PATH_IMG + "ìÔà’ìx.png");
-	resourcesMap_.emplace(SRC::Select, res);
 
-	res = new RES(RES_T::IMG, PATH_IMG + "ëÄçÏ.png");
-	resourcesMap_.emplace(SRC::Control, res);
-
-	res = new RES(RES_T::IMG, PATH_IMG + "ñÓàÛ.png");
-	resourcesMap_.emplace(SRC::Cursor, res);
-
-	res = new RES(RES_T::IMG, PATH_IMG + "åàíË.png");
-	resourcesMap_.emplace(SRC::Decision, res);
-
-	res = new RES(RES_T::IMG, PATH_IMG + "ä»íP.png");
-	resourcesMap_.emplace(SRC::Easy, res);
-
-	res = new RES(RES_T::IMG, PATH_IMG + "ïÅí .png");
-	resourcesMap_.emplace(SRC::Normal, res);
-
-	res = new RES(RES_T::IMG, PATH_IMG + "ìÔÇµÇ¢.png");
-	resourcesMap_.emplace(SRC::Head, res);
 
 }
 

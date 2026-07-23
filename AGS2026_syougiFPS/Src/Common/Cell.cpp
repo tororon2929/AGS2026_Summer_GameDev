@@ -21,10 +21,6 @@ void Cell::Init(int x, int y)
 {
     mX = x;
     mY = y;
-    // ★追加: 駒ポインタとフラグを確実に初期化する
-    mPiece = nullptr;
-    mSelected = false;
-    mMovePoint = false;
 }
 
 void Cell::SetPiece(PieceBase* piece)

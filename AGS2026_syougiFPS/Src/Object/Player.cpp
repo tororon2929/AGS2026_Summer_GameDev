@@ -173,25 +173,25 @@ void Player::Release()
 
 }
 
-VECTOR Player::GetLookDir() const
+VECTOR Player::GetLookDir(Camera* camera) const
 {
-    float sinH = sinf(angleH_);
-    float cosH = cosf(angleH_);
-    return{ cosf(angleV_) * sinH,sinf(angleV_),cosf(angleV_) * cosH };
+    if (camera == nullptr) return { 0.0f, 0.0f, 1.0f };
+
+    VECTOR cameraAngles = camera->GetAngles();
+    float sinH = sinf(cameraAngles.y);
+    float cosH = cosf(cameraAngles.y);
+
+    return {
+        cosf(cameraAngles.x) * sinH,
+        -sinf(cameraAngles.x),
+        cosf(cameraAngles.x) * cosH
+    };
 }
 
-void Player::GetShotLine(VECTOR* start, VECTOR* end) const
+void Player::GetShotLine(Camera* camera, VECTOR* start, VECTOR* end) const
 {
     *start = pos_;
-
-    float sinH = sinf(angleH_);
-	float cosH = cosf(angleH_);
-    VECTOR lookDir = {
-        cosf(angleV_) * sinH,
-        sinf(angleV_),
-        cosf(angleV_) * cosH
-    };
-
+    VECTOR lookDir = GetLookDir(camera);
     *end = VAdd(pos_, VScale(lookDir, 10000.0f));
 }
 

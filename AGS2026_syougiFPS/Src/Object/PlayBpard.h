@@ -24,31 +24,20 @@ public:
 
     void ShowMovePoint(PieceBase* piece);
 
-    // 戦闘結果を適用する関数
-    void ResolveBattle(bool isPlayerWin);
-
-    // 選択状態のリセット用
-    void ResetSelection();
-
-
     // 移動経路の途中に他の駒がないかチェックする（あればfalse）
     bool IsPathClear(int fromX, int fromY, int toX, int toY);
 
-    void SetupBoard(); // ★新規作成：駒を初期配置する関数
-
 private:
-    // ★追加: 戦闘遷移前の移動見せ用タイマー
-    int mBattleTransitionTimer = 0;
     CpuPlayer* m_cpuPlayer = nullptr;
     int mCpuThinkTimer = 0;
     int mPadCursorX = 2; // コントローラー用カーソルの初期X位置 (5マスの真ん中)
     int mPadCursorY = 3; // コントローラー用カーソルの初期Y位置 (7マスの真ん中)
     int mPadOldInput = 0; // 前フレームのボタン状態
     int m_handle;
-    
+
     // 将棋盤を縦7マス、横5マスに修正 (mCells[y][x] -> yが7、xが5)
     Cell mCells[7][5];
-    
+
     // =========================
     // Cellサイズ
     // =========================

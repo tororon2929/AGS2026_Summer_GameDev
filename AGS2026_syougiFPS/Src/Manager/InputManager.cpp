@@ -95,59 +95,102 @@ void InputManager::Update(void)
 	// ========================================================
 	// ★ 追加：パッド操作をマウス操作に擬似変換して吸収するロジック
 	// ========================================================
-
-	// パッドの入力を取得 (DX_INPUT_PAD1 = 1Pのコントローラー)
-	int padInput = GetJoypadInputState(DX_INPUT_PAD1);
-
-	// 現在の入力から、このフレームで「新しく押されたボタン(トリガー)」を計算
-	int padTrg = padInput & ~padOldInput_;
-	padOldInput_ = padInput; // 次フレームのために保存
-
-	// 十字キーまたは左スティックの入力で擬似カーソルを移動 (縦7マス×横5マス)
-	if (padTrg & PAD_INPUT_LEFT) { padCursorX_--; }
-	if (padTrg & PAD_INPUT_RIGHT) { padCursorX_++; }
-	if (padTrg & PAD_INPUT_UP) { padCursorY_--; }
-	if (padTrg & PAD_INPUT_DOWN) { padCursorY_++; }
-
-	// 将棋盤の範囲（横5マス、縦7マス）から出ないようにクランプ
-	if (padCursorX_ < 0) padCursorX_ = 0;
-	if (padCursorX_ > 4) padCursorX_ = 4;
-	if (padCursorY_ < 0) padCursorY_ = 0;
-	if (padCursorY_ > 6) padCursorY_ = 6;
-
-	// パッドが少しでも操作された、または決定ボタン（PAD_INPUT_A または PAD_INPUT_1など環境による）が押されている場合
-	// ※ここでは一般的にDxLibでボタン1（Aボタン等）に割り当てられる PAD_INPUT_A / PAD_INPUT_1 を判定します
-	if ((padInput & (PAD_INPUT_LEFT | PAD_INPUT_RIGHT | PAD_INPUT_UP | PAD_INPUT_DOWN)) || (padInput & PAD_INPUT_1))
+	if (isPadMouseConvertEnabled_)
 	{
-		// PlayBpard.cpp の基準座標から、各マスの中心点の画面座標を計算
-		// 基準: 左上(485, 0), マス目サイズ: 横116, 縦123
-		int targetMouseX = 485 + (padCursorX_ * 116) + (116 / 2);
-		int targetMouseY = 0 + (padCursorY_ * 123) + (123 / 2);
 
-		// 1. マウス位置の書き換え
-		mousePos_.x = static_cast<float>(targetMouseX);
-		mousePos_.y = static_cast<float>(targetMouseY);
-		// DxLib自体のマウスカーソルもその位置に同期（見た目のズレを防ぐ場合）
-		SetMousePoint(targetMouseX, targetMouseY);
+		// パッドの入力を取得 (DX_INPUT_PAD1 = 1Pのコントローラー)
+		int padInput = GetJoypadInputState(DX_INPUT_PAD1);
 
-		// 2. 決定ボタンが押されたら、マウスの左クリックが押されたことにする
-		if (padInput & PAD_INPUT_1) // PAD_INPUT_1 は通常Aボタン等に相当
+		// 現在の入力から、このフレームで「新しく押されたボタン(トリガー)」を計算
+		int padTrg = padInput & ~padOldInput_;
+		padOldInput_ = padInput; // 次フレームのために保存
+
+		// 十字キーまたは左スティックの入力で擬似カーソルを移動 (縦7マス×横5マス)
+		if (padTrg & PAD_INPUT_LEFT) { padCursorX_--; }
+		if (padTrg & PAD_INPUT_RIGHT) { padCursorX_++; }
+		if (padTrg & PAD_INPUT_UP) { padCursorY_--; }
+		if (padTrg & PAD_INPUT_DOWN) { padCursorY_++; }
+
+		// 将棋盤の範囲（横5マス、縦7マス）から出ないようにクランプ
+		if (padCursorX_ < 0) padCursorX_ = 0;
+		if (padCursorX_ > 4) padCursorX_ = 4;
+		if (padCursorY_ < 0) padCursorY_ = 0;
+		if (padCursorY_ > 6) padCursorY_ = 6;
+
+		// パッドが少しでも操作された、または決定ボタン（PAD_INPUT_A または PAD_INPUT_1など環境による）が押されている場合
+		// ※ここでは一般的にDxLibでボタン1（Aボタン等）に割り当てられる PAD_INPUT_A / PAD_INPUT_1 を判定します
+		if ((padInput & (PAD_INPUT_LEFT | PAD_INPUT_RIGHT | PAD_INPUT_UP | PAD_INPUT_DOWN)) || (padInput & PAD_INPUT_1))
 		{
-			// InputManager内部のマウス状態を「左クリック中」に強制上書き
-			mouseInput_ |= MOUSE_INPUT_LEFT;
+			// PlayBpard.cpp の基準座標から、各マスの中心点の画面座標を計算
+			// 基準: 左上(485, 0), マス目サイズ: 横116, 縦123
+			int targetMouseX = 485 + (padCursorX_ * 116) + (116 / 2);
+			int targetMouseY = 0 + (padCursorY_ * 123) + (123 / 2);
 
-			if (mouseInfos_.count(MOUSE_INPUT_LEFT) > 0)
+			// 1. マウス位置の書き換え
+			mousePos_.x = static_cast<float>(targetMouseX);
+			mousePos_.y = static_cast<float>(targetMouseY);
+			// DxLib自体のマウスカーソルもその位置に同期（見た目のズレを防ぐ場合）
+			SetMousePoint(targetMouseX, targetMouseY);
+
+			// 2. 決定ボタンが押されたら、マウスの左クリックが押されたことにする
+			if (padInput & PAD_INPUT_1) // PAD_INPUT_1 は通常Aボタン等に相当
 			{
-				auto& info = mouseInfos_[MOUSE_INPUT_LEFT];
-				info.keyNew = true;
-				// 前フレームで押されていなければトリガーダウンを成立させる
-				if (!info.keyOld) {
-					info.keyTrgDown = true;
+				// InputManager内部のマウス状態を「左クリック中」に強制上書き
+				mouseInput_ |= MOUSE_INPUT_LEFT;
+
+				if (mouseInfos_.count(MOUSE_INPUT_LEFT) > 0)
+				{
+					auto& info = mouseInfos_[MOUSE_INPUT_LEFT];
+					info.keyNew = true;
+					// 前フレームで押されていなければトリガーダウンを成立させる
+					if (!info.keyOld) {
+						info.keyTrgDown = true;
+					}
 				}
 			}
 		}
 	}
+	if (isPadMouseConvertEnabled_) // ★ 将棋画面の時だけ動くようにフラグチェックを追加！
+	{
+		// パッドの入力を取得 (DX_INPUT_PAD1 = 1Pのコントローラー)
+		int padInput = GetJoypadInputState(DX_INPUT_PAD1);
 
+		int padTrg = padInput & ~padOldInput_;
+		padOldInput_ = padInput;
+
+		if (padTrg & PAD_INPUT_LEFT) { padCursorX_--; }
+		if (padTrg & PAD_INPUT_RIGHT) { padCursorX_++; }
+		if (padTrg & PAD_INPUT_UP) { padCursorY_--; }
+		if (padTrg & PAD_INPUT_DOWN) { padCursorY_++; }
+
+		if (padCursorX_ < 0) padCursorX_ = 0;
+		if (padCursorX_ > 4) padCursorX_ = 4;
+		if (padCursorY_ < 0) padCursorY_ = 0;
+		if (padCursorY_ > 6) padCursorY_ = 6;
+
+		if ((padInput & (PAD_INPUT_LEFT | PAD_INPUT_RIGHT | PAD_INPUT_UP | PAD_INPUT_DOWN)) || (padInput & PAD_INPUT_1))
+		{
+			int targetMouseX = 485 + (padCursorX_ * 116) + (116 / 2);
+			int targetMouseY = 0 + (padCursorY_ * 123) + (123 / 2);
+
+			mousePos_.x = static_cast<float>(targetMouseX);
+			mousePos_.y = static_cast<float>(targetMouseY);
+			SetMousePoint(targetMouseX, targetMouseY);
+
+			if (padInput & PAD_INPUT_1)
+			{
+				mouseInput_ |= MOUSE_INPUT_LEFT;
+				if (mouseInfos_.count(MOUSE_INPUT_LEFT) > 0)
+				{
+					auto& info = mouseInfos_[MOUSE_INPUT_LEFT];
+					info.keyNew = true;
+					if (!info.keyOld) {
+						info.keyTrgDown = true;
+					}
+				}
+			}
+		}
+	}
 }
 
 void InputManager::Destroy(void)

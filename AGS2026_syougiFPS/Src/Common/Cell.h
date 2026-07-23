@@ -52,7 +52,4 @@ public:
     // 3Dç¿ïW
     void SetWorldPos(VECTOR pos);
     VECTOR GetWorldPos() const;
-
-  
-
 };

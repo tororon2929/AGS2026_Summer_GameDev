@@ -37,10 +37,14 @@ public:
 		Select,
 		Control,
 		Cursor,
-		Decision,
 		Easy,
-		Normal,
-		Head,
+
+
+
+
+
+
+		
 
 
 

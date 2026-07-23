@@ -11,52 +11,31 @@ GameScene::GameScene(void) : SceneBase(), grid_(nullptr), playBoard_(nullptr), /
 
 GameScene::~GameScene(void) {}
 
-// GameScene.cpp
-
-void GameScene::Init(void)
-{
-    SetMouseDispFlag(TRUE);
-
+void GameScene::Init(void) {
     grid_ = new Grid();
     grid_->Init();
 
-    // ★ SceneManager から既存の盤面を取得
-    playBoard_ = SceneManager::GetInstance().GetPlayBoard();
-
-    if (!playBoard_)
-    {
-        // 【1. ゲーム開始時（初回）】
-        // 盤面を新規作成し、初期配置を行う
-        playBoard_ = new PlayBpard();
+    playBoard_ = new PlayBpard();
+    if (playBoard_) {
         playBoard_->Initialize();
-        playBoard_->SetupBoard(); // 駒を並べる
+    }
 
-        // SceneManager に保持させる
-        SceneManager::GetInstance().SetPlayBoard(playBoard_);
-    }
-    else
-    {
-        // 【2. FPSバトルシーンから戻ってきた時】
-        // Initialize() や SetupBoard() は呼ばず、盤面を維持！
-        // 戦闘結果の反映（勝敗による駒の削除・移動）のみを行う
-        if (SceneManager::GetInstance().HasBattleResult()) {
-            bool isPlayerWin = SceneManager::GetInstance().GetBattleResult();
-            playBoard_->ResolveBattle(isPlayerWin);
-            SceneManager::GetInstance().ClearBattleResult(); // フラグリセット
-        }
-    }
+    // エラー解消：Ouのコンストラクタに合わせて引数 (x, y, isPlayer) を渡す
+  /*  ou_ = new Ou(4, 0, true);*/
 
     lightManager_ = new LightManager();
     SoundManager::GetInstance().Init();
     SoundManager::GetInstance().PlayBGM(SoundManager::BGM::Game, true);
 
     PlayTime++;
-    if (PlayTime >= 60)
+    if (PlayTime>=60)
     {
         SoundManager::GetInstance().PlayBGM(SoundManager::BGM::sisi, true);
         PlayTime = 0;
     }
-}
+   }
+   
+
 void GameScene::Update(void) {
     if (grid_) grid_->Update();
 
@@ -131,9 +110,10 @@ void GameScene::Release(void) {
         delete grid_;
         grid_ = nullptr;
     }
-   
+    if (playBoard_) {
+        delete playBoard_;
         playBoard_ = nullptr;
-    
+    }
     /*if (ou_) {
         delete ou_;
         ou_ = nullptr;

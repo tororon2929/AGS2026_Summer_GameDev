@@ -5,7 +5,6 @@
 class SceneBase;
 class Fader;
 class Camera;
-class PlayBpard;
 //class MiniCamera;
 
 
@@ -90,23 +89,7 @@ public:
 	PieceType GetAttackerPiece() const { return mAttackerPiece; }
 	PieceType GetDefenderPiece() const { return mDefenderPiece; }
 	bool IsPlayerAttacking() const { return mIsPlayerAttacking; }
-
-	void SetBattleResult(bool isPlayerWin) {
-		mIsPlayerWin = isPlayerWin;
-		mHasBattleResult = true;
-	}
-	bool GetBattleResult() const { return mIsPlayerWin; }
-	bool HasBattleResult() const { return mHasBattleResult; }
-	void ClearBattleResult() { mHasBattleResult = false; }
-
-	// ★追加: PlayBoard の保持・取得用
-	PlayBpard* GetPlayBoard() { return mPlayBoard; }
-
-	void SetPlayBoard(PlayBpard* board) { mPlayBoard = board; }
-
-	// ★追加: アプリ終了時などにPlayBoardを安全に消去する関数
-	void ClearPlayBoard();
-
+	
 private:
 	PieceType mAttackerPiece = PIECE_NONE;
 	PieceType mDefenderPiece = PIECE_NONE;
@@ -165,7 +148,7 @@ private:
 	SceneManager(const SceneManager& instance) = default;
 
 	// デストラクタも同様
-	~SceneManager(void);
+	~SceneManager(void) = default;
 
 	// デルタタイムをリセットする
 	void ResetDeltaTime(void);
@@ -176,9 +159,5 @@ private:
 	// フェード
 	void Fade(void);
 
-	// --- 追加: 戦闘結果保持用フラグ ---
-	bool mIsPlayerWin = false;
-	bool mHasBattleResult = false;
 
-	PlayBpard* mPlayBoard = nullptr; // ★追加
 };

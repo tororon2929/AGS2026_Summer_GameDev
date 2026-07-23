@@ -57,6 +57,8 @@ FPSBattleScene::~FPSBattleScene()
 
 void FPSBattleScene::Init()
 {
+    InputManager::GetInstance().SetPadMouseConvertEnabled(false);
+
     // カットイン演出初期値
     state_ = State::CutIn;
     cutInTimer_ = 0.0f;
@@ -311,54 +313,28 @@ void FPSBattleScene::Update()
         }
     }
 
-    // 防御側の駒（戦闘相手）の種類を取得
-    PieceType defenderPiece = SceneManager::GetInstance().GetDefenderPiece();
-    bool isKingBattle = (defenderPiece == PieceType::PIECE_OU || defenderPiece == PieceType::PIECE_GYOKU);
-
-    // -------------------------------------------------------------
-    // 敗北判定（プレイヤーのHPが0）
-    // -------------------------------------------------------------
+    // 敗北判定
     if (player_ != nullptr && player_->GetHP() <= 0)
     {
-        if (isKingBattle)
-        {
-            // 王・玉が絡む場合は従来通りリザルトへ
-            SceneManager::GetInstance().SetGameClear(false);
-            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
-        }
-        else
-        {
-            // 通常の駒なら将棋画面へ戻る（敗北した側の駒は削除されるように通知/フラグ管理）
-            // ※将棋画面側で勝敗を受け取って ResolveBattle(false) を呼ぶか、直接処理します
-            SceneManager::GetInstance().SetBattleResult(false); // プレイヤー敗北
-            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
-        }
+        SceneManager::GetInstance().SetGameClear(false);
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
     }
 
-
-    // -------------------------------------------------------------
-    // 勝利判定（敵のHPが0）
-    // -------------------------------------------------------------
-    if (enemy_ != nullptr && enemy_->hp_ <= 0)
-
     // 勝利判定
     if (enemy_ != nullptr && enemy_->GetHp() <= 0)
-
     {
-        if (isKingBattle)
-        {
-            // 王・玉を倒した場合はリザルトへ（ゲームクリア）
-            SceneManager::GetInstance().SetGameClear(true);
-            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
-        }
-        else
-        {
-            // 通常の駒なら将棋画面へ戻る
-            SceneManager::GetInstance().SetBattleResult(true); // プレイヤー勝利
-            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
-        }
+        SceneManager::GetInstance().SetGameClear(true);
+        SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
         return;
+    }
+
+    // Enterで将棋画面へ戻る（テスト用）
+    if (CheckHitKey(KEY_INPUT_RETURN))
+    {
+        SceneManager::GetInstance().ChangeScene(
+            SceneManager::SCENE_ID::GAME
+        );
     }
 }
 
