@@ -202,71 +202,7 @@ void PlayBpard::Initialize()
     mCells[6][3].SetWorldPos(VGet(4.5f, SetWorldPosY, SetScreenPosZ7));
     mCells[6][4].SetWorldPos(VGet(9.0f, SetWorldPosY, SetScreenPosZ7));
 
-    // 王の設置 (変更なし)
-    Ou* ou = new Ou(2, 6, true);
-    ou->SetWorldPos(mCells[6][2].GetWorldPos());
-    mCells[6][2].SetPiece(ou);
-
-    // 玉の設置 (変更なし)
-    Gyoku* gyoku = new Gyoku(2, 0, false);
-    gyoku->SetWorldPos(mCells[0][2].GetWorldPos());
-    mCells[0][2].SetPiece(gyoku);
-
-    // プレイヤー歩 (横5列分ループ)
-    for (int x = 0; x <= 4; x++)
-    {
-        Fu* playerFu = new Fu(x, 5, true);
-        playerFu->SetWorldPos(mCells[5][x].GetWorldPos());
-        mCells[5][x].SetPiece(playerFu);
-    }
-
-    // 敵の歩兵 (横5列分ループ)
-    for (int x = 0; x <= 4; x++)
-    {
-        Fu* enemyFu = new Fu(x, 1, false);
-        enemyFu->SetWorldPos(mCells[1][x].GetWorldPos());
-        mCells[1][x].SetPiece(enemyFu);
-    }
-
-    //飛車の設置
-    Hisha* hisha = new Hisha(0, 6, true);
-    hisha->SetWorldPos(mCells[6][0].GetWorldPos());
-    mCells[6][0].SetPiece(hisha);
-
-	//敵の飛車の設置
-    Hisha* enemyhisha = new Hisha(0, 0, false);
-    enemyhisha->SetWorldPos(mCells[0][0].GetWorldPos());
-    mCells[0][0].SetPiece(enemyhisha);
-
-	//角の設置
-    Kaku* kaku = new Kaku(4, 6, true);
-    kaku->SetWorldPos(mCells[6][4].GetWorldPos());
-	mCells[6][4].SetPiece(kaku);
-
-	//敵の角の設置
-    Kaku* enemykaku = new Kaku(4, 0, false);
-	enemykaku->SetWorldPos(mCells[0][4].GetWorldPos());
-    mCells[0][4].SetPiece(enemykaku);
-
-	//金の設置
-    Kin* kin = new Kin(3, 6, true);
-    kin->SetWorldPos(mCells[6][3].GetWorldPos());
-    mCells[6][3].SetPiece(kin);
-
-	//敵の金の設置
-    Kin* enemykin = new Kin(1, 0, false);
-    enemykin->SetWorldPos(mCells[0][1].GetWorldPos());
-	mCells[0][1].SetPiece(enemykin);
-
-	//  銀の設置（プレイヤー側）
-    Gin* gin = new Gin(1, 6, true);
-    gin->SetWorldPos(mCells[6][1].GetWorldPos());
-    mCells[6][1].SetPiece(gin);
-
-	//  銀の設置（敵側）
-    Gin* enemygin = new Gin(3, 0, false);
-	enemygin->SetWorldPos(mCells[0][3].GetWorldPos());
-	mCells[0][3].SetPiece(enemygin);
+  
 
     const Resource& startRes = ResourceManager::GetInstance().Load(ResourceManager::SRC::Myturn);
     EffectManager::GetInstance().AddEffect(
@@ -280,6 +216,18 @@ void PlayBpard::Initialize()
 
 void PlayBpard::Update()
 {
+    // ★追加: 戦闘開始直前の移動見せ演出ウェイト処理
+    if (mBattleTransitionTimer > 0)
+    {
+        mBattleTransitionTimer--;
+
+        // タイマーが終了したらバトルシーンへ切り替える
+        if (mBattleTransitionTimer == 0)
+        {
+            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
+        }
+        return; // ウェイト中は操作を受け付けない
+    }
     if (mGameEnd) return;
 
     if (mPlayerTurn) {
@@ -517,54 +465,61 @@ void PlayBpard::Draw()
 
 bool PlayBpard::MovePiece(int fromX, int fromY, int toX, int toY)
 {
-    Cell* fromCell = &mCells[fromY][fromX]; 
-        Cell* toCell = &mCells[toY][toX];
-        PieceBase* piece = fromCell->GetPiece(); 
+    Cell* fromCell = &mCells[fromY][fromX];
+    Cell* toCell = &mCells[toY][toX];
+    PieceBase* piece = fromCell->GetPiece();
 
-        if (!piece) return false; 
-            if (!piece->CanMove(toX, toY)) return false; 
+    if (!piece) return false;
+    if (!piece->CanMove(toX, toY)) return false;
 
-                // 移動経路の途中に駒がある場合は移動できない[cite: 23]
-                if (!IsPathClear(fromX, fromY, toX, toY)) return false; 
+    // 移動経路の途中に駒がある場合は移動できない
+    if (!IsPathClear(fromX, fromY, toX, toY)) return false;
 
-                    PieceBase* target = toCell->GetPiece(); 
+    PieceBase* target = toCell->GetPiece();
 
-                    if (target)
-                    {
-                        // 1. 味方の駒なら移動不可[cite: 23]
-                        if (target->IsPlayer() == piece->IsPlayer())
-                        {
-                            return false; 
-                        }
+    if (target)
+    {
+        // 1. 味方の駒なら移動不可
+        if (target->IsPlayer() == piece->IsPlayer())
+        {
+            return false;
+        }
 
-                        // 2. 将棋盤の更新を一時ストップ（バトルに行くため）[cite: 23]
-                        mGameEnd = true; 
+        // 2. 戦闘座標を保存する
+        mBattleFromX = fromX;
+        mBattleFromY = fromY;
+        mBattleToX = toX;
+        mBattleToY = toY;
 
-                            // 3. 【追加】どの駒同士が戦うかをSceneManagerに保存！
-                            SceneManager::GetInstance().SetBattleInfo(
-                                piece->GetType(),       // 動かした駒（攻撃側）
-                                target->GetType(),      // そこにいた駒（守備側）
-                                piece->IsPlayer()       // プレイヤーが仕掛けたバトルなら true
-                            );
+        // 3. 将棋盤の操作更新を一時ストップ
+        mGameEnd = true;
 
-                        // 4. 移動先の駒をメモリから消去[cite: 23]
-                        delete target;
-                            toCell->SetPiece(nullptr); 
-
-                            // 5. FPSバトルシーンへ遷移[cite: 23]
-                            SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::FPS_BATTLE);
-                    }
-
-    // ※ここは相手の駒が「いなかった」場合の通常の移動処理です
-    toCell->SetPiece(piece); 
-        fromCell->SetPiece(nullptr); 
-
-        piece->SetPos(toX, toY);
+        // ★4. 【ここを修正！】マスのデータ(SetPiece)はイジらず、見た目の3D座標だけを相手のマスへ動かす！
         piece->SetWorldPos(toCell->GetWorldPos());
 
-        return true;
-}
+        // 5. 戦闘情報をSceneManagerに保存
+        SceneManager::GetInstance().SetBattleInfo(
+            piece->GetType(),       // 動かした駒（攻撃側）
+            target->GetType(),      // そこにいた駒（守備側）
+            piece->IsPlayer()       // プレイヤーが仕掛けたバトルなら true
+        );
 
+        // 6. 選択解除＆演出用タイマーセット（30フレーム＝約0.5秒動いた姿を見せる）
+        ResetSelection();
+        mBattleTransitionTimer = 10;
+
+        return true; // 移動成功を返す
+    }
+
+    // --- ここからは相手の駒が「いなかった」場合の通常の移動処理 ---
+    toCell->SetPiece(piece);
+    fromCell->SetPiece(nullptr);
+
+    piece->SetPos(toX, toY);
+    piece->SetWorldPos(toCell->GetWorldPos());
+
+    return true;
+}
 Cell* PlayBpard::GetCell(int x, int y)
 {
     return &mCells[y][x];
@@ -689,4 +644,169 @@ bool PlayBpard::IsPathClear(int fromX, int fromY, int toX, int toY)
     }
 
     return true; // 途中に駒は無かった
+}
+
+// ★追加：FPS戦闘終了後の駒の消去・移動処理
+void PlayBpard::ResolveBattle(bool isPlayerWin)
+{
+    // 範囲外チェック（不正値でのクラッシュ防止）
+    if (mBattleFromX < 0 || mBattleFromX >= 5 || mBattleFromY < 0 || mBattleFromY >= 7 ||
+        mBattleToX < 0 || mBattleToX >= 5 || mBattleToY < 0 || mBattleToY >= 7)
+    {
+        mGameEnd = false;
+        ResetSelection();
+        return;
+    }
+
+    Cell* fromCell = &mCells[mBattleFromY][mBattleFromX]; // 攻撃側のマス
+    Cell* toCell = &mCells[mBattleToY][mBattleToX];     // 守備側のマス
+
+    PieceBase* attacker = fromCell->GetPiece(); // 攻撃を仕掛けた駒
+    PieceBase* defender = toCell->GetPiece();   // 攻撃された駒
+
+    // 攻撃を仕掛けたのがプレイヤーかどうかを確認
+    bool isPlayerAttacker = (attacker && attacker->IsPlayer());
+
+    if (isPlayerWin)
+    {
+        // ==========================================
+        // 【プレイヤー勝利】 -> 相手の駒が消滅し、プレイヤーの駒が残る
+        // ==========================================
+        if (isPlayerAttacker)
+        {
+            // 1. プレイヤーから攻撃して勝った場合（attackerがプレイヤー）
+            if (defender) delete defender; // 相手（守備側）を消去
+
+            toCell->SetPiece(attacker);    // 移動先にプレイヤーをセット
+            fromCell->SetPiece(nullptr);
+
+            attacker->SetPos(mBattleToX, mBattleToY);
+            attacker->SetWorldPos(toCell->GetWorldPos());
+        }
+        else
+        {
+            // 2. 相手から攻撃されて勝った場合（defenderがプレイヤー）
+            if (attacker) delete attacker; // 相手（攻撃側）を消去
+            fromCell->SetPiece(nullptr);
+
+            // プレイヤー（守備側）はそのままの位置にとどまる
+            if (defender) {
+                defender->SetWorldPos(toCell->GetWorldPos());
+            }
+        }
+    }
+    else
+    {
+        // ==========================================
+        // 【相手（CPU）勝利】 -> プレイヤーの駒が消滅し、相手の駒が残る
+        // ==========================================
+        if (isPlayerAttacker)
+        {
+            // 1. プレイヤーから攻撃して負けた場合（attackerがプレイヤー）
+            if (attacker) delete attacker; // プレイヤー（攻撃側）を消去
+            fromCell->SetPiece(nullptr);
+
+            // 相手（守備側）はそのままの位置にとどまる
+            if (defender) {
+                defender->SetWorldPos(toCell->GetWorldPos());
+            }
+        }
+        else
+        {
+            // 2. 相手から攻撃されて負けた場合（defenderがプレイヤー）
+            if (defender) delete defender; // プレイヤー（守備側）を消去
+
+            toCell->SetPiece(attacker);    // 移動先に相手をセット
+            fromCell->SetPiece(nullptr);
+
+            attacker->SetPos(mBattleToX, mBattleToY);
+            attacker->SetWorldPos(toCell->GetWorldPos());
+        }
+    }
+
+    // 選択状態と戦闘座標のリセット
+    ResetSelection();
+
+    mBattleFromX = -1; mBattleFromY = -1;
+    mBattleToX = -1; mBattleToY = -1;
+
+    // ゲーム再開
+    mGameEnd = false;
+}
+void PlayBpard::ResetSelection()
+{
+    mSelectPiece = nullptr;
+    for (int y = 0; y < 7; y++) {
+        for (int x = 0; x < 5; x++) {
+            mCells[y][x].SetMovePoint(false);
+        }
+    }
+}
+void PlayBpard::SetupBoard()
+{
+    // 王の設置 (変更なし)
+    Ou* ou = new Ou(2, 6, true);
+    ou->SetWorldPos(mCells[6][2].GetWorldPos());
+    mCells[6][2].SetPiece(ou);
+
+    // 玉の設置 (変更なし)
+    Gyoku* gyoku = new Gyoku(2, 0, false);
+    gyoku->SetWorldPos(mCells[0][2].GetWorldPos());
+    mCells[0][2].SetPiece(gyoku);
+
+    // プレイヤー歩 (横5列分ループ)
+    for (int x = 0; x <= 4; x++)
+    {
+        Fu* playerFu = new Fu(x, 5, true);
+        playerFu->SetWorldPos(mCells[5][x].GetWorldPos());
+        mCells[5][x].SetPiece(playerFu);
+    }
+
+    // 敵の歩兵 (横5列分ループ)
+    for (int x = 0; x <= 4; x++)
+    {
+        Fu* enemyFu = new Fu(x, 1, false);
+        enemyFu->SetWorldPos(mCells[1][x].GetWorldPos());
+        mCells[1][x].SetPiece(enemyFu);
+    }
+
+    //飛車の設置
+    Hisha* hisha = new Hisha(0, 6, true);
+    hisha->SetWorldPos(mCells[6][0].GetWorldPos());
+    mCells[6][0].SetPiece(hisha);
+
+    //敵の飛車の設置
+    Hisha* enemyhisha = new Hisha(0, 0, false);
+    enemyhisha->SetWorldPos(mCells[0][0].GetWorldPos());
+    mCells[0][0].SetPiece(enemyhisha);
+
+    //角の設置
+    Kaku* kaku = new Kaku(4, 6, true);
+    kaku->SetWorldPos(mCells[6][4].GetWorldPos());
+    mCells[6][4].SetPiece(kaku);
+
+    //敵の角の設置
+    Kaku* enemykaku = new Kaku(4, 0, false);
+    enemykaku->SetWorldPos(mCells[0][4].GetWorldPos());
+    mCells[0][4].SetPiece(enemykaku);
+
+    //金の設置
+    Kin* kin = new Kin(3, 6, true);
+    kin->SetWorldPos(mCells[6][3].GetWorldPos());
+    mCells[6][3].SetPiece(kin);
+
+    //敵の金の設置
+    Kin* enemykin = new Kin(1, 0, false);
+    enemykin->SetWorldPos(mCells[0][1].GetWorldPos());
+    mCells[0][1].SetPiece(enemykin);
+
+    //  銀の設置（プレイヤー側）
+    Gin* gin = new Gin(1, 6, true);
+    gin->SetWorldPos(mCells[6][1].GetWorldPos());
+    mCells[6][1].SetPiece(gin);
+
+    //  銀の設置（敵側）
+    Gin* enemygin = new Gin(3, 0, false);
+    enemygin->SetWorldPos(mCells[0][3].GetWorldPos());
+    mCells[0][3].SetPiece(enemygin);
 }

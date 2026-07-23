@@ -9,9 +9,23 @@
 #include "../Scene/ResultScene.h"
 #include "../Scene/FPSBattleScene.h"
 #include"../Manager/InputManager.h"
+#include"../Object/PlayBpard.h"
 
 SceneManager* SceneManager::instance_ = nullptr;
 
+SceneManager::~SceneManager()
+{
+	ClearPlayBoard();
+}
+
+void SceneManager::ClearPlayBoard()
+{
+	if (mPlayBoard)
+	{
+		delete mPlayBoard;
+		mPlayBoard = nullptr;
+	}
+}
 void SceneManager::CreateInstance()
 {
 	if (instance_ == nullptr)
@@ -24,6 +38,7 @@ void SceneManager::CreateInstance()
 SceneManager& SceneManager::GetInstance(void)
 {
 	return *instance_;
+
 }
 
 void SceneManager::Init(void)
@@ -35,6 +50,10 @@ void SceneManager::Init(void)
 	isPaused_ = false;
 	isEscapeKeyOld_ = false;
 	pauseSelectIdx_ = 0;
+
+	// --- 追加: 戦闘結果フラグの初期化 ---
+	mIsPlayerWin = false;
+	mHasBattleResult = false;
 
 	// フェード機能の初期化
 	fader_ = new Fader();
