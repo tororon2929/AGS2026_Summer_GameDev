@@ -120,6 +120,7 @@ void FPSBattleScene::Init()
     crosshairImg_ = LoadGraph("Data/UI/crosshair.png");
 
     SoundManager::GetInstance().Init();
+    SoundManager::GetInstance().PlaySE(SoundManager::SE::VS);
     //SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
 
     // =================================================================
@@ -194,20 +195,23 @@ void FPSBattleScene::Update()
             loadingTimer_ = 0.0f;
             return;
         }
-
-        if (state_ == State::Loading)
-        {
-            float deltaTime = 1.0f / 60.0f;
-            loadingTimer_ += deltaTime;
-
-            if (loadingTimer_ >= 3.0f)
-            {
-                state_ = State::Playing;
-                SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
-            }
-        }
         return;
     }
+
+    if (state_ == State::Loading)
+    {
+       float deltaTime = 1.0f / 60.0f;
+       loadingTimer_ += deltaTime;
+
+       if (loadingTimer_ >= 3.0f)
+       {
+         state_ = State::Playing;//バトル開始へ遷移
+         SoundManager::GetInstance().PlayBGM(SoundManager::BGM::fps, true);
+       }
+       return;
+    }
+        
+    
 
     // 通常のFPS戦闘の更新処理
     // カメラの更新
@@ -231,12 +235,12 @@ void FPSBattleScene::Update()
     // プレイヤーと敵の当たり判定
     if (enemy_ != nullptr && player_ != nullptr)
     {
-        SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
         if (!player_->IsInvincible())
         {
             float dist = VSize(VSub(enemy_->GetPos(), player_->GetPos()));
             if (dist < enemy_->GetRadius())
             {
+                SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
                 player_->Damage(20);
             }
         }
@@ -292,8 +296,7 @@ void FPSBattleScene::Update()
             {
                 SoundManager::GetInstance().PlaySE(SoundManager::SE::Damage);
                 isHit = true;
-                enemy_->Damage(5);
-                enemy_->Damage(2);
+                enemy_->Damage(3);
                 hitCount_++;
             }
         }
@@ -469,11 +472,7 @@ void FPSBattleScene::Draw()
 
     if (enemy_ != nullptr)
     {
-
-        DrawFormatString(0, 75, GetColor(255, 0, 0),"ENEMY HP: %d / 500", enemy_->GetHp());
-
         DrawFormatString(0, 75, GetColor(255, 0, 0), "ENEMY HP: %d / %d", enemy_->GetHp(), enemy_->GetMaxHp());
-
     }
 }
 

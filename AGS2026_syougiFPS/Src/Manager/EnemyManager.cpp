@@ -7,8 +7,7 @@ void EnemyStateKin::Enter(Enemy* enemy)
 {
 	//金のステータス
 	enemy->SetMaxHp(250);
-	enemy->SetMoveSpeed(0.02f);
-	enemy->SetRadius(2.0f);
+	enemy->SetMoveSpeed(0.03f);
 
 	//金テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Kin.png");
@@ -51,8 +50,7 @@ void EnemyStateFu::Enter(Enemy* enemy)
 {
 	// 歩兵のステータス設定
 	enemy->SetMaxHp(100);
-	enemy->SetMoveSpeed(0.03f);
-	enemy->SetRadius(1.5f);
+	enemy->SetMoveSpeed(0.04f);
 
 	// 歩兵テクスチャロード
 	textureHandle_ = LoadGraph("Data/Enemy/Fu.png");
@@ -95,8 +93,7 @@ void EnemyStateGin::Enter(Enemy* enemy)
 {
 	//銀のステータス
 	enemy->SetMaxHp(150);
-	enemy->SetMoveSpeed(0.03f);
-	enemy->SetRadius(2.0f);
+	enemy->SetMoveSpeed(0.04f);
 
 	//銀テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Gin.png");
@@ -140,7 +137,6 @@ void EnemyStateKousya::Enter(Enemy* enemy)
 	//香車のステータス
 	enemy->SetMaxHp(130);
 	enemy->SetMoveSpeed(0.10f);
-	enemy->SetRadius(0.8f);
 
 	//香車テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Kousya.png");
@@ -184,7 +180,6 @@ void EnemyStateOu::Enter(Enemy* enemy)
 	//王のステータス
 	enemy->SetMaxHp(300);
 	enemy->SetMoveSpeed(0.08f);
-	enemy->SetRadius(2.0f);
 
 	//王テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Ou.png");
@@ -228,7 +223,6 @@ void EnemyStateKaku::Enter(Enemy* enemy)
 	//角のステータス
 	enemy->SetMaxHp(150);
 	enemy->SetMoveSpeed(0.04f);
-	enemy->SetRadius(4.0f);
 
 	//角テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Kaku.png");
@@ -272,7 +266,6 @@ void EnemyStateKeima::Enter(Enemy* enemy)
 	//桂馬のステータス
 	enemy->SetMaxHp(150);
 	enemy->SetMoveSpeed(0.20f);
-	enemy->SetRadius(0.3f);
 
 	//桂馬テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Keima.png");
@@ -316,7 +309,6 @@ void EnemyStateGyoku::Enter(Enemy* enemy)
 	//玉のステータス
 	enemy->SetMaxHp(250);
 	enemy->SetMoveSpeed(0.05f);
-	enemy->SetRadius(2.0f);
 
 	//玉テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Gyoku.png");
@@ -360,7 +352,6 @@ void EnemyStateHisya::Enter(Enemy* enemy)
 	//飛車のステータス
 	enemy->SetMaxHp(100);
 	enemy->SetMoveSpeed(0.08f);
-	enemy->SetRadius(2.0f);
 
 	//飛車テクスチャー適用
 	textureHandle_ = LoadGraph("Data/Enemy/Hisya.png");

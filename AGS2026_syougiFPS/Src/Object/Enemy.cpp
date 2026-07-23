@@ -59,6 +59,11 @@ void Enemy::ChangeState(std::unique_ptr<EnemyManager> newState)
 
 void Enemy::Update(VECTOR playerPos)
 {
+    if (damageBlinkTimer_ > 0)
+    {
+        damageBlinkTimer_--;
+    }
+
     // 1. 各ステート固有のAI行動
     if (currentState_)
     {
@@ -82,12 +87,17 @@ void Enemy::Update(VECTOR playerPos)
 
 void Enemy::Draw()
 {
+    if (damageBlinkTimer_ > 0 && (damageBlinkTimer_ / 3) % 2 == 0)
+    {
+        return;
+    }
+
     if (transform_.modelId != -1)
     {
         MV1DrawModel(transform_.modelId);
     }
 
-    DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+    //DrawSphere3D(transform_.pos, radius_, 10, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
 }
 
 void Enemy::Release()
@@ -113,6 +123,8 @@ void Enemy::Damage(int value)
     {
         hp_ = 0;
     }
+
+    damageBlinkTimer_ = 12;
 }
 
 // 正しいDXライブラリ仕様でのテクスチャ差し替え関数

@@ -44,11 +44,14 @@ private:
     std::unique_ptr<EnemyManager> currentState_ = nullptr;
 
     Transform transform_;
-    int hp_ = 250;
-    int maxHp_ = 250;
-    float moveSpeed_ = 0.05f;
+
+    int hp_;
+    int maxHp_;
+    int damageBlinkTimer_ = 0;
+
+    float moveSpeed_;
     float floorHeight_ = 26.0f;
-    float radius_ = 2.0f;
+    float radius_ = 3.0f;
     float velocityY_ = 0.0f;
 
 };

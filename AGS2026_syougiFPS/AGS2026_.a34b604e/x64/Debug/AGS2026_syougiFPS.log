@@ -1,26 +1,87 @@
-﻿  EnemyManager.cpp
-  SceneManager.cpp
+﻿  SoundManager.cpp
+  PlayBpard.cpp
   Player.cpp
   FPSBattleScene.cpp
-Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeRing.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.EffectNodeRing.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Instance.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Instance.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Manager.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Manager.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Matrix43.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Matrix43.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Matrix44.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Matrix44.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Effekseer.Random.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.Random.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.Matrix44.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.Matrix44.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.ObjectInternal.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.ObjectInternal.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Culling3D.WorldInternal.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Culling3D.WorldInternal.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Easing.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Easing.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Mat43f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Mat43f.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(Mat44f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Mat44f.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(CurlNoise.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(CurlNoise.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(ForceFields.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(ForceFields.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-Effekseer_vs2019_x64_d.lib(SplineGenerator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(SplineGenerator.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.ModelRenderer.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX9.pdb' が 'EffekseerRendererDX9_vs2019_x64_d.lib(EffekseerRendererDX9.Renderer.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX9.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.ModelRenderer.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11_vs2019_x64_d.lib(EffekseerRendererDX11.Renderer.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-EffekseerForDXLib_vs2019_x64_d.lib(EffekseerForDXLib.obj) : warning LNK4099: PDB 'EffekseerForDXLib_vs2019_x64_d.pdb' が 'EffekseerForDXLib_vs2019_x64_d.lib(EffekseerForDXLib.obj)' で、または 'C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\EffekseerForDXLib_vs2019_x64_d.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
-  AGS2026_syougiFPS.vcxproj -> C:\Users\shouk\OneDrive\ドキュメント\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\AGS2026_syougiFPS.exe
+  GameScene.cpp
+  ResultScene.cpp
+  TitleScene.cpp
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(48,18): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(49,19): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(50,19): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(51,19): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(52,19): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(53,19): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(54,19): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(157,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(157,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(158,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(158,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(159,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(159,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(160,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(160,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(161,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(161,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(164,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(164,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(165,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(165,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(166,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(166,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(167,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(167,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(168,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(168,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(171,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(171,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(172,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(172,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(173,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(173,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(174,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(174,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(175,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(175,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(178,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(178,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(179,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(179,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(180,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(180,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(181,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(181,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(182,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(182,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(185,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(185,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(186,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(186,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(187,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(187,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(188,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(188,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(189,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(189,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(192,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(192,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(193,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(193,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(194,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(194,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(195,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(195,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(196,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(196,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(199,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(199,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(200,56): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(200,42): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(201,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(201,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(202,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(202,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(203,55): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\Src\Object\PlayBpard.cpp(203,41): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+Effekseer_vs2019_x64_d.lib(Effekseer.ResourceManager.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(Effekseer.ResourceManager.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseer_vs2019_x64_d.lib(ProceduralModelGenerator.obj)' で、または 'C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+  AGS2026_syougiFPS.vcxproj -> C:\Users\2416041\Documents\AGS2026_Summer_GameDev\AGS2026_syougiFPS\x64\Debug\AGS2026_syougiFPS.exe

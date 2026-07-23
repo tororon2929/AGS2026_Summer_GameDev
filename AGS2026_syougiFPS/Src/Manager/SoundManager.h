@@ -22,6 +22,7 @@ public:
 		Attack,
 		Jamp,
 		Damage,
+		VS,
 	
 		// Click, // ¡Œã’Ç‰Á‰Â”\
 	};

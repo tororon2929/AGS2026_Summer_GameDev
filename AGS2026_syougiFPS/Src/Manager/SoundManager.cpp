@@ -20,6 +20,7 @@ void SoundManager::Init()
 	 seHandles_[SE::Attack] = LoadSoundMem("Data/Effect/SE/Attack.mp3");
 	 seHandles_[SE::Jamp] = LoadSoundMem("Data/Effect/SE/Jamp.mp3");
 	 seHandles_[SE::Damage] = LoadSoundMem("Data/Effect/SE/Damage.mp3");
+	 seHandles_[SE::VS] = LoadSoundMem("Data/Effect/SE/VS.mp3");
 
 	// seHandles_[SE::Confirm] = LoadSoundMem("Resource/Sound/confirm.wav");
 }
