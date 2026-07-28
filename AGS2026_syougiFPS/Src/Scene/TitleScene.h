@@ -13,7 +13,9 @@ public:
 	void Release(void) override;
 
 private:
-	// ↓元の変数はすべてそのまま残しています
+	int bgGraphHandle_;// ↓元の変数はすべてそのまま残しています
+
+
 	int titleGraphHandle_;
 
 	int logoX_;
@@ -33,6 +35,10 @@ private:
 	float cameraYaw_;
 	int prevMouseX_;
 	int prevMouseY_;
+
+	unsigned int white = GetColor(255, 255, 255);
+	unsigned int yellow = GetColor(255, 255, 0);
+	unsigned int black = GetColor(0, 0, 0);
 
 	// ========================================================
 	// ★追加: 難易度選択の状態管理用の変数

@@ -6,6 +6,7 @@
 #include "../Common/Quaternion.h"
 #include "TitleScene.h"
 #include "../Manager/SoundManager.h"
+#include"../Application.h"
 
 TitleScene::TitleScene(void) : SceneBase()
 {
@@ -41,6 +42,8 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::Init(void)
 {
+	bgGraphHandle_ = LoadGraph("Data/Title/Title.jpg");
+
 	auto& titleRes = ResourceManager::GetInstance().Load(ResourceManager::SRC::Title);
 	titleGraphHandle_ = titleRes.handleId_;
 
@@ -182,6 +185,11 @@ void TitleScene::Update(void)
 
 void TitleScene::Draw(void)
 {
+	if (bgGraphHandle_ != -1)
+	{
+		DrawExtendGraph(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, bgGraphHandle_, FALSE);
+	}
+
 	// --- 球面座標からカメラの3D位置を計算 ---
 	float cx = cameraRadius_ * cosf(cameraPitch_) * sinf(cameraYaw_);
 	float cy = cameraRadius_ * sinf(cameraPitch_);
@@ -218,13 +226,10 @@ void TitleScene::Draw(void)
 	// ========================================================
 	// ★追加: 画面状態（State）に応じたテキストの描画
 	// ========================================================
-	unsigned int white = GetColor(255, 255, 255);
-	unsigned int yellow = GetColor(255, 255, 0);
-
 	if (mState == State::Title)
 	{
 		// 最初は元の文字をそのまま点滅なしで表示
-		DrawFormatString(830, 650, white, "スペースかAボタン押してごらん");
+		DrawFormatString(830, 650, black, "スペースかAボタン押してごらん");
 	}
 	else if (mState == State::SelectLevel)
 	{
@@ -259,5 +264,10 @@ void TitleScene::Draw(void)
 
 void TitleScene::Release(void)
 {
+	if (bgGraphHandle_ != -1)
+	{
+		DeleteGraph(bgGraphHandle_);
+	}
+
 	SoundManager::GetInstance().Release();
 }
